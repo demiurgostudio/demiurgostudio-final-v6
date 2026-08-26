@@ -217,12 +217,17 @@ function initHeroAnimations() {
 function initPortfolioSlider() {
   const section = document.getElementById("portfolio");
   const track = document.getElementById("slider-track");
+  const viewport = document.querySelector(".slider-viewport");
   const progressBar = document.getElementById("slider-progress-bar");
   const cards = document.querySelectorAll(".slider-card-item");
 
   if (!section || !track || cards.length === 0) return;
 
   const totalCards = cards.length;
+
+  const getScrollAmount = () => {
+    return track.scrollWidth - viewport.clientWidth;
+  };
 
   ScrollTrigger.create({
     trigger: section,
@@ -231,14 +236,14 @@ function initPortfolioSlider() {
     pin: true,
     scrub: 0.8,
     anticipatePin: 1,
+    invalidateOnRefresh: true,
     onUpdate: (self) => {
       const progress = self.progress;
       if (progressBar) {
         progressBar.style.width = `${Math.max(10, progress * 100)}%`;
       }
-      const maxTranslatePercent = (totalCards - 1) * 100;
       gsap.to(track, {
-        xPercent: -(progress * maxTranslatePercent),
+        x: -(progress * getScrollAmount()),
         duration: 0.1,
         ease: "none",
         overwrite: "auto"
@@ -252,8 +257,9 @@ function initPortfolioSlider() {
 
   function moveManual(direction) {
     manualIndex = Math.max(0, Math.min(totalCards - 1, manualIndex + direction));
+    const cardOffset = cards[manualIndex].offsetLeft;
     gsap.to(track, {
-      xPercent: -(manualIndex * 100),
+      x: -cardOffset,
       duration: 0.5,
       ease: "power2.out"
     });
@@ -281,6 +287,7 @@ const baseRotX = 6, baseRotY = -10, baseRotZ = -1;
 });
 
 window.addEventListener("mousemove", (e) => {
+  if (window.innerWidth < 768) return;
   const xNorm = (e.clientX / window.innerWidth - 0.5) * 2;
   const yNorm = (e.clientY / window.innerHeight - 0.5) * 2;
 
@@ -311,48 +318,52 @@ function createS1Timeline() {
 
   const queryText = "estudio de diseño web buenos aires";
   const typingObj = { count: 0 };
+  const isMobile = window.innerWidth < 640;
+
+  const targetClickX = isMobile ? 135 : 155;
+  const targetClickY = isMobile ? 150 : 195;
 
   tlS1 = gsap.timeline({ repeat: -1, repeatDelay: 1.5 });
 
   tlS1
     .set(typingObj, { count: 0 })
     .set(searchText, { textContent: "" })
-    .set(googleLogoWrap, { height: "auto", opacity: 1, margin: "1.5rem 0" })
+    .set(googleLogoWrap, { height: "auto", opacity: 1, margin: isMobile ? "0.75rem 0" : "1.25rem 0" })
     .set([googleTabs, resultsFake], { opacity: 0 })
     .set(googleInnerContent, { filter: "blur(0px)", scale: 1 })
     .set(jarvisCard, { opacity: 0, scale: 0.72, y: 0, z: 0 })
-    .set(fakeCursorS1, { x: 260, y: 480, opacity: 0 })
-    .set(clickRippleS1, { x: 155, y: 195, scale: 0, opacity: 0 })
+    .set(fakeCursorS1, { x: 220, y: 380, opacity: 0 })
+    .set(clickRippleS1, { x: targetClickX, y: targetClickY, scale: 0, opacity: 0 })
     .set(googleScene, { opacity: 1, filter: "blur(0px)" })
     .set(websiteSceneS1, { opacity: 0 })
     .to(typingObj, {
-      count: queryText.length, duration: 1.6, ease: "none",
+      count: queryText.length, duration: 1.4, ease: "none",
       onUpdate: () => { if (searchText) searchText.textContent = queryText.substring(0, Math.floor(typingObj.count)); },
     }, "+=0.2")
-    .to(googleLogoWrap, { height: 0, opacity: 0, margin: 0, duration: 0.35 }, "+=0.1")
+    .to(googleLogoWrap, { height: 0, opacity: 0, margin: 0, duration: 0.3 }, "+=0.1")
     .to([googleTabs, resultsFake], { opacity: 1, duration: 0.3 })
-    .to(jarvisCard, { opacity: 1, scale: 0.72, duration: 0.45, ease: "back.out(1.4)" }, "-=0.1")
-    .to(googleInnerContent, { filter: "blur(5px)", scale: 0.95, duration: 0.6 }, "+=0.1")
+    .to(jarvisCard, { opacity: 1, scale: 0.75, duration: 0.4, ease: "back.out(1.4)" }, "-=0.1")
+    .to(googleInnerContent, { filter: "blur(4px)", scale: 0.95, duration: 0.5 }, "+=0.1")
     .to(jarvisCard, {
-      scale: 1.0, y: -15, z: 120, duration: 0.8, ease: "power3.out",
+      scale: 1.0, y: -10, z: 80, duration: 0.7, ease: "power3.out",
       onStart: () => jarvisCard.classList.add("jarvis-floating-glow"),
     }, "<")
-    .to({}, { duration: 1.5 })
-    .to(googleInnerContent, { filter: "blur(0px)", scale: 1, duration: 0.5 })
+    .to({}, { duration: 1.2 })
+    .to(googleInnerContent, { filter: "blur(0px)", scale: 1, duration: 0.4 })
     .to(jarvisCard, {
-      scale: 0.72, y: 0, z: 0, duration: 0.5,
+      scale: 0.75, y: 0, z: 0, duration: 0.4,
       onComplete: () => jarvisCard.classList.remove("jarvis-floating-glow"),
     }, "<")
-    .to(fakeCursorS1, { opacity: 1, x: 155, y: 195, duration: 0.7, ease: "power3.out" })
-    .set(clickRippleS1, { x: 155, y: 195, scale: 0.2, opacity: 0.9 })
-    .to(clickRippleS1, { scale: 2, opacity: 0, duration: 0.35 })
+    .to(fakeCursorS1, { opacity: 1, x: targetClickX, y: targetClickY, duration: 0.6, ease: "power3.out" })
+    .set(clickRippleS1, { x: targetClickX, y: targetClickY, scale: 0.2, opacity: 0.9 })
+    .to(clickRippleS1, { scale: 2, opacity: 0, duration: 0.3 })
     .to(fakeCursorS1, { opacity: 0, duration: 0.15 })
-    .to(googleScene, { opacity: 0, filter: "blur(6px)", duration: 0.5 })
-    .to(jarvisCard, { opacity: 0, duration: 0.25 }, "<")
-    .to(websiteSceneS1, { opacity: 1, duration: 0.4 }, "-=0.3")
-    .to({}, { duration: 3.0 })
-    .to(websiteSceneS1, { opacity: 0, duration: 0.5 })
-    .to(googleScene, { opacity: 1, filter: "blur(0px)", duration: 0.5 }, "-=0.2");
+    .to(googleScene, { opacity: 0, filter: "blur(5px)", duration: 0.4 })
+    .to(jarvisCard, { opacity: 0, duration: 0.2 }, "<")
+    .to(websiteSceneS1, { opacity: 1, duration: 0.4 }, "-=0.2")
+    .to({}, { duration: 2.8 })
+    .to(websiteSceneS1, { opacity: 0, duration: 0.4 })
+    .to(googleScene, { opacity: 1, filter: "blur(0px)", duration: 0.4 }, "-=0.2");
 }
 
 // SUBSECCIÓN 2: RESPONSIVE
@@ -365,31 +376,31 @@ let responsiveTimer = null;
 function changeMode(index) {
   currentMode = index;
   const isSmall = window.innerWidth < 680;
-  let targetWidth = 640, targetHeight = 340, radius = "16px", label = "Monitor PC";
+  let targetWidth = 640, targetHeight = 320, radius = "16px", label = "Monitor PC";
 
   if (index === 1) {
-    targetWidth = isSmall ? 260 : 380;
-    targetHeight = isSmall ? 280 : 340;
+    targetWidth = isSmall ? 270 : 380;
+    targetHeight = isSmall ? 280 : 330;
     radius = "22px";
     label = "Tablet (1024x768)";
   } else if (index === 2) {
-    targetWidth = isSmall ? 180 : 200;
-    targetHeight = isSmall ? 320 : 360;
-    radius = "30px";
+    targetWidth = isSmall ? 190 : 210;
+    targetHeight = isSmall ? 290 : 330;
+    radius = "28px";
     label = "Móvil (375x667)";
   } else {
-    targetWidth = isSmall ? Math.min(window.innerWidth - 40, 420) : 640;
-    targetHeight = isSmall ? 240 : 340;
+    targetWidth = isSmall ? Math.min(window.innerWidth - 32, 440) : 640;
+    targetHeight = isSmall ? 220 : 320;
   }
 
   if (frame) {
-    gsap.to(frame, { width: targetWidth, height: targetHeight, borderRadius: radius, duration: 0.8, ease: "power2.inOut" });
+    gsap.to(frame, { width: targetWidth, height: targetHeight, borderRadius: radius, duration: 0.7, ease: "power2.inOut" });
   }
   if (labelRes) labelRes.textContent = label;
 
-  modeButtons.forEach((b) => (b.className = "mode-btn px-4 py-1.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white"));
+  modeButtons.forEach((b) => (b.className = "mode-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold text-slate-400 hover:text-white"));
   const activeBtn = document.getElementById(`btn-${index}`);
-  if (activeBtn) activeBtn.className = "mode-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-[#1ac1d0] text-[#001c25]";
+  if (activeBtn) activeBtn.className = "mode-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold bg-[#1ac1d0] text-[#001c25]";
 }
 
 function startResponsiveLoop() {
@@ -413,31 +424,35 @@ let tlS3 = null;
 function createS3Timeline() {
   if (!floatingBtnS3) return;
 
+  const isMobile = window.innerWidth < 640;
+  const clickTargetX = isMobile ? 215 : 235;
+  const clickTargetY = isMobile ? 385 : 480;
+
   tlS3 = gsap.timeline({ repeat: -1, repeatDelay: 2 });
 
   tlS3
-    .set(fakeCursorS3, { x: 30, y: 140, opacity: 0 })
+    .set(fakeCursorS3, { x: 20, y: 120, opacity: 0 })
     .set(websiteSceneS3, { opacity: 1 })
     .set(whatsappScreen, { opacity: 0 })
     .set(msgs, { scale: 0, opacity: 0 })
     .set(typing, { scale: 0, opacity: 0 })
-    .to(fakeCursorS3, { opacity: 1, x: 235, y: 480, duration: 1.1, ease: "power3.inOut" })
+    .to(fakeCursorS3, { opacity: 1, x: clickTargetX, y: clickTargetY, duration: 1.0, ease: "power3.inOut" })
     .set(clickRippleS3, { opacity: 0.85, scale: 0.2 })
-    .to(clickRippleS3, { scale: 2, opacity: 0, duration: 0.35 })
+    .to(clickRippleS3, { scale: 2, opacity: 0, duration: 0.3 })
     .to(fakeCursorS3, { opacity: 0, duration: 0.15 }, "-=0.15")
-    .to(websiteSceneS3, { opacity: 0, duration: 0.4 })
-    .to(whatsappScreen, { opacity: 1, duration: 0.4 }, "-=0.2")
-    .to(msgs[0], { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.4)" })
-    .to(typing, { scale: 1, opacity: 1, duration: 0.15, delay: 0.15 })
-    .to(typing, { scale: 0, opacity: 0, duration: 0.15, delay: 0.5 })
-    .to(msgs[1], { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.4)" })
-    .to(msgs[2], { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.4)", delay: 0.3 })
-    .to(typing, { scale: 1, opacity: 1, duration: 0.15, delay: 0.15 })
-    .to(typing, { scale: 0, opacity: 0, duration: 0.15, delay: 0.5 })
-    .to(msgs[3], { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.4)" })
-    .to({}, { duration: 3.0 })
-    .to(whatsappScreen, { opacity: 0, duration: 0.5 })
-    .to(websiteSceneS3, { opacity: 1, duration: 0.5 }, "-=0.3");
+    .to(websiteSceneS3, { opacity: 0, duration: 0.35 })
+    .to(whatsappScreen, { opacity: 1, duration: 0.35 }, "-=0.15")
+    .to(msgs[0], { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(1.4)" })
+    .to(typing, { scale: 1, opacity: 1, duration: 0.12, delay: 0.1 })
+    .to(typing, { scale: 0, opacity: 0, duration: 0.12, delay: 0.4 })
+    .to(msgs[1], { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(1.4)" })
+    .to(msgs[2], { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(1.4)", delay: 0.25 })
+    .to(typing, { scale: 1, opacity: 1, duration: 0.12, delay: 0.1 })
+    .to(typing, { scale: 0, opacity: 0, duration: 0.12, delay: 0.4 })
+    .to(msgs[3], { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(1.4)" })
+    .to({}, { duration: 2.8 })
+    .to(whatsappScreen, { opacity: 0, duration: 0.4 })
+    .to(websiteSceneS3, { opacity: 1, duration: 0.4 }, "-=0.2");
 }
 
 function initShowcaseObservers() {
