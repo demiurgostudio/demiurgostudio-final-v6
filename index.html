@@ -2,929 +2,783 @@
 <html lang="es" class="scroll-smooth">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Demiurgo Studio · Sitios Web de Alta Conversión y Marketing</title>
-    <meta name="description"
-        content="Desarrollo Web y Estrategia Digital para marcas que quieren escalar. Código ultra veloz, diseño a medida y conversión directa a WhatsApp." />
-    <meta name="theme-color" content="#001c25" />
-    <link rel="icon" href="assets/favicon-32x32.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demiurgo Studio · Sitios Web de Alta Conversión y Marketing</title>
+  <meta name="description"
+    content="Desarrollo Web y Estrategia Digital para marcas que quieren escalar. Código ultra veloz, diseño a medida y conversión directa a WhatsApp." />
+  <meta name="theme-color" content="#001c25" />
+  <link rel="icon" href="assets/favicon-32x32.png" />
 
-    <!-- Tipografías -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap"
-        rel="stylesheet" />
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet" />
 
-    <!-- FontAwesome 6.5.1 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- FontAwesome 6.5.1 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-    <!-- Tailwind CSS CDN (sin preflight para no romper estilos base) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = { corePlugins: { preflight: false } }
-    </script>
+  <!-- Tailwind CSS CDN sin preflight -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { corePlugins: { preflight: false } }
+  </script>
 
-    <!-- GSAP 3.12.5 + ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <!-- GSAP 3.12.5 + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css" />
-    <script src="main.js" defer></script>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
 </head>
 
 <body>
 
-    <!-- ELEMENTOS FLOTANTES -->
-    <div class="cursor-glow" id="cursor-glow"></div>
+  <!-- ELEMENTOS FLOTANTES -->
+  <div class="cursor-glow" id="cursor-glow"></div>
 
-    <div class="toast" id="welcome-toast">
-        <button class="toast-close" id="toast-close" aria-label="Cerrar aviso">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <p class="toast-text">
-            👋 ¡Hola! Somos <strong>Demiurgo Studio</strong>.<br />
-            ¿Querés que auditemos tu presencia digital?
+  <div class="toast" id="welcome-toast">
+    <button class="toast-close" id="toast-close" aria-label="Cerrar aviso">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <p class="toast-text">
+      👋 ¡Hola! Somos <strong>Demiurgo Studio</strong>.<br />
+      ¿Querés que auditemos tu presencia digital?
+    </p>
+    <a href="https://wa.me/5491125371329?text=Hola!%20Vi%20su%20p%C3%A1gina%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta."
+      target="_blank" rel="noopener" class="toast-cta">
+      Escribinos <i class="fa-solid fa-arrow-right"></i>
+    </a>
+  </div>
+
+  <a href="https://wa.me/5491125371329" class="wa-float magnet-target" target="_blank" rel="noopener"
+    aria-label="Contactar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- MOBILE DRAWER -->
+  <div class="mobile-overlay" id="mobile-overlay"></div>
+  <aside class="mobile-drawer" id="mobile-drawer" role="dialog" aria-label="Menú móvil">
+    <div class="mobile-drawer-header">
+      <img src="assets/logo.png" alt="Demiurgo Studio" class="mobile-drawer-logo" />
+      <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Cerrar menú">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <ul class="mobile-drawer-links">
+      <li><a href="#inicio" class="mobile-drawer-link"><i class="fa-solid fa-house"></i> Inicio</a></li>
+      <li><a href="#portfolio" class="mobile-drawer-link"><i class="fa-solid fa-images"></i> Proyectos</a></li>
+      <li><a href="#showcase" class="mobile-drawer-link"><i class="fa-solid fa-layer-group"></i> Experiencia</a></li>
+      <li><a href="#servicios" class="mobile-drawer-link"><i class="fa-solid fa-desktop"></i> Soluciones</a></li>
+      <li><a href="#proceso" class="mobile-drawer-link"><i class="fa-solid fa-bolt"></i> Proceso</a></li>
+      <li><a href="#planes" class="mobile-drawer-link"><i class="fa-solid fa-tags"></i> Planes</a></li>
+      <li><a href="#faq" class="mobile-drawer-link"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
+    </ul>
+    <div class="mobile-drawer-cta">
+      <a href="https://wa.me/5491125371329" target="_blank" rel="noopener" class="btn btn-primary mobile-drawer-wa">
+        <i class="fa-brands fa-whatsapp"></i> Hablemos
+      </a>
+    </div>
+  </aside>
+
+  <!-- NAVBAR SMART -->
+  <header class="nav" id="smart-nav">
+    <div class="nav-inner">
+      <a href="#inicio" class="nav-logo magnet-target" aria-label="Ir al inicio">
+        <img src="assets/logo.png" alt="Demiurgo Studio" class="nav-logo-img" />
+      </a>
+      <nav class="nav-menu" aria-label="Navegación principal">
+        <ul class="nav-links">
+          <li><a href="#portfolio" class="magnet-target">Proyectos</a></li>
+          <li><a href="#showcase" class="magnet-target">Showcase</a></li>
+          <li><a href="#servicios" class="magnet-target">Servicios</a></li>
+          <li><a href="#proceso" class="magnet-target">Proceso</a></li>
+          <li><a href="#planes" class="magnet-target">Planes</a></li>
+        </ul>
+      </nav>
+      <a href="https://wa.me/5491125371329" class="nav-cta magnet-target" target="_blank" rel="noopener">
+        Hablemos <i class="fa-solid fa-arrow-right"></i>
+      </a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- =====================================================
+         1RA SECCIÓN: HERO DINÁMICO
+         ===================================================== -->
+    <section class="hero" id="inicio">
+      <div class="hero-bg parallax-bg"></div>
+      <div class="hero-grid parallax-grid"></div>
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fa-solid fa-bolt"></i> Agencia Digital · Argentina
+        </div>
+        <h1 class="hero-title" id="hero-split-title">
+          Desarrollo Web y Marketing para <em class="text-cyan">Marcas que quieren escalar.</em>
+        </h1>
+        <p class="hero-desc">
+          No estás solo en el mundo digital. Diseñamos sitios web que conectan, campañas publicitarias que venden y te damos soporte real 24/7 para que tu negocio crezca sin límites.
         </p>
-        <a href="https://wa.me/5491125371329?text=Hola!%20Vi%20su%20p%C3%A1gina%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta."
-            target="_blank" rel="noopener" class="toast-cta">
-            Escribinos <i class="fa-solid fa-arrow-right"></i>
-        </a>
+        <div class="hero-actions">
+          <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20contarles%20lo%20que%20necesito%20para%20mi%20marca."
+            target="_blank" rel="noopener" class="btn btn-primary magnet-target">
+            Contanos qué necesitás <i class="fa-solid fa-comment-dots"></i>
+          </a>
+          <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20agendar%20una%20reunion." target="_blank"
+            rel="noopener" class="btn btn-outline magnet-target">
+            <i class="fa-regular fa-calendar-check"></i> Agendar reunión
+          </a>
+        </div>
+        <div class="hero-social-proof">
+          <div class="avatar-group">
+            <span class="proof-avatar" style="background:#0d2e3e;">DM</span>
+            <span class="proof-avatar" style="background:#13a0ad;">SC</span>
+            <span class="proof-avatar" style="background:#071820;">TH</span>
+          </div>
+          <p class="proof-text"><strong>+50 marcas</strong> ya crecen con nosotros</p>
+        </div>
+      </div>
+      <div class="hero-scroll-hint">
+        <i class="fa-solid fa-caret-down"></i>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         2DA SECCIÓN: PORTFOLIO PINNED
+         ===================================================== -->
+    <section class="proyectos-destacados section-wrapper" id="portfolio">
+      <div class="section-inner text-center">
+        <div class="section-tag center-tag">Casos de Éxito</div>
+        <h2 class="section-title">
+          Explora nuestros <br /><em class="text-cyan">Proyectos Destacados</em>
+        </h2>
+        <p class="section-subtitle mx-auto" style="margin-bottom: 2rem;">
+          Cada sitio web es una herramienta de ventas diseñada a medida según el nicho y objetivo comercial.
+        </p>
+
+        <!-- Barra de progreso del slider al scrollear -->
+        <div class="slider-progress-bar-container">
+          <div class="slider-progress-bar" id="slider-progress-bar"></div>
+        </div>
+
+        <div class="showcase-slider-wrap">
+          <button class="slider-arrow slider-prev" id="slider-prev-btn" aria-label="Proyecto anterior">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+
+          <div class="slider-viewport">
+            <div class="slider-track" id="slider-track">
+              <!-- Item 1 -->
+              <div class="slider-card-item">
+                <div class="slider-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80&fit=crop"
+                    alt="Estudio Jurídico" loading="lazy" />
+                  <span class="slider-badge">Legal & Corporativo</span>
+                </div>
+                <div class="slider-card-body">
+                  <h3>Estudio Jurídico Tarulla</h3>
+                  <p class="slider-card-cat">Divorcio Express & Sucesiones</p>
+                  <p class="slider-card-desc">One-page de alta conversión con copy directo a resolución de conflictos y botón a WhatsApp.</p>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="slider-card-item">
+                <div class="slider-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&fit=crop"
+                    alt="Clínica Odontológica" loading="lazy" />
+                  <span class="slider-badge">Salud & Estética</span>
+                </div>
+                <div class="slider-card-body">
+                  <h3>Clínica Dental Alvear</h3>
+                  <p class="slider-card-cat">Odontología & Implantes</p>
+                  <p class="slider-card-desc">Estructura limpia con agenda directa de turnos y prueba social de pacientes verificados.</p>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="slider-card-item">
+                <div class="slider-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80&fit=crop"
+                    alt="Taller Automotriz Especializado" loading="lazy" />
+                  <span class="slider-badge">Servicios Técnicos</span>
+                </div>
+                <div class="slider-card-body">
+                  <h3>Taller HRS Especializado</h3>
+                  <p class="slider-card-cat">Mecánica Integral & Inyección</p>
+                  <p class="slider-card-desc">Plataforma institucional con geolocalización, detalle de servicios y cotizaciones rápidas.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="slider-arrow slider-next" id="slider-next-btn" aria-label="Siguiente proyecto">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <div class="slider-cta-wrap">
+          <p class="slider-prompt">¿Tu negocio necesita una presencia como esta?</p>
+          <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20un%20sitio%20web%20como%20los%20del%20portfolio."
+            target="_blank" rel="noopener" class="btn btn-primary magnet-target">
+            Quiero mi sitio web <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         3RA SECCIÓN: SHOWCASE 3D INTERACTIVO
+         ===================================================== -->
+    <div id="showcase">
+      <!-- SUB-SECCIÓN A: GOOGLE 3D -->
+      <section id="section-google" class="min-h-screen flex flex-col items-center justify-center p-6 relative border-b border-slate-800/60 showcase-block">
+        <div class="text-center mb-6 max-w-xl relative z-30">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-sky-400 text-[11px] font-mono uppercase tracking-widest mb-3 shadow-inner">
+            <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span> Visibilidad de Alto Impacto
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase">
+            Que te encuentren primero en Google
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
+            Optimizamos la presencia de tu negocio para dominar los resultados de búsqueda cuando tus clientes te necesitan.
+          </p>
+        </div>
+
+        <div class="device-3d-wrap relative flex items-center justify-center py-4">
+          <div id="ambient-glow-s1" class="absolute -top-6 w-[360px] h-[450px] bg-sky-600/10 rounded-full blur-[110px] pointer-events-none transition-all duration-1000"></div>
+          <div id="floor-shadow-s1" class="absolute -bottom-9 w-[280px] h-12 bg-black/80 rounded-full blur-xl pointer-events-none transition-transform duration-300"></div>
+
+          <div id="device-body-s1" class="device-chassis-3d relative w-[318px] h-[650px] rounded-[44px] p-[6px] bg-gradient-to-b from-[#122f40] via-[#0d2e3e] to-[#001c25] ring-1 ring-white/20 will-change-transform z-10">
+            <div class="relative w-full h-full rounded-[38px] overflow-hidden bg-[#071820] flex flex-col select-none">
+              <!-- Notch -->
+              <div class="h-7 bg-[#001c25] w-full flex items-center justify-between px-6 z-40 shrink-0 border-b border-white/5">
+                <span class="text-[10px] text-slate-400 font-semibold tracking-tight">10:45</span>
+                <div class="w-20 h-4 bg-black rounded-full flex items-center justify-end px-2 border border-slate-800">
+                  <span class="w-2 h-2 rounded-full bg-slate-900 border border-slate-700"></span>
+                </div>
+                <div class="flex gap-1 items-center">
+                  <div class="w-3 h-2 bg-slate-400 rounded-xs"></div>
+                  <div class="w-2 h-2 bg-slate-400 rounded-full"></div>
+                </div>
+              </div>
+
+              <!-- Google UI Scene -->
+              <div id="google-scene" class="absolute inset-0 top-7 bg-[#0d2e3e] flex flex-col p-4 z-20 text-slate-200">
+                <div id="google-inner-content" class="flex flex-col h-full transition-all duration-300">
+                  <div id="google-logo-wrap" class="flex justify-center my-6">
+                    <span class="text-3xl font-bold tracking-tight">
+                      <span class="text-[#4285F4]">G</span><span class="text-[#EA4335]">o</span><span class="text-[#FBBC05]">o</span><span class="text-[#4285F4]">g</span><span class="text-[#34A853]">l</span><span class="text-[#EA4335]">e</span>
+                    </span>
+                  </div>
+                  <div id="search-bar" class="relative flex items-center bg-[#001c25] border border-[#1ac1d0]/30 rounded-full px-3.5 py-2.5 shadow-md">
+                    <svg class="w-4 h-4 text-cyan-400 shrink-0 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <span id="search-text" class="text-xs text-white flex-1 font-normal tracking-wide"></span>
+                    <span id="typing-cursor" class="w-0.5 h-4 bg-cyan-400 inline-block animate-pulse ml-0.5"></span>
+                  </div>
+                  <div id="google-tabs" class="mt-3 opacity-0 flex items-center gap-4 text-[10px] text-slate-400 border-b border-white/10 pb-2">
+                    <span class="text-cyan-400 font-bold border-b-2 border-cyan-400 pb-1">Todo</span>
+                    <span>Mapas</span>
+                    <span>Imágenes</span>
+                  </div>
+                  <div class="mt-3 w-full h-[140px]"></div>
+                  <div id="results-fake" class="opacity-0 flex flex-col gap-3 mt-3 border-t border-white/5 pt-3">
+                    <div class="bg-[#001c25]/60 p-2.5 rounded-xl border border-white/5">
+                      <div class="h-2 w-24 bg-slate-600 rounded mb-1.5"></div>
+                      <div class="h-3 w-44 bg-slate-500 rounded mb-1"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Landing Transition -->
+              <div id="website-scene-s1" class="absolute inset-0 top-7 bg-[#001c25] flex flex-col justify-between p-5 z-10 overflow-hidden opacity-0 pointer-events-none">
+                <img id="web-bg-img-s1" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop" alt="Demo" class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none" />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#001c25] via-[#001c25]/80 to-[#001c25]/85 pointer-events-none"></div>
+                <div class="relative z-10 flex flex-col justify-between h-full">
+                  <div id="web-navbar-s1" class="flex justify-between items-center pb-2 border-b border-white/10">
+                    <div class="flex items-center gap-1.5">
+                      <div class="w-5 h-5 rounded-lg bg-[#1ac1d0] flex items-center justify-center font-black text-[#001c25] text-[10px]">D</div>
+                      <span class="text-xs font-black tracking-widest text-white">DEMIURGO</span>
+                    </div>
+                  </div>
+                  <div class="my-auto py-2 text-left">
+                    <div id="web-hero-badge-s1" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] font-bold uppercase mb-2.5">
+                      Agencia Digital
+                    </div>
+                    <h1 id="web-hero-h1-s1" class="text-xl font-black text-white tracking-tight leading-[1.15]">
+                      Diseñamos experiencias que <span class="text-cyan-400">convierten en clientes.</span>
+                    </h1>
+                  </div>
+                  <div id="web-footer-s1" class="text-center text-[8px] text-slate-400 font-mono">DEMIURGO STUDIO · 2026</div>
+                </div>
+                <div id="web-whatsapp-btn-s1" class="absolute bottom-9 right-4 z-30 flex items-center gap-2">
+                  <div class="wa-floating-btn w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jarvis Hologram Card -->
+            <div id="jarvis-card" class="crisp-vector absolute top-[152px] left-1/2 -translate-x-1/2 w-[380px] bg-[#0d2e3e]/98 backdrop-blur-2xl border-2 border-cyan-400 rounded-2xl p-4 flex flex-col gap-2 z-50 shadow-2xl pointer-events-none opacity-0">
+              <div class="flex items-center justify-between mb-0.5">
+                <span class="text-[9px] font-black px-2.5 py-0.5 rounded-full bg-cyan-400 text-[#001c25] uppercase tracking-wider">★ RECOMENDADO</span>
+                <span class="text-[9.5px] text-emerald-400 font-bold flex items-center gap-1">#1 en Google</span>
+              </div>
+              <h4 class="text-[13px] font-extrabold text-white leading-tight mt-0.5">Demiurgo Studio | Sitios Web Profesionales</h4>
+              <p class="text-[9.5px] text-slate-200 leading-relaxed mt-0.5 border-t border-white/10 pt-2">
+                Especialistas en páginas ultrarrápidas y conversión directa por WhatsApp.
+              </p>
+            </div>
+
+            <!-- Fake Cursor -->
+            <div id="fake-cursor-wrapper-s1" class="absolute inset-0 pointer-events-none z-[100]">
+              <div id="click-ripple-s1" class="absolute w-8 h-8 rounded-full border-2 border-cyan-400 bg-cyan-400/30 -top-4 -left-4 opacity-0 scale-0"></div>
+              <div id="fake-cursor-s1" class="absolute top-0 left-0 opacity-0">
+                <svg class="w-7 h-7 fill-white stroke-slate-950 stroke-[1.5]" viewBox="0 0 24 24"><path d="M4 2l16 11-7.5 1.5 4.5 7.5-3 1.5-4.5-7.5L4 20V2z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SUB-SECCIÓN B: RESPONSIVE SHOWCASE -->
+      <section id="section-responsive" class="min-h-screen flex flex-col items-center justify-center p-3 sm:p-8 relative border-b border-slate-800/60 showcase-block">
+        <div class="text-center mb-5 w-full max-w-xl">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-cyan-400 text-[11px] font-mono uppercase tracking-widest mb-3">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Multi-Dispositivo
+          </div>
+          <h2 class="text-xl sm:text-3xl font-extrabold text-white uppercase mb-1">
+            Adaptabilidad Responsiva Real
+          </h2>
+          <div class="flex items-center justify-center gap-2 text-[11px] sm:text-xs font-mono text-slate-400 mt-2">
+            <span id="label-res" class="px-3 py-0.5 rounded-full bg-[#0d2e3e] border border-cyan-500/30 text-cyan-400 font-semibold">
+              Monitor PC
+            </span>
+          </div>
+        </div>
+
+        <div class="w-full max-w-4xl h-[380px] sm:h-[430px] flex items-center justify-center relative">
+          <div id="device-frame" class="relative bg-[#071820] border-[3px] sm:border-4 border-[#122f40] rounded-2xl shadow-2xl flex flex-col overflow-hidden will-change-[width,height,border-radius]" style="width: 100%; max-width: 640px; height: 340px;">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop" alt="Visual" class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#001c25] via-[#001c25]/60 to-[#001c25]/70 pointer-events-none"></div>
+
+            <div class="relative z-10 w-full h-full p-3 sm:p-5 flex flex-col justify-between">
+              <header class="flex items-center justify-between pb-2 border-b border-white/10 shrink-0">
+                <div class="flex items-center gap-1.5">
+                  <div class="w-5 h-5 rounded-md bg-[#1ac1d0] flex items-center justify-center font-black text-[#001c25] text-[10px]">D</div>
+                  <span class="text-[10px] sm:text-xs font-black tracking-widest text-white">DEMIURGO</span>
+                </div>
+                <nav class="cq-menu-full hidden items-center gap-3 text-[9px] sm:text-[10px] text-slate-200">
+                  <span>Inicio</span><span>Servicios</span><span>Planes</span><span>Contacto</span>
+                </nav>
+                <div class="cq-menu-burger hidden flex-col gap-1"><span class="w-3.5 h-0.5 bg-white"></span><span class="w-3.5 h-0.5 bg-white"></span></div>
+              </header>
+              <div class="my-auto text-left">
+                <h1 class="cq-hero-title font-extrabold text-white tracking-tight max-w-md">
+                  Diseñamos experiencias que cautivan en cualquier pantalla.
+                </h1>
+              </div>
+              <div class="shrink-0 pt-1">
+                <div class="cq-cards-grid grid grid-cols-4 gap-2">
+                  <div class="cq-card-item bg-[#0d2e3e]/90 border border-cyan-500/20 p-2 rounded-xl flex flex-col items-center text-center">
+                    <span class="text-xs mb-0.5">⚡</span><span class="text-[9px] font-bold text-white">Velocidad</span>
+                  </div>
+                  <div class="cq-card-item bg-[#0d2e3e]/90 border border-cyan-500/20 p-2 rounded-xl flex flex-col items-center text-center">
+                    <span class="text-xs mb-0.5">🎨</span><span class="text-[9px] font-bold text-white">Diseño</span>
+                  </div>
+                  <div class="cq-card-item bg-[#0d2e3e]/90 border border-cyan-500/20 p-2 rounded-xl flex flex-col items-center text-center">
+                    <span class="text-xs mb-0.5">📱</span><span class="text-[9px] font-bold text-white">Mobile 1st</span>
+                  </div>
+                  <div class="cq-card-item bg-[#0d2e3e]/90 border border-cyan-500/20 p-2 rounded-xl flex flex-col items-center text-center">
+                    <span class="text-xs mb-0.5">📈</span><span class="text-[9px] font-bold text-white">Ventas</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-center gap-1.5 p-1 bg-[#071820] border border-cyan-500/20 rounded-full">
+          <button onclick="changeMode(0)" id="btn-0" class="mode-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-[#1ac1d0] text-[#001c25]">💻 MONITOR</button>
+          <button onclick="changeMode(1)" id="btn-1" class="mode-btn px-4 py-1.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white">📱 TABLET</button>
+          <button onclick="changeMode(2)" id="btn-2" class="mode-btn px-4 py-1.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white">📲 MOVIL</button>
+        </div>
+      </section>
+
+      <!-- SUB-SECCIÓN C: WHATSAPP CONVERSIÓN -->
+      <section id="section-whatsapp" class="min-h-screen flex flex-col items-center justify-center p-6 relative showcase-block">
+        <div class="text-center mb-6 max-w-xl">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-emerald-400 text-[11px] font-mono uppercase tracking-widest mb-3">
+            <span class="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></span> Conversión Directa
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase">
+            Botón Integrado de WhatsApp
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
+            Convertí visitas en conversaciones comerciales sin fricciones en un solo toque.
+          </p>
+        </div>
+
+        <div class="device-3d-wrap relative flex items-center justify-center py-2">
+          <div id="floor-shadow-s3" class="absolute -bottom-8 w-[270px] h-10 bg-black/70 rounded-full blur-xl pointer-events-none"></div>
+          <div id="device-body-s3" class="relative w-[310px] h-[640px] rounded-[44px] p-[4px] bg-gradient-to-b from-[#122f40] via-[#0d2e3e] to-[#001c25] ring-1 ring-white/20 z-10">
+            <div class="relative w-full h-full rounded-[40px] overflow-hidden bg-[#071820] flex flex-col select-none">
+              <!-- Notch -->
+              <div class="h-7 bg-[#001c25] w-full flex items-center justify-between px-6 z-40 border-b border-white/5">
+                <span class="text-[10px] text-slate-400 font-semibold">10:45</span>
+              </div>
+
+              <!-- Web Scene -->
+              <div id="website-scene-s3" class="absolute inset-0 top-7 bg-[#071820] flex flex-col justify-between p-4 z-10">
+                <div class="flex justify-between items-center pb-2 border-b border-white/10">
+                  <span class="text-xs font-black tracking-widest text-white">DEMIURGO</span>
+                </div>
+                <div class="my-auto py-2 text-left">
+                  <h1 class="text-xs font-extrabold text-white">Tu web lista para generar clientes todos los días.</h1>
+                </div>
+                <div id="floating-btn-s3" class="absolute bottom-4 right-4 w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg cursor-pointer z-20">
+                  <i class="fa-brands fa-whatsapp text-white text-2xl"></i>
+                  <span id="click-ripple-s3" class="absolute inset-0 rounded-full border-2 border-white opacity-0 scale-100"></span>
+                </div>
+                <div id="fake-cursor-s3" class="absolute z-30 pointer-events-none -left-6 -top-6">
+                  <svg class="w-6 h-6 fill-white stroke-slate-900 stroke-[1.2]" viewBox="0 0 24 24"><path d="M4 2l16 11-7.5 1.5 4.5 7.5-3 1.5-4.5-7.5L4 20V2z"/></svg>
+                </div>
+              </div>
+
+              <!-- WhatsApp Chat Scene -->
+              <div id="whatsapp-screen" class="absolute inset-0 top-7 chat-pattern flex flex-col z-20 opacity-0 pointer-events-none">
+                <div class="bg-[#072418] px-3 py-2.5 flex items-center gap-2.5 border-b border-emerald-950/60 shrink-0">
+                  <div class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center font-black text-slate-950 text-xs">D</div>
+                  <div>
+                    <h4 class="text-xs font-bold text-white">Demiurgo Studio</h4>
+                    <span class="text-[10px] text-emerald-400">en línea</span>
+                  </div>
+                </div>
+                <div class="flex-1 p-3 flex flex-col gap-2 text-[11px] justify-start pt-3">
+                  <div class="chat-msg self-end bg-[#25D366] text-white px-3 py-2 rounded-2xl rounded-tr-xs max-w-[85%] shadow-sm">
+                    Hola! Vi su web y quiero presupuesto para mi sitio 🚀
+                  </div>
+                  <div class="chat-msg self-start bg-white text-slate-900 px-3 py-2 rounded-2xl rounded-tl-xs max-w-[85%] shadow-sm">
+                    ¡Hola! Claro que sí, ¿en qué rubro está tu marca? 😊
+                  </div>
+                  <div class="chat-msg self-end bg-[#25D366] text-white px-3 py-2 rounded-2xl rounded-tr-xs max-w-[85%] shadow-sm">
+                    Tengo un local comercial y quiero sumar un catálogo online.
+                  </div>
+                  <div class="chat-msg self-start bg-white text-slate-900 px-3 py-2 rounded-2xl rounded-tl-xs max-w-[85%] shadow-sm">
+                    ¡Excelente! Te armamos una propuesta con pedidos directos.
+                  </div>
+                  <div id="typing-indicator" class="self-start bg-white/90 px-2.5 py-1.5 rounded-xl flex items-center gap-1 w-fit shadow-sm">
+                    <span class="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce"></span>
+                    <span class="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                    <span class="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
 
-    <a href="https://wa.me/5491125371329" class="wa-float magnet-target" target="_blank" rel="noopener"
-        aria-label="Contactar por WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
-    <!-- MOBILE DRAWER -->
-    <div class="mobile-overlay" id="mobile-overlay"></div>
-    <aside class="mobile-drawer" id="mobile-drawer" role="dialog" aria-label="Menú móvil">
-        <div class="mobile-drawer-header">
-            <img src="assets/logo.png" alt="Demiurgo Studio" class="mobile-drawer-logo" />
-            <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Cerrar menú">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-        <ul class="mobile-drawer-links">
-            <li><a href="#inicio" class="mobile-drawer-link"><i class="fa-solid fa-house"></i> Inicio</a></li>
-            <li><a href="#portfolio" class="mobile-drawer-link"><i class="fa-solid fa-images"></i> Proyectos</a></li>
-            <li><a href="#showcase" class="mobile-drawer-link"><i class="fa-solid fa-layer-group"></i> Experiencia</a>
-            </li>
-            <li><a href="#servicios" class="mobile-drawer-link"><i class="fa-solid fa-desktop"></i> Soluciones</a></li>
-            <li><a href="#proceso" class="mobile-drawer-link"><i class="fa-solid fa-bolt"></i> Proceso</a></li>
-            <li><a href="#planes" class="mobile-drawer-link"><i class="fa-solid fa-tags"></i> Planes</a></li>
-            <li><a href="#faq" class="mobile-drawer-link"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
-        </ul>
-        <div class="mobile-drawer-cta">
-            <a href="https://wa.me/5491125371329" target="_blank" rel="noopener"
-                class="btn btn-primary mobile-drawer-wa">
-                <i class="fa-brands fa-whatsapp"></i> Hablemos
-            </a>
-        </div>
-    </aside>
-
-    <!-- NAVBAR SMART -->
-    <header class="nav" id="smart-nav">
-        <div class="nav-inner">
-            <a href="#inicio" class="nav-logo magnet-target" aria-label="Ir al inicio">
-                <img src="assets/logo.png" alt="Demiurgo Studio" class="nav-logo-img" />
-            </a>
-            <nav class="nav-menu" aria-label="Navegación principal">
-                <ul class="nav-links">
-                    <li><a href="#portfolio" class="magnet-target">Proyectos</a></li>
-                    <li><a href="#showcase" class="magnet-target">Showcase</a></li>
-                    <li><a href="#servicios" class="magnet-target">Servicios</a></li>
-                    <li><a href="#proceso" class="magnet-target">Proceso</a></li>
-                    <li><a href="#planes" class="magnet-target">Planes</a></li>
-                </ul>
-            </nav>
-            <a href="https://wa.me/5491125371329" class="nav-cta magnet-target" target="_blank" rel="noopener">
-                Hablemos <i class="fa-solid fa-arrow-right"></i>
-            </a>
-            <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-    </header>
-
-    <main id="main-content">
-
-        <!-- =====================================================
-         1RA SECCIÓN: HERO DINÁMICO (ENTRADAS DIRECCIONALES GSAP)
-         ===================================================== -->
-        <section class="hero" id="inicio">
-            <div class="hero-bg parallax-bg"></div>
-            <div class="hero-grid parallax-grid"></div>
-            <div class="hero-orb hero-orb-1"></div>
-            <div class="hero-orb hero-orb-2"></div>
-            <div class="hero-content">
-                <div class="hero-badge hero-anim-badge">
-                    <i class="fa-solid fa-bolt"></i> Agencia Digital · Argentina
-                </div>
-                <h1 class="hero-title hero-anim-title">
-                    Desarrollo Web y Marketing para <br /><em class="text-cyan">Marcas que quieren escalar.</em>
-                </h1>
-                <p class="hero-desc hero-anim-desc">
-                    No estás solo en el mundo digital. Diseñamos sitios web que conectan, campañas publicitarias que
-                    venden y te damos soporte real 24/7 para que tu negocio crezca sin límites.
-                </p>
-                <div class="hero-actions">
-                    <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20contarles%20lo%20que%20necesito%20para%20mi%20marca."
-                        target="_blank" rel="noopener" class="btn btn-primary magnet-target hero-anim-btn-1">
-                        Contanos qué necesitás <i class="fa-solid fa-comment-dots"></i>
-                    </a>
-                    <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20agendar%20una%20reunion." target="_blank"
-                        rel="noopener" class="btn btn-outline magnet-target hero-anim-btn-2">
-                        <i class="fa-regular fa-calendar-check"></i> Agendar reunión
-                    </a>
-                </div>
-                <div class="hero-social-proof hero-anim-proof">
-                    <div class="avatar-group">
-                        <span class="proof-avatar" style="background:#0d2e3e;">DM</span>
-                        <span class="proof-avatar" style="background:#13a0ad;">SC</span>
-                        <span class="proof-avatar" style="background:#071820;">TH</span>
-                    </div>
-                    <p class="proof-text"><strong>+50 marcas</strong> ya crecen con nosotros</p>
-                </div>
-            </div>
-            <div class="hero-scroll-hint hero-anim-scroll">
-                <i class="fa-solid fa-caret-down"></i>
-                <span>Scroll</span>
-            </div>
-        </section>
-
-        <!-- =====================================================
-         2DA SECCIÓN: PORTFOLIO PINNED (SCROLLTRIGGER CAROUSEL)
-         ===================================================== -->
-        <section class="proyectos-destacados section-wrapper" id="portfolio">
-            <div class="section-inner text-center">
-                <div class="section-tag center-tag gs-reveal-badge">Casos de Éxito</div>
-                <h2 class="section-title gs-reveal-title">
-                    Explora nuestros <br /><em class="text-cyan">Proyectos Destacados</em>
-                </h2>
-                <p class="section-subtitle mx-auto gs-reveal-desc" style="margin-bottom: 2.5rem;">
-                    Cada sitio web es una herramienta de ventas diseñada a medida según el nicho y objetivo comercial.
-                </p>
-
-                <!-- Barra de progreso del slider al scrollear -->
-                <div class="slider-progress-bar-container">
-                    <div class="slider-progress-bar" id="slider-progress-bar"></div>
-                </div>
-
-                <div class="showcase-slider-wrap gs-reveal-card">
-                    <button class="slider-arrow slider-prev" id="slider-prev-btn" aria-label="Proyecto anterior">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-
-                    <div class="slider-viewport">
-                        <div class="slider-track" id="slider-track">
-                            <!-- Item 1 -->
-                            <div class="slider-card-item">
-                                <div class="slider-img-wrap">
-                                    <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80&fit=crop"
-                                        alt="Estudio Jurídico" loading="lazy" />
-                                    <span class="slider-badge">Legal & Corporativo</span>
-                                </div>
-                                <div class="slider-card-body">
-                                    <h3>Estudio Jurídico Tarulla</h3>
-                                    <p class="slider-card-cat">Divorcio Express & Sucesiones</p>
-                                    <p class="slider-card-desc">One-page de alta conversión con copy directo a
-                                        resolución de conflictos y botón a WhatsApp.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 2 -->
-                            <div class="slider-card-item">
-                                <div class="slider-img-wrap">
-                                    <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&fit=crop"
-                                        alt="Clínica Odontológica" loading="lazy" />
-                                    <span class="slider-badge">Salud & Estética</span>
-                                </div>
-                                <div class="slider-card-body">
-                                    <h3>Clínica Dental Alvear</h3>
-                                    <p class="slider-card-cat">Odontología & Implantes</p>
-                                    <p class="slider-card-desc">Estructura limpia con agenda directa de turnos y prueba
-                                        social de pacientes verificados.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 3 -->
-                            <div class="slider-card-item">
-                                <div class="slider-img-wrap">
-                                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80&fit=crop"
-                                        alt="Taller Automotriz Especializado" loading="lazy" />
-                                    <span class="slider-badge">Servicios Técnicos</span>
-                                </div>
-                                <div class="slider-card-body">
-                                    <h3>Taller HRS Especializado</h3>
-                                    <p class="slider-card-cat">Mecánica Integral & Inyección</p>
-                                    <p class="slider-card-desc">Plataforma institucional con geolocalización, detalle de
-                                        servicios y cotizaciones rápidas.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="slider-arrow slider-next" id="slider-next-btn" aria-label="Siguiente proyecto">
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                </div>
-
-                <div class="slider-cta-wrap gs-reveal-cta">
-                    <p class="slider-prompt">¿Tu negocio necesita una presencia como esta?</p>
-                    <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20un%20sitio%20web%20como%20los%20del%20portfolio."
-                        target="_blank" rel="noopener" class="btn btn-primary magnet-target">
-                        Quiero mi sitio web <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- =====================================================
-         3RA SECCIÓN: SHOWCASE 3D (OPTIMIZADO POR SCROLLTRIGGER)
-         ===================================================== -->
-        <div id="showcase">
-            <!-- SUB-SECCIÓN A: GOOGLE 3D -->
-            <section id="section-google"
-                class="min-h-screen flex flex-col items-center justify-center p-6 relative border-b border-slate-800/60 showcase-block">
-                <div class="text-center mb-6 max-w-xl relative z-30">
-                    <div
-                        class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-sky-400 text-[11px] font-mono uppercase tracking-widest mb-3 shadow-inner gs-reveal-badge">
-                        <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span> Visibilidad de Alto Impacto
-                    </div>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase gs-reveal-title">
-                        Que te encuentren primero en Google
-                    </h2>
-                    <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed gs-reveal-desc">
-                        Optimizamos la presencia de tu negocio para dominar los resultados de búsqueda cuando tus
-                        clientes te necesitan.
-                    </p>
-                </div>
-
-                <div class="device-3d-wrap relative flex items-center justify-center py-4 gs-reveal-card">
-                    <div id="ambient-glow-s1"
-                        class="absolute -top-6 w-[360px] h-[450px] bg-sky-600/10 rounded-full blur-[110px] pointer-events-none transition-all duration-1000">
-                    </div>
-                    <div id="floor-shadow-s1"
-                        class="absolute -bottom-9 w-[280px] h-12 bg-black/80 rounded-full blur-xl pointer-events-none transition-transform duration-300">
-                    </div>
-
-                    <div id="device-body-s1"
-                        class="device-chassis-3d relative w-[318px] h-[650px] rounded-[44px] p-[6px] bg-gradient-to-b from-[#122f40] via-[#0d2e3e] to-[#001c25] ring-1 ring-white/20 will-change-transform z-10">
-                        <div
-                            class="relative w-full h-full rounded-[38px] overflow-hidden bg-[#071820] flex flex-col select-none">
-                            <!-- Notch -->
-                            <div
-                                class="h-7 bg-[#001c25] w-full flex items-center justify-between px-6 z-40 shrink-0 border-b border-white/5">
-                                <span class="text-[10px] text-slate-400 font-semibold tracking-tight">10:45</span>
-                                <div
-                                    class="w-20 h-4 bg-black rounded-full flex items-center justify-end px-2 border border-slate-800">
-                                    <span class="w-2 h-2 rounded-full bg-slate-900 border border-slate-700"></span>
-                                </div>
-                                <div class="flex gap-1 items-center">
-                                    <div class="w-3 h-2 bg-slate-400 rounded-xs"></div>
-                                    <div class="w-2 h-2 bg-slate-400 rounded-full"></div>
-                                </div>
-                            </div>
-
-                            <!-- Google UI Scene -->
-                            <div id="google-scene"
-                                class="absolute inset-0 top-7 bg-[#0d2e3e] flex flex-col p-4 z-20 text-slate-200">
-                                <div id="google-inner-content" class="flex flex-col h-full transition-all duration-300">
-                                    <div id="google-logo-wrap" class="flex justify-center my-6">
-                                        <span class="text-3xl font-bold tracking-tight">
-                                            <span class="text-[#4285F4]">G</span><span
-                                                class="text-[#EA4335]">o</span><span
-                                                class="text-[#FBBC05]">o</span><span
-                                                class="text-[#4285F4]">g</span><span
-                                                class="text-[#34A853]">l</span><span class="text-[#EA4335]">e</span>
-                                        </span>
-                                    </div>
-                                    <div id="search-bar"
-                                        class="relative flex items-center bg-[#001c25] border border-[#1ac1d0]/30 rounded-full px-3.5 py-2.5 shadow-md">
-                                        <svg class="w-4 h-4 text-cyan-400 shrink-0 mr-2" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                        </svg>
-                                        <span id="search-text"
-                                            class="text-xs text-white flex-1 font-normal tracking-wide"></span>
-                                        <span id="typing-cursor"
-                                            class="w-0.5 h-4 bg-cyan-400 inline-block animate-pulse ml-0.5"></span>
-                                    </div>
-                                    <div id="google-tabs"
-                                        class="mt-3 opacity-0 flex items-center gap-4 text-[10px] text-slate-400 border-b border-white/10 pb-2">
-                                        <span
-                                            class="text-cyan-400 font-bold border-b-2 border-cyan-400 pb-1">Todo</span>
-                                        <span>Mapas</span>
-                                        <span>Imágenes</span>
-                                    </div>
-                                    <div class="mt-3 w-full h-[140px]"></div>
-                                    <div id="results-fake"
-                                        class="opacity-0 flex flex-col gap-3 mt-3 border-t border-white/5 pt-3">
-                                        <div class="bg-[#001c25]/60 p-2.5 rounded-xl border border-white/5">
-                                            <div class="h-2 w-24 bg-slate-600 rounded mb-1.5"></div>
-                                            <div class="h-3 w-44 bg-slate-500 rounded mb-1"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Landing Transition -->
-                            <div id="website-scene-s1"
-                                class="absolute inset-0 top-7 bg-[#001c25] flex flex-col justify-between p-5 z-10 overflow-hidden opacity-0 pointer-events-none">
-                                <img id="web-bg-img-s1"
-                                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop"
-                                    alt="Demo"
-                                    class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none" />
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-[#001c25] via-[#001c25]/80 to-[#001c25]/85 pointer-events-none">
-                                </div>
-                                <div class="relative z-10 flex flex-col justify-between h-full">
-                                    <div id="web-navbar-s1"
-                                        class="flex justify-between items-center pb-2 border-b border-white/10">
-                                        <div class="flex items-center gap-1.5">
-                                            <div
-                                                class="w-5 h-5 rounded-lg bg-[#1ac1d0] flex items-center justify-center font-black text-[#001c25] text-[10px]">
-                                                D</div>
-                                            <span class="text-xs font-black tracking-widest text-white">DEMIURGO</span>
-                                        </div>
-                                    </div>
-                                    <div class="my-auto py-2 text-left">
-                                        <div id="web-hero-badge-s1"
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] font-bold uppercase mb-2.5">
-                                            Agencia Digital
-                                        </div>
-                                        <h1 id="web-hero-h1-s1"
-                                            class="text-xl font-black text-white tracking-tight leading-[1.15]">
-                                            Diseñamos experiencias que <span class="text-cyan-400">convierten en
-                                                clientes.</span>
-                                        </h1>
-                                    </div>
-                                    <div id="web-footer-s1" class="text-center text-[8px] text-slate-400 font-mono">
-                                        DEMIURGO STUDIO · 2026</div>
-                                </div>
-                                <div id="web-whatsapp-btn-s1"
-                                    class="absolute bottom-9 right-4 z-30 flex items-center gap-2">
-                                    <div
-                                        class="wa-floating-btn w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg">
-                                        <i class="fa-brands fa-whatsapp text-lg"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Jarvis Hologram Card -->
-                        <div id="jarvis-card"
-                            class="crisp-vector absolute top-[152px] left-1/2 -translate-x-1/2 w-[380px] bg-[#0d2e3e]/98 backdrop-blur-2xl border-2 border-cyan-400 rounded-2xl p-4 flex flex-col gap-2 z-50 shadow-2xl pointer-events-none opacity-0">
-                            <div class="flex items-center justify-between mb-0.5">
-                                <span
-                                    class="text-[9px] font-black px-2.5 py-0.5 rounded-full bg-cyan-400 text-[#001c25] uppercase tracking-wider">★
-                                    RECOMENDADO</span>
-                                <span class="text-[9.5px] text-emerald-400 font-bold flex items-center gap-1">#1 en
-                                    Google</span>
-                            </div>
-                            <h4 class="text-[13px] font-extrabold text-white leading-tight mt-0.5">Demiurgo Studio |
-                                Sitios Web Profesionales</h4>
-                            <p class="text-[9.5px] text-slate-200 leading-relaxed mt-0.5 border-t border-white/10 pt-2">
-                                Especialistas en páginas ultrarrápidas y conversión directa por WhatsApp.
-                            </p>
-                        </div>
-
-                        <!-- Fake Cursor -->
-                        <div id="fake-cursor-wrapper-s1" class="absolute inset-0 pointer-events-none z-[100]">
-                            <div id="click-ripple-s1"
-                                class="absolute w-8 h-8 rounded-full border-2 border-cyan-400 bg-cyan-400/30 -top-4 -left-4 opacity-0 scale-0">
-                            </div>
-                            <div id="fake-cursor-s1" class="absolute top-0 left-0 opacity-0">
-                                <svg class="w-7 h-7 fill-white stroke-slate-950 stroke-[1.5]" viewBox="0 0 24 24">
-                                    <path d="M4 2l16 11-7.5 1.5 4.5 7.5-3 1.5-4.5-7.5L4 20V2z" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SUB-SECCIÓN B: RESPONSIVE SHOWCASE -->
-            <section id="section-responsive"
-                class="min-h-screen flex flex-col items-center justify-center p-3 sm:p-8 relative border-b border-slate-800/60 showcase-block">
-                <div class="text-center mb-5 w-full max-w-xl">
-                    <div
-                        class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-cyan-400 text-[11px] font-mono uppercase tracking-widest mb-3 gs-reveal-badge">
-                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Multi-Dispositivo
-                    </div>
-                    <h2 class="text-xl sm:text-3xl font-extrabold text-white uppercase mb-1 gs-reveal-title">
-                        Adaptabilidad Responsiva Real
-                    </h2>
-                    <div
-                        class="flex items-center justify-center gap-2 text-[11px] sm:text-xs font-mono text-slate-400 mt-2 gs-reveal-desc">
-                        <span id="label-res"
-                            class="px-3 py-0.5 rounded-full bg-[#0d2e3e] border border-cyan-500/30 text-cyan-400 font-semibold">
-                            Monitor PC
-                        </span>
-                    </div>
-                </div>
-
-                <div
-                    class="w-full max-w-4xl h-[380px] sm:h-[430px] flex items-center justify-center relative gs-reveal-card">
-                    <div id="device-frame"
-                        class="relative bg-[#071820] border-[3px] sm:border-4 border-[#122f40] rounded-2xl shadow-2xl flex flex-col overflow-hidden will-change-[width,height,border-radius]"
-                        style="width: 100%; max-width: 640px; height: 340px;">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop"
-                            alt="Visual"
-                            class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none" />
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-[#001c25] via-[#001c25]/60 to-[#001c25]/70 pointer-events-none">
-                        </div>
-
-                        <div class="relative z-10 w-full h-full p-3 sm:p-5 flex flex-col justify-between">
-                            <header class="flex items-center justify-between pb-2 border-b border-white/10 shrink-0">
-                                <div class="flex items-center gap-1.5">
-                                    <div
-                                        class="w-5 h-5 rounded-md bg-[#1ac1d0] flex items-center justify-center font-black text-[#001c25] text-[10px]">
-                                        D</div>
-                                    <span
-                                        class="text-[10px] sm:text-xs font-black tracking-widest text-white">DEMIURGO</span>
-                                </div>
-                                <nav
-                                    class="cq-menu-full hidden items-center gap-3 text-[9px] sm:text-[10px] text-slate-200">
-                                    <span>Inicio</span><span>Servicios</span><span>Planes</span><span>Contacto</span>
-                                </nav>
-                                <div class="cq-menu-burger hidden flex-col gap-1"><span
-                                        class="w-3.5 h-0.5 bg-white"></span><span class="w-3.5 h-0.5 bg-white"></span>
-                                </div>
-                            </header>
-                            <div class="my-auto text-left">
-                                <h1 class="cq-hero-title font-extrabold text-white tracking-tight max-w-md">
-                                    Diseñamos experiencias que cautivan en cualquier pantalla.
-                                </h1>
-                            </div>
-                            <div class="shrink-0 pt-1">
-                                <div class="cq-cards-grid grid grid-cols-4 gap-2">
-                                    <div
-                                        class="cq-card-item bg-[#0d2e3e]/90 border border-cyan-500/20 p-2 rounded-xl flex flex-col items-center text-center">
-                                        <span class="text-xs mb-0.5">⚡</span><span
-                                            class="text-[9px] font-bold text-white">Velocidad</span>
-                                    </div>
-                                    <div
-                                        class="cq-card-item bg-[#0d2e3e]/90 border border-cyan-500/20 p-2 rounded-xl flex flex-col items-center text-center">
-                                        <span class="text-xs mb-0.5">🎨</span><span
-                                            class="text-[9px] font-bold text-white">Diseño</span>
-                                    </div>
-                                    <div
-                                        class="cq-card-item bg-[#0d2e3e]/90 border border-cyan-500/20 p-2 rounded-xl flex flex-col items-center text-center">
-                                        <span class="text-xs mb-0.5">📱</span><span
-                                            class="text-[9px] font-bold text-white">Mobile 1st</span>
-                                    </div>
-                                    <div
-                                        class="cq-card-item bg-[#0d2e3e]/90 border border-cyan-500/20 p-2 rounded-xl flex flex-col items-center text-center">
-                                        <span class="text-xs mb-0.5">📈</span><span
-                                            class="text-[9px] font-bold text-white">Ventas</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    class="mt-6 flex items-center gap-1.5 p-1 bg-[#071820] border border-cyan-500/20 rounded-full gs-reveal-cta">
-                    <button onclick="changeMode(0)" id="btn-0"
-                        class="mode-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-[#1ac1d0] text-[#001c25]">💻
-                        MONITOR</button>
-                    <button onclick="changeMode(1)" id="btn-1"
-                        class="mode-btn px-4 py-1.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white">📱
-                        TABLET</button>
-                    <button onclick="changeMode(2)" id="btn-2"
-                        class="mode-btn px-4 py-1.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white">📲
-                        MOVIL</button>
-                </div>
-            </section>
-
-            <!-- SUB-SECCIÓN C: WHATSAPP CONVERSIÓN -->
-            <section id="section-whatsapp"
-                class="min-h-screen flex flex-col items-center justify-center p-6 relative showcase-block">
-                <div class="text-center mb-6 max-w-xl">
-                    <div
-                        class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-emerald-400 text-[11px] font-mono uppercase tracking-widest mb-3 gs-reveal-badge">
-                        <span class="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></span> Conversión Directa
-                    </div>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase gs-reveal-title">
-                        Botón Integrado de WhatsApp
-                    </h2>
-                    <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed gs-reveal-desc">
-                        Convertí visitas en conversaciones comerciales sin fricciones en un solo toque.
-                    </p>
-                </div>
-
-                <div class="device-3d-wrap relative flex items-center justify-center py-2 gs-reveal-card">
-                    <div id="floor-shadow-s3"
-                        class="absolute -bottom-8 w-[270px] h-10 bg-black/70 rounded-full blur-xl pointer-events-none">
-                    </div>
-                    <div id="device-body-s3"
-                        class="relative w-[310px] h-[640px] rounded-[44px] p-[4px] bg-gradient-to-b from-[#122f40] via-[#0d2e3e] to-[#001c25] ring-1 ring-white/20 z-10">
-                        <div
-                            class="relative w-full h-full rounded-[40px] overflow-hidden bg-[#071820] flex flex-col select-none">
-                            <!-- Notch -->
-                            <div
-                                class="h-7 bg-[#001c25] w-full flex items-center justify-between px-6 z-40 border-b border-white/5">
-                                <span class="text-[10px] text-slate-400 font-semibold">10:45</span>
-                            </div>
-
-                            <!-- Web Scene -->
-                            <div id="website-scene-s3"
-                                class="absolute inset-0 top-7 bg-[#071820] flex flex-col justify-between p-4 z-10">
-                                <div class="flex justify-between items-center pb-2 border-b border-white/10">
-                                    <span class="text-xs font-black tracking-widest text-white">DEMIURGO</span>
-                                </div>
-                                <div class="my-auto py-2 text-left">
-                                    <h1 class="text-xs font-extrabold text-white">Tu web lista para generar clientes
-                                        todos los días.</h1>
-                                </div>
-                                <div id="floating-btn-s3"
-                                    class="absolute bottom-4 right-4 w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg cursor-pointer z-20">
-                                    <i class="fa-brands fa-whatsapp text-white text-2xl"></i>
-                                    <span id="click-ripple-s3"
-                                        class="absolute inset-0 rounded-full border-2 border-white opacity-0 scale-100"></span>
-                                </div>
-                                <div id="fake-cursor-s3" class="absolute z-30 pointer-events-none -left-6 -top-6">
-                                    <svg class="w-6 h-6 fill-white stroke-slate-900 stroke-[1.2]" viewBox="0 0 24 24">
-                                        <path d="M4 2l16 11-7.5 1.5 4.5 7.5-3 1.5-4.5-7.5L4 20V2z" />
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <!-- WhatsApp Chat Scene -->
-                            <div id="whatsapp-screen"
-                                class="absolute inset-0 top-7 chat-pattern flex flex-col z-20 opacity-0 pointer-events-none">
-                                <div
-                                    class="bg-[#072418] px-3 py-2.5 flex items-center gap-2.5 border-b border-emerald-950/60 shrink-0">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center font-black text-slate-950 text-xs">
-                                        D</div>
-                                    <div>
-                                        <h4 class="text-xs font-bold text-white">Demiurgo Studio</h4>
-                                        <span class="text-[10px] text-emerald-400">en línea</span>
-                                    </div>
-                                </div>
-                                <div class="flex-1 p-3 flex flex-col gap-2 text-[11px] justify-start pt-3">
-                                    <div
-                                        class="chat-msg self-end bg-[#25D366] text-white px-3 py-2 rounded-2xl rounded-tr-xs max-w-[85%] shadow-sm">
-                                        Hola! Vi su web y quiero presupuesto para mi sitio 🚀
-                                    </div>
-                                    <div
-                                        class="chat-msg self-start bg-white text-slate-900 px-3 py-2 rounded-2xl rounded-tl-xs max-w-[85%] shadow-sm">
-                                        ¡Hola! Claro que sí, ¿en qué rubro está tu marca? 😊
-                                    </div>
-                                    <div
-                                        class="chat-msg self-end bg-[#25D366] text-white px-3 py-2 rounded-2xl rounded-tr-xs max-w-[85%] shadow-sm">
-                                        Tengo un local comercial y quiero sumar un catálogo online.
-                                    </div>
-                                    <div
-                                        class="chat-msg self-start bg-white text-slate-900 px-3 py-2 rounded-2xl rounded-tl-xs max-w-[85%] shadow-sm">
-                                        ¡Excelente! Te armamos una propuesta con pedidos directos.
-                                    </div>
-                                    <div id="typing-indicator"
-                                        class="self-start bg-white/90 px-2.5 py-1.5 rounded-xl flex items-center gap-1 w-fit shadow-sm">
-                                        <span class="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce"></span>
-                                        <span
-                                            class="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                                        <span
-                                            class="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- =====================================================
+    <!-- =====================================================
          4TA SECCIÓN: SOLUCIONES (LO QUE HACEMOS & MODALES)
          ===================================================== -->
-        <section class="servicios section-wrapper" id="servicios">
-            <div class="section-inner">
-                <div class="servicios-header text-center">
-                    <div class="section-tag center-tag gs-reveal-badge">Soluciones</div>
-                    <h2 class="section-title gs-reveal-title">Estructuras digitales que <em
-                            class="text-cyan">venden.</em></h2>
-                </div>
-                <div class="servicios-grid">
-                    <div class="card card-service" data-modal="landing">
-                        <div class="card-icon-box"><i class="fa-solid fa-rocket"></i></div>
-                        <h3 class="card-title-md">Landing Page</h3>
-                        <p class="card-text">Una página con un solo objetivo: que te escriban por WhatsApp. Hero,
-                            beneficios, prueba social y CTA. Lista en 3 a 7 días.</p>
-                        <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
-                        <span class="card-line"></span>
-                    </div>
-                    <div class="card card-service" data-modal="institucional">
-                        <div class="card-icon-box"><i class="fa-solid fa-building"></i></div>
-                        <h3 class="card-title-md">Web Institucional</h3>
-                        <p class="card-text">Presencia completa para tu negocio: quiénes somos, servicios, galería y
-                            contacto. La carta de presentación que cierra clientes.</p>
-                        <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
-                        <span class="card-line"></span>
-                    </div>
-                    <div class="card card-service" data-modal="catalogo">
-                        <div class="card-icon-box"><i class="fa-solid fa-store"></i></div>
-                        <h3 class="card-title-md">Catálogo Digital</h3>
-                        <p class="card-text">Mostrá tus productos con filtros y fichas individuales. Cada ítem con botón
-                            de pedido directo por WhatsApp sin pasarelas engorrosas.</p>
-                        <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
-                        <span class="card-line"></span>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section class="servicios section-wrapper" id="servicios">
+      <div class="section-inner">
+        <div class="servicios-header text-center">
+          <div class="section-tag center-tag">Soluciones</div>
+          <h2 class="section-title">Estructuras digitales que <em class="text-cyan">venden.</em></h2>
+        </div>
+        <div class="servicios-grid">
+          <div class="card card-service" data-modal="landing">
+            <div class="card-icon-box"><i class="fa-solid fa-rocket"></i></div>
+            <h3 class="card-title-md">Landing Page</h3>
+            <p class="card-text">Una página con un solo objetivo: que te escriban por WhatsApp. Hero, beneficios, prueba social y CTA. Lista en 3 a 7 días.</p>
+            <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
+            <span class="card-line"></span>
+          </div>
+          <div class="card card-service" data-modal="institucional">
+            <div class="card-icon-box"><i class="fa-solid fa-building"></i></div>
+            <h3 class="card-title-md">Web Institucional</h3>
+            <p class="card-text">Presencia completa para tu negocio: quiénes somos, servicios, galería y contacto. La carta de presentación que cierra clientes.</p>
+            <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
+            <span class="card-line"></span>
+          </div>
+          <div class="card card-service" data-modal="catalogo">
+            <div class="card-icon-box"><i class="fa-solid fa-store"></i></div>
+            <h3 class="card-title-md">Catálogo Digital</h3>
+            <p class="card-text">Mostrá tus productos con filtros y fichas individuales. Cada ítem con botón de pedido directo por WhatsApp sin pasarelas engorrosas.</p>
+            <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
+            <span class="card-line"></span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- =====================================================
+    <!-- =====================================================
          5TA SECCIÓN: METODOLOGÍA (LUCES PERSISTENTES GSAP)
          ===================================================== -->
-        <section class="proceso section-wrapper" id="proceso">
-            <div class="section-inner">
-                <div class="proceso-header text-center">
-                    <div class="section-tag center-tag gs-reveal-badge">Metodología</div>
-                    <h2 class="section-title gs-reveal-title">Tu sitio web en <em class="text-cyan">4 pasos
-                            simples.</em></h2>
-                    <p class="section-subtitle mx-auto gs-reveal-desc">Un flujo transparente, medible y sin tecnicismos
-                        complejos.</p>
-                </div>
-                <div class="proceso-steps-container">
-                    <div class="proceso-line-bg"></div>
-                    <div class="proceso-line-fill"></div>
-                    <div class="proceso-steps-grid">
-                        <div class="proceso-step gs-step" data-step="1">
-                            <div class="proceso-step-dot">1</div>
-                            <div class="proceso-step-text">
-                                <h4>Diagnóstico y brief</h4>
-                                <p>Analizamos tu público, tu competencia directa y definimos la oferta irresistible para
-                                    captar consultas.</p>
-                            </div>
-                        </div>
-                        <div class="proceso-step gs-step" data-step="2">
-                            <div class="proceso-step-dot">2</div>
-                            <div class="proceso-step-text">
-                                <h4>Desarrollo y demo interactiva</h4>
-                                <p>Programamos en código limpio ultra veloz con animaciones cuidadas y diseño
-                                    mobile-first.</p>
-                            </div>
-                        </div>
-                        <div class="proceso-step gs-step" data-step="3">
-                            <div class="proceso-step-dot">3</div>
-                            <div class="proceso-step-text">
-                                <h4>Lanzamiento y dominio</h4>
-                                <p>Publicamos en tu dominio oficial, enlazamos el WhatsApp comercial y verificamos la
-                                    indexación en Google.</p>
-                            </div>
-                        </div>
-                        <div class="proceso-step gs-step" data-step="4">
-                            <div class="proceso-step-dot">4</div>
-                            <div class="proceso-step-text">
-                                <h4>Optimización y soporte</h4>
-                                <p>Monitoreamos la velocidad de respuesta, afinamos los textos y te damos soporte
-                                    continuo para escalar.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <section class="proceso section-wrapper" id="proceso">
+      <div class="section-inner">
+        <div class="proceso-header text-center">
+          <div class="section-tag center-tag">Metodología</div>
+          <h2 class="section-title">Tu sitio web en <em class="text-cyan">4 pasos simples.</em></h2>
+          <p class="section-subtitle mx-auto">Un flujo transparente, medible y sin tecnicismos complejos.</p>
+        </div>
+        <div class="proceso-steps-container">
+          <div class="proceso-line-bg"></div>
+          <div class="proceso-line-fill"></div>
+          <div class="proceso-steps-grid">
+            <div class="proceso-step gs-step" data-step="1">
+              <div class="proceso-step-dot">1</div>
+              <div class="proceso-step-text">
+                <h4>Diagnóstico y brief</h4>
+                <p>Analizamos tu público, tu competencia directa y definimos la oferta irresistible para captar consultas.</p>
+              </div>
             </div>
-        </section>
+            <div class="proceso-step gs-step" data-step="2">
+              <div class="proceso-step-dot">2</div>
+              <div class="proceso-step-text">
+                <h4>Desarrollo y demo interactiva</h4>
+                <p>Programamos en código limpio ultra veloz con animaciones cuidadas y diseño mobile-first.</p>
+              </div>
+            </div>
+            <div class="proceso-step gs-step" data-step="3">
+              <div class="proceso-step-dot">3</div>
+              <div class="proceso-step-text">
+                <h4>Lanzamiento y dominio</h4>
+                <p>Publicamos en tu dominio oficial, enlazamos el WhatsApp comercial y verificamos la indexación en Google.</p>
+              </div>
+            </div>
+            <div class="proceso-step gs-step" data-step="4">
+              <div class="proceso-step-dot">4</div>
+              <div class="proceso-step-text">
+                <h4>Optimización y soporte</h4>
+                <p>Monitoreamos la velocidad de respuesta, afinamos los textos y te damos soporte continuo para escalar.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- =====================================================
+    <!-- =====================================================
          6TA SECCIÓN: PLANES CLAROS, SIN SORPRESAS
          ===================================================== -->
-        <section class="planes-grid-section section-wrapper" id="planes">
-            <div class="section-inner text-center">
-                <div class="section-tag center-tag gs-reveal-badge">Inversión Transparente</div>
-                <h2 class="section-title gs-reveal-title">Planes claros, <em class="text-cyan">sin sorpresas</em></h2>
-                <p class="section-subtitle mx-auto gs-reveal-desc" style="margin-bottom: 3.5rem;">
-                    Pago en 2 partes: 50% al inicio y 50% al entregar y validar tu sitio.
-                </p>
+    <section class="planes-grid-section section-wrapper" id="planes">
+      <div class="section-inner text-center">
+        <div class="section-tag center-tag">Inversión Transparente</div>
+        <h2 class="section-title">Planes claros, <em class="text-cyan">sin sorpresas</em></h2>
+        <p class="section-subtitle mx-auto" style="margin-bottom: 3.5rem;">
+          Pago en 2 partes: 50% al inicio y 50% al entregar y validar tu sitio.
+        </p>
 
-                <div class="pricing-cards-grid">
-                    <!-- PLAN 1: LANDING PAGE -->
-                    <div class="pricing-card gs-pricing-card">
-                        <div class="pricing-card-header">
-                            <span class="pricing-plan-badge">LANDING PAGE</span>
-                            <div class="pricing-plan-price">Desde $300 USD <span class="pricing-currency">o en
-                                    ARS</span></div>
-                            <p class="pricing-plan-desc">Ideal para profesionales y comercios que necesitan presencia
-                                online directa, moderna y rápida.</p>
-                        </div>
-                        <ul class="pricing-plan-features">
-                            <li><i class="fa-solid fa-check"></i> Diseño moderno, limpio y responsive</li>
-                            <li><i class="fa-solid fa-check"></i> Optimización SEO básica para Google</li>
-                            <li><i class="fa-solid fa-check"></i> Integración directa con WhatsApp</li>
-                            <li><i class="fa-solid fa-check"></i> Entrega en 3 a 7 días hábiles</li>
-                            <li><i class="fa-solid fa-check"></i> Dominio y hosting por 1 año</li>
-                        </ul>
-                        <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Landing%20Page."
-                            target="_blank" rel="noopener" class="btn btn-outline pricing-btn">
-                            Quiero mi Landing <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-
-                    <!-- PLAN 2: WEB INSTITUCIONAL PRO -->
-                    <div class="pricing-card pricing-card-featured gs-pricing-card">
-                        <div class="pricing-featured-ribbon">★ MÁS ELEGIDO</div>
-                        <div class="pricing-card-header">
-                            <span class="pricing-plan-badge badge-cyan">SITIO INSTITUCIONAL</span>
-                            <div class="pricing-plan-price text-cyan">Desde $600 USD <span class="pricing-currency">o en
-                                    ARS</span></div>
-                            <p class="pricing-plan-desc">Para marcas y estudios que quieren diferenciarse con una
-                                plataforma multi-sección completa.</p>
-                        </div>
-                        <ul class="pricing-plan-features">
-                            <li><i class="fa-solid fa-check"></i> Todo lo del plan Landing Page</li>
-                            <li><i class="fa-solid fa-check"></i> Múltiples secciones, páginas y galería</li>
-                            <li><i class="fa-solid fa-check"></i> SEO avanzado + Google Analytics</li>
-                            <li><i class="fa-solid fa-check"></i> Diseño 100% a medida y animaciones</li>
-                            <li><i class="fa-solid fa-check"></i> Soporte post-lanzamiento prioritario</li>
-                        </ul>
-                        <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Sitio%20Institucional."
-                            target="_blank" rel="noopener" class="btn btn-primary pricing-btn">
-                            Quiero mi Sitio Pro <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-
-                    <!-- PLAN 3: CATÁLOGO DIGITAL WHATSAPP -->
-                    <div class="pricing-card gs-pricing-card">
-                        <div class="pricing-card-header">
-                            <span class="pricing-plan-badge">CATÁLOGO DIGITAL WA</span>
-                            <div class="pricing-plan-price">Desde $950 USD <span class="pricing-currency">o en
-                                    ARS</span></div>
-                            <p class="pricing-plan-desc">Para negocios con variedad de productos o servicios que buscan
-                                pedidos organizados sin pasarela.</p>
-                        </div>
-                        <ul class="pricing-plan-features">
-                            <li><i class="fa-solid fa-check"></i> Fichas de producto con foto y precio</li>
-                            <li><i class="fa-solid fa-check"></i> Botón de pedido individual a WhatsApp</li>
-                            <li><i class="fa-solid fa-check"></i> Filtros interactivos por categorías</li>
-                            <li><i class="fa-solid fa-check"></i> Carga rápida sin caídas de base de datos</li>
-                            <li><i class="fa-solid fa-check"></i> Panel o planilla fácil para actualizar stock</li>
-                        </ul>
-                        <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Cat%C3%A1logo%20Digital."
-                            target="_blank" rel="noopener" class="btn btn-outline pricing-btn">
-                            Quiero mi Catálogo <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <p class="pricing-custom-footer gs-reveal-cta">
-                    ¿Tenés un proyecto especial? <a
-                        href="https://wa.me/5491125371329?text=Hola!%20Tengo%20un%20proyecto%20especial%20a%20medida."
-                        target="_blank" rel="noopener" class="text-cyan font-bold underline">Podemos armar un
-                        presupuesto personalizado.</a>
-                </p>
+        <div class="pricing-cards-grid">
+          <!-- PLAN 1: LANDING PAGE -->
+          <div class="pricing-card">
+            <div class="pricing-card-header">
+              <span class="pricing-plan-badge">LANDING PAGE</span>
+              <div class="pricing-plan-price">Desde $300 USD <span class="pricing-currency">o en ARS</span></div>
+              <p class="pricing-plan-desc">Ideal para profesionales y comercios que necesitan presencia online directa, moderna y rápida.</p>
             </div>
-        </section>
+            <ul class="pricing-plan-features">
+              <li><i class="fa-solid fa-check"></i> Diseño moderno, limpio y responsive</li>
+              <li><i class="fa-solid fa-check"></i> Optimización SEO básica para Google</li>
+              <li><i class="fa-solid fa-check"></i> Integración directa con WhatsApp</li>
+              <li><i class="fa-solid fa-check"></i> Entrega en 3 a 7 días hábiles</li>
+              <li><i class="fa-solid fa-check"></i> Dominio y hosting por 1 año</li>
+            </ul>
+            <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Landing%20Page." target="_blank" rel="noopener" class="btn btn-outline pricing-btn">
+              Quiero mi Landing <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
 
-        <!-- =====================================================
+          <!-- PLAN 2: WEB INSTITUCIONAL PRO -->
+          <div class="pricing-card pricing-card-featured">
+            <div class="pricing-featured-ribbon">★ MÁS ELEGIDO</div>
+            <div class="pricing-card-header">
+              <span class="pricing-plan-badge badge-cyan">SITIO INSTITUCIONAL</span>
+              <div class="pricing-plan-price text-cyan">Desde $600 USD <span class="pricing-currency">o en ARS</span></div>
+              <p class="pricing-plan-desc">Para marcas y estudios que quieren diferenciarse con una plataforma multi-sección completa.</p>
+            </div>
+            <ul class="pricing-plan-features">
+              <li><i class="fa-solid fa-check"></i> Todo lo del plan Landing Page</li>
+              <li><i class="fa-solid fa-check"></i> Múltiples secciones, páginas y galería</li>
+              <li><i class="fa-solid fa-check"></i> SEO avanzado + Google Analytics</li>
+              <li><i class="fa-solid fa-check"></i> Diseño 100% a medida y animaciones</li>
+              <li><i class="fa-solid fa-check"></i> Soporte post-lanzamiento prioritario</li>
+            </ul>
+            <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Sitio%20Institucional." target="_blank" rel="noopener" class="btn btn-primary pricing-btn">
+              Quiero mi Sitio Pro <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- PLAN 3: CATÁLOGO DIGITAL WHATSAPP -->
+          <div class="pricing-card">
+            <div class="pricing-card-header">
+              <span class="pricing-plan-badge">CATÁLOGO DIGITAL WA</span>
+              <div class="pricing-plan-price">Desde $950 USD <span class="pricing-currency">o en ARS</span></div>
+              <p class="pricing-plan-desc">Para negocios con variedad de productos o servicios que buscan pedidos organizados sin pasarela.</p>
+            </div>
+            <ul class="pricing-plan-features">
+              <li><i class="fa-solid fa-check"></i> Fichas de producto con foto y precio</li>
+              <li><i class="fa-solid fa-check"></i> Botón de pedido individual a WhatsApp</li>
+              <li><i class="fa-solid fa-check"></i> Filtros interactivos por categorías</li>
+              <li><i class="fa-solid fa-check"></i> Carga rápida sin caídas de base de datos</li>
+              <li><i class="fa-solid fa-check"></i> Panel o planilla fácil para actualizar stock</li>
+            </ul>
+            <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Cat%C3%A1logo%20Digital." target="_blank" rel="noopener" class="btn btn-outline pricing-btn">
+              Quiero mi Catálogo <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <p class="pricing-custom-footer">
+          ¿Tenés un proyecto especial? <a href="https://wa.me/5491125371329?text=Hola!%20Tengo%20un%20proyecto%20especial%20a%20medida." target="_blank" rel="noopener" class="text-cyan font-bold underline">Podemos armar un presupuesto personalizado.</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- =====================================================
          7MA SECCIÓN: FAQ & FOOTER
          ===================================================== -->
-        <section class="faq section-wrapper" id="faq">
-            <div class="section-inner">
-                <div class="faq-header text-center">
-                    <div class="section-tag center-tag gs-reveal-badge">Dudas Frecuentes</div>
-                    <h2 class="section-title gs-reveal-title">Preguntas <em class="text-cyan">frecuentes.</em></h2>
-                </div>
-                <div class="faq-list">
-                    <div class="faq-item gs-faq-item">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>¿En cuánto tiempo está lista mi página?</span>
-                            <i class="fa-solid fa-plus faq-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                <p>Una Landing Page tarda de 3 a 7 días hábiles, una Web Institucional de 2 a 4 semanas
-                                    y un Catálogo Digital de 3 a 5 semanas, a partir del brief completado.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="faq-item gs-faq-item">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>¿Necesito saber programar para gestionar la web?</span>
-                            <i class="fa-solid fa-plus faq-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                <p>No. Te entregamos la web optimizada y lista para funcionar. Las actualizaciones las
-                                    coordinás directamente con nosotros o las delegás en nuestro plan de mantenimiento.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="faq-item gs-faq-item">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>¿El dominio .com.ar y el hosting están incluidos?</span>
-                            <i class="fa-solid fa-plus faq-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                <p>Sí, todos nuestros planes incluyen 1 año de hosting optimizado de alta velocidad y el
-                                    registro de tu dominio oficial .com.ar.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="faq-item gs-faq-item">
-                        <button class="faq-question" aria-expanded="false">
-                            <span>¿Cómo es la forma de pago?</span>
-                            <i class="fa-solid fa-plus faq-icon"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                <p>Trabajamos 50% de anticipo para iniciar el desarrollo y 50% final contra entrega, una
-                                    vez revisada y aprobada la web en el enlace de demostración.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- BANNER PRE-FOOTER -->
-        <section class="pre-footer-banner">
-            <div class="pre-footer-inner">
-                <h3>¿Listo para transformar tu presencia online? 🚀</h3>
-                <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20empezar%20mi%20proyecto%20con%20Demiurgo."
-                    target="_blank" rel="noopener" class="btn btn-primary magnet-target">
-                    ¡Empecemos hoy! <i class="fa-solid fa-arrow-right"></i>
-                </a>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- MODAL DINÁMICO DE SERVICIOS -->
-    <div class="modal-overlay" id="modal-services" role="dialog" aria-modal="true" aria-labelledby="modal-serv-title">
-        <div class="modal-box">
-            <div class="modal-header">
-                <div class="modal-icon-wrap" id="modal-serv-icon-wrap"><i id="modal-serv-icon"></i></div>
-                <button class="modal-close-btn" data-close="modal-services" aria-label="Cerrar modal">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <h3 class="modal-title" id="modal-serv-title"></h3>
-            <p class="modal-tagline" id="modal-serv-tagline"></p>
-            <div class="modal-body" id="modal-serv-body"></div>
-            <a href="#" target="_blank" rel="noopener" class="btn btn-wa modal-cta" id="modal-serv-cta">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span class="modal-cta-text"></span>
-            </a>
+    <section class="faq section-wrapper" id="faq">
+      <div class="section-inner">
+        <div class="faq-header text-center">
+          <div class="section-tag center-tag">Dudas Frecuentes</div>
+          <h2 class="section-title">Preguntas <em class="text-cyan">frecuentes.</em></h2>
         </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>¿En cuánto tiempo está lista mi página?</span>
+              <i class="fa-solid fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>Una Landing Page tarda de 3 a 7 días hábiles, una Web Institucional de 2 a 4 semanas y un Catálogo Digital de 3 a 5 semanas, a partir del brief completado.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>¿Necesito saber programar para gestionar la web?</span>
+              <i class="fa-solid fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>No. Te entregamos la web optimizada y lista para funcionar. Las actualizaciones las coordinás directamente con nosotros o las delegás en nuestro plan de mantenimiento.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>¿El dominio .com.ar y el hosting están incluidos?</span>
+              <i class="fa-solid fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>Sí, todos nuestros planes incluyen 1 año de hosting optimizado de alta velocidad y el registro de tu dominio oficial .com.ar.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>¿Cómo es la forma de pago?</span>
+              <i class="fa-solid fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>Trabajamos 50% de anticipo para iniciar el desarrollo y 50% final contra entrega, una vez revisada y aprobada la web en el enlace de demostración.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BANNER PRE-FOOTER -->
+    <section class="pre-footer-banner">
+      <div class="pre-footer-inner">
+        <h3>¿Listo para transformar tu presencia online? 🚀</h3>
+        <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20empezar%20mi%20proyecto%20con%20Demiurgo." target="_blank" rel="noopener" class="btn btn-primary magnet-target">
+          ¡Empecemos hoy! <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DINÁMICO DE SERVICIOS -->
+  <div class="modal-overlay" id="modal-services" role="dialog" aria-modal="true" aria-labelledby="modal-serv-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-icon-wrap" id="modal-serv-icon-wrap"><i id="modal-serv-icon"></i></div>
+        <button class="modal-close-btn" data-close="modal-services" aria-label="Cerrar modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <h3 class="modal-title" id="modal-serv-title"></h3>
+      <p class="modal-tagline" id="modal-serv-tagline"></p>
+      <div class="modal-body" id="modal-serv-body"></div>
+      <a href="#" target="_blank" rel="noopener" class="btn btn-wa modal-cta" id="modal-serv-cta">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="modal-cta-text"></span>
+      </a>
     </div>
+  </div>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-inner">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <a href="#inicio" class="footer-logo-link" aria-label="Ir arriba">
-                        <img src="assets/logo.png" alt="Demiurgo Studio" class="footer-logo-img" />
-                    </a>
-                    <p class="footer-brand-desc">Estudio digital especializado en presencia web de alta velocidad y
-                        conversión directa para marcas en expansión.</p>
-                </div>
-                <div class="footer-col">
-                    <p class="footer-col-title">Navegación</p>
-                    <ul class="footer-links">
-                        <li><a href="#portfolio">Proyectos</a></li>
-                        <li><a href="#showcase">Showcase 3D</a></li>
-                        <li><a href="#servicios">Servicios</a></li>
-                        <li><a href="#proceso">Proceso</a></li>
-                        <li><a href="#planes">Planes</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <p class="footer-col-title">Contacto Directo</p>
-                    <ul class="footer-links">
-                        <li><a href="https://wa.me/5491125371329" target="_blank" rel="noopener"><i
-                                    class="fa-brands fa-whatsapp"></i> WhatsApp Directo</a></li>
-                        <li><a href="https://instagram.com/demiurgostudio" target="_blank" rel="noopener"><i
-                                    class="fa-brands fa-instagram"></i> Instagram</a></li>
-                        <li><a href="mailto:hola@demiurgostudio.com.ar"><i class="fa-solid fa-envelope"></i>
-                                hola@demiurgostudio.com.ar</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="footer-copy">© 2026 Demiurgo Studio. Todos los derechos reservados. · Buenos Aires, Argentina.
-                </p>
-                <div class="footer-social">
-                    <a href="https://wa.me/5491125371329" target="_blank" rel="noopener" aria-label="WhatsApp"><i
-                            class="fa-brands fa-whatsapp"></i></a>
-                    <a href="https://instagram.com/demiurgostudio" target="_blank" rel="noopener"
-                        aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                </div>
-            </div>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#inicio" class="footer-logo-link" aria-label="Ir arriba">
+            <img src="assets/logo.png" alt="Demiurgo Studio" class="footer-logo-img" />
+          </a>
+          <p class="footer-brand-desc">Estudio digital especializado en presencia web de alta velocidad y conversión directa para marcas en expansión.</p>
         </div>
-    </footer>
+        <div class="footer-col">
+          <p class="footer-col-title">Navegación</p>
+          <ul class="footer-links">
+            <li><a href="#portfolio">Proyectos</a></li>
+            <li><a href="#showcase">Showcase 3D</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#proceso">Proceso</a></li>
+            <li><a href="#planes">Planes</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Contacto Directo</p>
+          <ul class="footer-links">
+            <li><a href="https://wa.me/5491125371329" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp Directo</a></li>
+            <li><a href="https://instagram.com/demiurgostudio" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+            <li><a href="mailto:hola@demiurgostudio.com.ar"><i class="fa-solid fa-envelope"></i> hola@demiurgostudio.com.ar</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Demiurgo Studio. Todos los derechos reservados. · Buenos Aires, Argentina.</p>
+        <div class="footer-social">
+          <a href="https://wa.me/5491125371329" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://instagram.com/demiurgostudio" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 </body>
-
 </html>
