@@ -174,12 +174,17 @@ const SERVICIOS_DATA = {
 })();
 
 /* =====================================================
+<<<<<<< HEAD
    4. SECCIÓN 1: HERO CON ENTRADAS DIRECCIONALES
+=======
+   4. SECCIÓN 1: ANIMACIÓN HERO CON DELAYS DIRECCIONALES
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
    ===================================================== */
 function initHeroAnimations() {
   const tlHero = gsap.timeline({ defaults: { ease: "power3.out" } });
 
   tlHero
+<<<<<<< HEAD
     .fromTo(
       ".hero-badge",
       { opacity: 0, scale: 0.7, y: -20 },
@@ -225,6 +230,19 @@ function initHeroAnimations() {
 
 /* =====================================================
    5. SECCIÓN 2: PORTFOLIO SLIDER CON SCROLLTRIGGER
+=======
+    .fromTo(".hero-anim-badge", { autoAlpha: 0, scale: 0.7, y: -20 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.75, delay: 0.2 })
+    .fromTo(".hero-anim-title", { autoAlpha: 0, x: -60, filter: "blur(6px)" }, { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: 0.95 }, "-=0.45")
+    .fromTo(".hero-anim-desc", { autoAlpha: 0, y: 35 }, { autoAlpha: 1, y: 0, duration: 0.8 }, "-=0.5")
+    .fromTo(".hero-anim-btn-1", { autoAlpha: 0, scale: 0.8, x: -20 }, { autoAlpha: 1, scale: 1, x: 0, duration: 0.65, ease: "back.out(1.7)" }, "-=0.4")
+    .fromTo(".hero-anim-btn-2", { autoAlpha: 0, scale: 0.8, x: 20 }, { autoAlpha: 1, scale: 1, x: 0, duration: 0.65, ease: "back.out(1.7)" }, "-=0.5")
+    .fromTo(".hero-anim-proof", { autoAlpha: 0, y: 25 }, { autoAlpha: 1, y: 0, duration: 0.75 }, "-=0.35")
+    .fromTo(".hero-anim-scroll", { autoAlpha: 0, y: -15 }, { autoAlpha: 1, y: 0, duration: 0.6 }, "-=0.2");
+}
+
+/* =====================================================
+   5. SECCIÓN 2: PORTFOLIO CON SCROLLTRIGGER PINNED
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
    ===================================================== */
 function initPortfolioSlider() {
   const track = document.getElementById("slider-track");
@@ -243,6 +261,7 @@ function initPortfolioSlider() {
     currentIndex = (index + totalCards) % totalCards;
     gsap.to(track, {
       xPercent: -currentIndex * 100,
+<<<<<<< HEAD
       duration: 0.5,
       ease: "power2.out",
     });
@@ -265,6 +284,38 @@ function initPortfolioSlider() {
       trigger: portfolioSection,
       start: "top 80%",
       onEnter: () => updateSlider(0),
+=======
+      duration: 0.65,
+      ease: "power2.out"
+    });
+    if (progressBar) {
+      gsap.to(progressBar, { width: `${((currentIndex + 1) / totalCards) * 100}%`, duration: 0.4 });
+    }
+  }
+
+  if (prevBtn) prevBtn.addEventListener("click", () => updateSlider(currentIndex - 1));
+  if (nextBtn) nextBtn.addEventListener("click", () => updateSlider(currentIndex + 1));
+
+  // Efecto pin al scrollear para pasar los casos
+  if (window.innerWidth > 768) {
+    ScrollTrigger.create({
+      trigger: portfolioSection,
+      start: "top top",
+      end: "+=1800",
+      pin: true,
+      scrub: 1,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        const targetIndex = Math.min(Math.floor(progress * totalCards), totalCards - 1);
+        if (targetIndex !== currentIndex) {
+          currentIndex = targetIndex;
+          gsap.to(track, { xPercent: -currentIndex * 100, duration: 0.4, ease: "power1.out" });
+        }
+        if (progressBar) {
+          gsap.set(progressBar, { width: `${progress * 100}%` });
+        }
+      }
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
     });
   }
 }
@@ -277,9 +328,13 @@ const deviceBodyS1 = document.querySelector("#device-body-s1");
 const floorShadowS1 = document.querySelector("#floor-shadow-s1");
 const deviceBodyS3 = document.querySelector("#device-body-s3");
 const floorShadowS3 = document.querySelector("#floor-shadow-s3");
+<<<<<<< HEAD
 const baseRotX = 6,
   baseRotY = -10,
   baseRotZ = -1;
+=======
+const baseRotX = 6, baseRotY = -10, baseRotZ = -1;
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
 
 [deviceBodyS1, deviceBodyS3].forEach((el) => {
   if (el)
@@ -315,7 +370,11 @@ window.addEventListener("mousemove", (e) => {
   });
 });
 
+<<<<<<< HEAD
 // Timelines de subsecciones
+=======
+// Timelines de las subsecciones
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
 const googleScene = document.querySelector("#google-scene");
 const googleInnerContent = document.querySelector("#google-inner-content");
 const websiteSceneS1 = document.querySelector("#website-scene-s1");
@@ -329,6 +388,7 @@ const googleLogoWrap = document.querySelector("#google-logo-wrap");
 
 const queryText = "estudio de diseño web buenos aires";
 const typingObj = { count: 0 };
+<<<<<<< HEAD
 let tlS1 = null;
 
 function setupS1Timeline() {
@@ -380,6 +440,25 @@ function setupS1Timeline() {
       },
       "<",
     )
+=======
+const tlS1 = gsap.timeline({ repeat: -1, repeatDelay: 2.5, paused: true });
+
+function setupS1Timeline() {
+  if (!googleScene) return;
+  tlS1
+    .to(typingObj, {
+      count: queryText.length, duration: 1.8, ease: "none",
+      onUpdate: () => { if (searchText) searchText.textContent = queryText.substring(0, Math.floor(typingObj.count)); },
+    }, "+=0.3")
+    .to(googleLogoWrap, { height: 0, opacity: 0, margin: 0, duration: 0.4 }, "+=0.2")
+    .to([googleTabs, resultsFake], { opacity: 1, duration: 0.35 })
+    .to(jarvisCard, { opacity: 1, scale: 0.72, duration: 0.5, ease: "back.out(1.4)" }, "-=0.2")
+    .to(googleInnerContent, { filter: "blur(6px)", scale: 0.94, duration: 0.8 }, "+=0.2")
+    .to(jarvisCard, {
+      scale: 1.0, y: -15, z: 140, duration: 1.0, ease: "power3.out",
+      onStart: () => jarvisCard.classList.add("jarvis-floating-glow"),
+    }, "<")
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
     .to({}, { duration: 1.8 })
     .to(googleInnerContent, { filter: "blur(0px)", scale: 1, duration: 0.7 })
     .to(
@@ -499,6 +578,11 @@ const msgs = document.querySelectorAll(".chat-msg");
 const typing = document.querySelector("#typing-indicator");
 let tlS3 = null;
 
+<<<<<<< HEAD
+=======
+const tlS3 = gsap.timeline({ repeat: -1, repeatDelay: 2.5, paused: true });
+
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
 function setupS3Timeline() {
   if (!floatingBtnS3) return;
   tlS3 = gsap.timeline({ repeat: -1, repeatDelay: 2 });
@@ -562,6 +646,7 @@ function setupS3Timeline() {
     );
 }
 
+<<<<<<< HEAD
 function initShowcaseObservers() {
   setupS1Timeline();
   setupS3Timeline();
@@ -625,6 +710,93 @@ function initMetodologiaScroll() {
   const steps = document.querySelectorAll(".gs-step");
   if (!procesoSection || !fill || !steps.length) return;
 
+=======
+// Vincular activación y apagado para optimizar rendimiento y batería
+function initShowcaseObservers() {
+  setupS1Timeline();
+  setupS3Timeline();
+
+  // Subsección 1 (Google)
+  ScrollTrigger.create({
+    trigger: "#section-google",
+    start: "top 70%",
+    end: "bottom 20%",
+    onEnter: () => {
+      document.querySelector("#section-google").classList.remove("is-inactive");
+      tlS1.play();
+    },
+    onLeave: () => {
+      document.querySelector("#section-google").classList.add("is-inactive");
+      tlS1.pause();
+    },
+    onEnterBack: () => {
+      document.querySelector("#section-google").classList.remove("is-inactive");
+      tlS1.play();
+    },
+    onLeaveBack: () => {
+      document.querySelector("#section-google").classList.add("is-inactive");
+      tlS1.pause();
+    }
+  });
+
+  // Subsección 2 (Responsive)
+  ScrollTrigger.create({
+    trigger: "#section-responsive",
+    start: "top 70%",
+    end: "bottom 20%",
+    onEnter: () => {
+      document.querySelector("#section-responsive").classList.remove("is-inactive");
+      startResponsiveLoop();
+    },
+    onLeave: () => {
+      document.querySelector("#section-responsive").classList.add("is-inactive");
+      stopResponsiveLoop();
+    },
+    onEnterBack: () => {
+      document.querySelector("#section-responsive").classList.remove("is-inactive");
+      startResponsiveLoop();
+    },
+    onLeaveBack: () => {
+      document.querySelector("#section-responsive").classList.add("is-inactive");
+      stopResponsiveLoop();
+    }
+  });
+
+  // Subsección 3 (WhatsApp)
+  ScrollTrigger.create({
+    trigger: "#section-whatsapp",
+    start: "top 70%",
+    end: "bottom 20%",
+    onEnter: () => {
+      document.querySelector("#section-whatsapp").classList.remove("is-inactive");
+      tlS3.play();
+    },
+    onLeave: () => {
+      document.querySelector("#section-whatsapp").classList.add("is-inactive");
+      tlS3.pause();
+    },
+    onEnterBack: () => {
+      document.querySelector("#section-whatsapp").classList.remove("is-inactive");
+      tlS3.play();
+    },
+    onLeaveBack: () => {
+      document.querySelector("#section-whatsapp").classList.add("is-inactive");
+      tlS3.pause();
+    }
+  });
+}
+
+/* =====================================================
+   7. SECCIÓN 5: METODOLOGÍA (LUCES PERSISTENTES GSAP)
+   ===================================================== */
+function initMetodologiaScroll() {
+  const procesoSection = document.querySelector("#proceso");
+  const fill = document.querySelector(".proceso-line-fill");
+  const steps = document.querySelectorAll(".gs-step");
+  if (!procesoSection || !fill || !steps.length) return;
+
+  // Llenado continuo de línea
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
   gsap.to(fill, {
     height: "100%",
     ease: "none",
@@ -636,6 +808,10 @@ function initMetodologiaScroll() {
     },
   });
 
+<<<<<<< HEAD
+=======
+  // Encendido progresivo y permanente de los círculos
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
   steps.forEach((step) => {
     ScrollTrigger.create({
       trigger: step,
@@ -689,6 +865,7 @@ function initServicesModals() {
   document.querySelectorAll("[data-modal]").forEach((el) => {
     el.addEventListener("click", () => openModal(el.dataset.modal));
   });
+<<<<<<< HEAD
   document
     .querySelectorAll('[data-close="modal-services"]')
     .forEach((b) => b.addEventListener("click", closeModal));
@@ -702,10 +879,20 @@ function initServicesModals() {
 
 /* =====================================================
    9. REVEALS POR GRAVEDAD Y DELAYS ESCALONADOS
+=======
+  document.querySelectorAll('[data-close="modal-services"]').forEach((b) => b.addEventListener("click", closeModal));
+  modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+}
+
+/* =====================================================
+   9. REVEALS POR GRAVEDAD Y DELAY ESCALONADO
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
    ===================================================== */
 function initGlobalReveals() {
   // Badges
   gsap.utils.toArray(".gs-reveal-badge").forEach((el) => {
+<<<<<<< HEAD
     gsap.from(el, {
       opacity: 0,
       scale: 0.8,
@@ -717,11 +904,17 @@ function initGlobalReveals() {
         start: "top 90%",
         toggleActions: "play none none reverse",
       },
+=======
+    gsap.fromTo(el, { autoAlpha: 0, scale: 0.8, y: -15 }, {
+      autoAlpha: 1, scale: 1, y: 0, duration: 0.6, ease: "back.out(1.5)",
+      scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none reverse" }
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
     });
   });
 
   // Títulos
   gsap.utils.toArray(".gs-reveal-title").forEach((el) => {
+<<<<<<< HEAD
     gsap.from(el, {
       opacity: 0,
       y: 35,
@@ -732,11 +925,17 @@ function initGlobalReveals() {
         start: "top 88%",
         toggleActions: "play none none reverse",
       },
+=======
+    gsap.fromTo(el, { autoAlpha: 0, y: 35 }, {
+      autoAlpha: 1, y: 0, duration: 0.8, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 86%", toggleActions: "play none none reverse" }
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
     });
   });
 
   // Párrafos / Subtítulos
   gsap.utils.toArray(".gs-reveal-desc").forEach((el) => {
+<<<<<<< HEAD
     gsap.from(el, {
       opacity: 0,
       y: 25,
@@ -793,6 +992,30 @@ function initGlobalReveals() {
       start: "top 85%",
       toggleActions: "play none none reverse",
     },
+=======
+    gsap.fromTo(el, { autoAlpha: 0, y: 25 }, {
+      autoAlpha: 1, y: 0, duration: 0.7, delay: 0.15, ease: "power2.out",
+      scrollTrigger: { trigger: el, start: "top 86%", toggleActions: "play none none reverse" }
+    });
+  });
+
+  // Tarjetas de Soluciones / Servicios
+  gsap.fromTo(".card-service", { autoAlpha: 0, y: 45, scale: 0.95 }, {
+    autoAlpha: 1, y: 0, scale: 1, duration: 0.75, stagger: 0.18, ease: "power3.out",
+    scrollTrigger: { trigger: ".servicios-grid", start: "top 80%", toggleActions: "play none none reverse" }
+  });
+
+  // Tarjetas de Precios
+  gsap.fromTo(".gs-pricing-card", { autoAlpha: 0, y: 50, scale: 0.94 }, {
+    autoAlpha: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.2, ease: "power3.out",
+    scrollTrigger: { trigger: ".pricing-cards-grid", start: "top 80%", toggleActions: "play none none reverse" }
+  });
+
+  // Preguntas Frecuentes
+  gsap.fromTo(".gs-faq-item", { autoAlpha: 0, x: -30 }, {
+    autoAlpha: 1, x: 0, duration: 0.6, stagger: 0.12, ease: "power2.out",
+    scrollTrigger: { trigger: ".faq-list", start: "top 85%", toggleActions: "play none none reverse" }
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
   });
 
   // Acordeón FAQ
@@ -808,7 +1031,11 @@ function initGlobalReveals() {
 }
 
 /* =====================================================
+<<<<<<< HEAD
    10. INICIALIZACIÓN GLOBAL CON REFRESH DE SCROLLTRIGGER
+=======
+   10. INICIALIZACIÓN GLOBAL
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
    ===================================================== */
 window.addEventListener("load", () => {
   initHeroAnimations();
@@ -817,9 +1044,13 @@ window.addEventListener("load", () => {
   initMetodologiaScroll();
   initServicesModals();
   initGlobalReveals();
+<<<<<<< HEAD
 
   // Asegura el cálculo correcto de alturas y offsets
   setTimeout(() => {
     ScrollTrigger.refresh();
   }, 200);
 });
+=======
+});
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5

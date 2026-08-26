@@ -93,6 +93,22 @@ button {
 .magnet-target {
   display: inline-block;
 }
+<<<<<<< HEAD
+=======
+
+/* Clases de Preparación GSAP (Ocultas por defecto) */
+.gs-reveal-badge,
+.gs-reveal-title,
+.gs-reveal-desc,
+.gs-reveal-card,
+.gs-reveal-cta,
+.gs-pricing-card,
+.gs-faq-item,
+.card-service {
+  opacity: 0;
+  visibility: hidden;
+}
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
 
 .section-tag {
   font-size: 0.68rem;
@@ -411,6 +427,21 @@ button {
   width: 100%;
 }
 
+<<<<<<< HEAD
+=======
+/* Preparación de elementos Hero para GSAP */
+.hero-anim-badge,
+.hero-anim-title,
+.hero-anim-desc,
+.hero-anim-btn-1,
+.hero-anim-btn-2,
+.hero-anim-proof,
+.hero-anim-scroll {
+  opacity: 0;
+  visibility: hidden;
+}
+
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -543,7 +574,11 @@ button {
   overflow: hidden;
 }
 .slider-progress-bar {
+<<<<<<< HEAD
   width: 33.33%;
+=======
+  width: 0%;
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
   height: 100%;
   background: var(--cyan);
   border-radius: var(--radius-full);
@@ -654,11 +689,18 @@ button {
    6. SECCIÓN 3: SHOWCASE 3D INTEGRADO
    ===================================================== */
 .showcase-block {
+<<<<<<< HEAD
   opacity: 1;
   transition: opacity 0.5s ease;
 }
 .showcase-block.is-inactive {
   opacity: 0.45;
+=======
+  transition: opacity 0.6s ease;
+}
+.showcase-block.is-inactive {
+  opacity: 0.35 !important;
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
 }
 
 .device-3d-wrap {
@@ -900,6 +942,10 @@ button {
   line-height: 1.7;
 }
 
+<<<<<<< HEAD
+=======
+/* Efecto de luz activa persistente */
+>>>>>>> bd64947f2a79a24299993e82ae07cc6cbfabfdd5
 .proceso-step.active {
   opacity: 1 !important;
 }
