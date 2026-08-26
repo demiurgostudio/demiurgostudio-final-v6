@@ -93,10 +93,6 @@ button {
 .magnet-target {
   display: inline-block;
 }
-.gs-reveal-up {
-  opacity: 0;
-  visibility: hidden;
-}
 
 .section-tag {
   font-size: 0.68rem;
@@ -414,6 +410,7 @@ button {
   margin: 0 auto;
   width: 100%;
 }
+
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -529,12 +526,30 @@ button {
 }
 
 /* =====================================================
-   5. SECCIÓN 2: PORTFOLIO SLIDER INTERACTIVO
+   5. SECCIÓN 2: PORTFOLIO SLIDER & PROGRESS BAR
    ===================================================== */
 .proyectos-destacados {
   background: var(--navy-dark);
   border-top: 1px solid rgba(26, 193, 208, 0.08);
 }
+
+.slider-progress-bar-container {
+  width: 100%;
+  max-width: 860px;
+  height: 4px;
+  background: rgba(26, 193, 208, 0.15);
+  border-radius: var(--radius-full);
+  margin: 0 auto 2rem;
+  overflow: hidden;
+}
+.slider-progress-bar {
+  width: 33.33%;
+  height: 100%;
+  background: var(--cyan);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
 .showcase-slider-wrap {
   position: relative;
   max-width: 860px;
@@ -550,11 +565,13 @@ button {
 }
 .slider-track {
   display: flex;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   width: 100%;
+  will-change: transform;
 }
 .slider-card-item {
   min-width: 100%;
+  width: 100%;
+  flex-shrink: 0;
   background: var(--navy-mid);
   border: 1px solid rgba(26, 193, 208, 0.15);
   border-radius: var(--radius-xl);
@@ -636,6 +653,14 @@ button {
 /* =====================================================
    6. SECCIÓN 3: SHOWCASE 3D INTEGRADO
    ===================================================== */
+.showcase-block {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+.showcase-block.is-inactive {
+  opacity: 0.45;
+}
+
 .device-3d-wrap {
   perspective: 1500px;
   transform-style: preserve-3d;
@@ -719,99 +744,7 @@ button {
 }
 
 /* =====================================================
-   7. SECCIÓN 4: PROCESO CLARO
-   ===================================================== */
-.proceso {
-  background: var(--navy-mid);
-}
-.proceso-steps-container {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 3rem 0;
-  position: relative;
-}
-.proceso-line-bg,
-.proceso-line-fill {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-}
-.proceso-line-bg {
-  height: 100%;
-  background: rgba(26, 193, 208, 0.12);
-}
-.proceso-line-fill {
-  height: 0%;
-  background: var(--cyan);
-  box-shadow: 0 0 15px var(--cyan);
-  z-index: 1;
-}
-.proceso-steps-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  position: relative;
-  z-index: 2;
-}
-.proceso-step {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  width: 50%;
-  padding-right: 3rem;
-  text-align: right;
-  flex-direction: row-reverse;
-  opacity: 0.35;
-  transition: opacity 0.3s ease;
-  position: relative;
-}
-.proceso-step:nth-child(even) {
-  margin-left: 50%;
-  text-align: left;
-  padding-left: 3rem;
-  padding-right: 0;
-  flex-direction: row;
-}
-.proceso-step-dot {
-  width: 52px;
-  height: 52px;
-  background: var(--navy);
-  border: 2px solid rgba(26, 193, 208, 0.3);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-weight: 800;
-  color: var(--cyan);
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-.proceso-step-text h4 {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  margin-bottom: 0.4rem;
-}
-.proceso-step-text p {
-  font-size: 0.85rem;
-  color: var(--muted);
-  line-height: 1.7;
-}
-.proceso-step.active {
-  opacity: 1;
-}
-.proceso-step.active .proceso-step-dot {
-  background: var(--cyan);
-  color: var(--navy);
-  border-color: var(--cyan);
-  box-shadow: 0 0 20px var(--cyan);
-  transform: scale(1.15);
-}
-
-/* =====================================================
-   8. SECCIÓN 5: SERVICIOS
+   7. SECCIÓN 4: SOLUCIONES (SERVICIOS)
    ===================================================== */
 .servicios {
   background: var(--navy);
@@ -830,7 +763,9 @@ button {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: all 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 .card-service:hover {
   transform: translateY(-6px);
@@ -884,6 +819,99 @@ button {
 }
 
 /* =====================================================
+   8. SECCIÓN 5: METODOLOGÍA (LUCES PERSISTENTES)
+   ===================================================== */
+.proceso {
+  background: var(--navy-mid);
+}
+.proceso-steps-container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 3rem 0;
+  position: relative;
+}
+.proceso-line-bg,
+.proceso-line-fill {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+}
+.proceso-line-bg {
+  height: 100%;
+  background: rgba(26, 193, 208, 0.12);
+}
+.proceso-line-fill {
+  height: 0%;
+  background: var(--cyan);
+  box-shadow: 0 0 15px var(--cyan);
+  z-index: 1;
+}
+.proceso-steps-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  position: relative;
+  z-index: 2;
+}
+.proceso-step {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 50%;
+  padding-right: 3rem;
+  text-align: right;
+  flex-direction: row-reverse;
+  opacity: 0.35;
+  transition: opacity 0.4s ease;
+  position: relative;
+}
+.proceso-step:nth-child(even) {
+  margin-left: 50%;
+  text-align: left;
+  padding-left: 3rem;
+  padding-right: 0;
+  flex-direction: row;
+}
+.proceso-step-dot {
+  width: 52px;
+  height: 52px;
+  background: var(--navy);
+  border: 2px solid rgba(26, 193, 208, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--cyan);
+  flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.proceso-step-text h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+.proceso-step-text p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.proceso-step.active {
+  opacity: 1 !important;
+}
+.proceso-step.active .proceso-step-dot {
+  background: var(--cyan);
+  color: var(--navy);
+  border-color: var(--cyan);
+  box-shadow: 0 0 25px var(--cyan);
+  transform: scale(1.15);
+}
+
+/* =====================================================
    9. SECCIÓN 6: PLANES CLAROS
    ===================================================== */
 .planes-grid-section {
@@ -905,7 +933,9 @@ button {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  transition: all 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
 }
 .pricing-card:hover {
   transform: translateY(-6px);

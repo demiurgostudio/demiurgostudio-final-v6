@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#001c25" />
     <link rel="icon" href="assets/favicon-32x32.png" />
 
-    <!-- Tipografías: Plus Jakarta Sans + Inter + JetBrains Mono -->
+    <!-- Tipografías -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,12 +20,10 @@
     <!-- FontAwesome 6.5.1 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-    <!-- Tailwind CSS CDN para Showcase Integrado -->
+    <!-- Tailwind CSS CDN (sin preflight para no romper estilos base) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            corePlugins: { preflight: false } /* Evita conflicto con el reset de styles.css */
-        }
+        tailwind.config = { corePlugins: { preflight: false } }
     </script>
 
     <!-- GSAP 3.12.5 + ScrollTrigger -->
@@ -74,8 +72,8 @@
             <li><a href="#portfolio" class="mobile-drawer-link"><i class="fa-solid fa-images"></i> Proyectos</a></li>
             <li><a href="#showcase" class="mobile-drawer-link"><i class="fa-solid fa-layer-group"></i> Experiencia</a>
             </li>
-            <li><a href="#proceso" class="mobile-drawer-link"><i class="fa-solid fa-bolt"></i> Proceso</a></li>
             <li><a href="#servicios" class="mobile-drawer-link"><i class="fa-solid fa-desktop"></i> Soluciones</a></li>
+            <li><a href="#proceso" class="mobile-drawer-link"><i class="fa-solid fa-bolt"></i> Proceso</a></li>
             <li><a href="#planes" class="mobile-drawer-link"><i class="fa-solid fa-tags"></i> Planes</a></li>
             <li><a href="#faq" class="mobile-drawer-link"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
         </ul>
@@ -97,8 +95,8 @@
                 <ul class="nav-links">
                     <li><a href="#portfolio" class="magnet-target">Proyectos</a></li>
                     <li><a href="#showcase" class="magnet-target">Showcase</a></li>
-                    <li><a href="#proceso" class="magnet-target">Proceso</a></li>
                     <li><a href="#servicios" class="magnet-target">Servicios</a></li>
+                    <li><a href="#proceso" class="magnet-target">Proceso</a></li>
                     <li><a href="#planes" class="magnet-target">Planes</a></li>
                 </ul>
             </nav>
@@ -114,7 +112,7 @@
     <main id="main-content">
 
         <!-- =====================================================
-         1RA SECCIÓN: HERO ESTRATÉGICO CON ALTO PUNCH
+         1RA SECCIÓN: HERO DINÁMICO (ENTRADAS DIRECCIONALES GSAP)
          ===================================================== -->
         <section class="hero" id="inicio">
             <div class="hero-bg parallax-bg"></div>
@@ -122,28 +120,27 @@
             <div class="hero-orb hero-orb-1"></div>
             <div class="hero-orb hero-orb-2"></div>
             <div class="hero-content">
-                <div class="hero-badge gs-reveal-up">
+                <div class="hero-badge hero-anim-badge">
                     <i class="fa-solid fa-bolt"></i> Agencia Digital · Argentina
                 </div>
-                <h1 class="hero-title gs-reveal-up">
+                <h1 class="hero-title hero-anim-title">
                     Desarrollo Web y Marketing para <br /><em class="text-cyan">Marcas que quieren escalar.</em>
                 </h1>
-                <p class="hero-desc gs-reveal-up">
+                <p class="hero-desc hero-anim-desc">
                     No estás solo en el mundo digital. Diseñamos sitios web que conectan, campañas publicitarias que
                     venden y te damos soporte real 24/7 para que tu negocio crezca sin límites.
                 </p>
-                <div class="hero-actions gs-reveal-up">
+                <div class="hero-actions">
                     <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20contarles%20lo%20que%20necesito%20para%20mi%20marca."
-                        target="_blank" rel="noopener" class="btn btn-primary magnet-target">
+                        target="_blank" rel="noopener" class="btn btn-primary magnet-target hero-anim-btn-1">
                         Contanos qué necesitás <i class="fa-solid fa-comment-dots"></i>
                     </a>
                     <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20agendar%20una%20reunion." target="_blank"
-                        rel="noopener" class="btn btn-outline magnet-target">
+                        rel="noopener" class="btn btn-outline magnet-target hero-anim-btn-2">
                         <i class="fa-regular fa-calendar-check"></i> Agendar reunión
                     </a>
                 </div>
-                <!-- Social Proof Integrado -->
-                <div class="hero-social-proof gs-reveal-up">
+                <div class="hero-social-proof hero-anim-proof">
                     <div class="avatar-group">
                         <span class="proof-avatar" style="background:#0d2e3e;">DM</span>
                         <span class="proof-avatar" style="background:#13a0ad;">SC</span>
@@ -152,27 +149,31 @@
                     <p class="proof-text"><strong>+50 marcas</strong> ya crecen con nosotros</p>
                 </div>
             </div>
-            <div class="hero-scroll-hint">
+            <div class="hero-scroll-hint hero-anim-scroll">
                 <i class="fa-solid fa-caret-down"></i>
                 <span>Scroll</span>
             </div>
         </section>
 
         <!-- =====================================================
-         2DA SECCIÓN: SLIDER DE PROYECTOS DESTACADOS
+         2DA SECCIÓN: PORTFOLIO PINNED (SCROLLTRIGGER CAROUSEL)
          ===================================================== -->
         <section class="proyectos-destacados section-wrapper" id="portfolio">
             <div class="section-inner text-center">
-                <div class="section-tag center-tag gs-reveal-up">Casos de Éxito</div>
-                <h2 class="section-title gs-reveal-up">
+                <div class="section-tag center-tag gs-reveal-badge">Casos de Éxito</div>
+                <h2 class="section-title gs-reveal-title">
                     Explora nuestros <br /><em class="text-cyan">Proyectos Destacados</em>
                 </h2>
-                <p class="section-subtitle mx-auto gs-reveal-up" style="margin-bottom: 2.5rem;">
+                <p class="section-subtitle mx-auto gs-reveal-desc" style="margin-bottom: 2.5rem;">
                     Cada sitio web es una herramienta de ventas diseñada a medida según el nicho y objetivo comercial.
                 </p>
 
-                <!-- Contenedor del Carrusel Interactivo -->
-                <div class="showcase-slider-wrap gs-reveal-up">
+                <!-- Barra de progreso del slider al scrollear -->
+                <div class="slider-progress-bar-container">
+                    <div class="slider-progress-bar" id="slider-progress-bar"></div>
+                </div>
+
+                <div class="showcase-slider-wrap gs-reveal-card">
                     <button class="slider-arrow slider-prev" id="slider-prev-btn" aria-label="Proyecto anterior">
                         <i class="fa-solid fa-chevron-left"></i>
                     </button>
@@ -231,7 +232,7 @@
                     </button>
                 </div>
 
-                <div class="slider-cta-wrap gs-reveal-up">
+                <div class="slider-cta-wrap gs-reveal-cta">
                     <p class="slider-prompt">¿Tu negocio necesita una presencia como esta?</p>
                     <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20un%20sitio%20web%20como%20los%20del%20portfolio."
                         target="_blank" rel="noopener" class="btn btn-primary magnet-target">
@@ -242,27 +243,27 @@
         </section>
 
         <!-- =====================================================
-         3RA SECCIÓN: SHOWCASE INTERACTIVO 3D
+         3RA SECCIÓN: SHOWCASE 3D (OPTIMIZADO POR SCROLLTRIGGER)
          ===================================================== -->
         <div id="showcase">
             <!-- SUB-SECCIÓN A: GOOGLE 3D -->
             <section id="section-google"
-                class="min-h-screen flex flex-col items-center justify-center p-6 relative border-b border-slate-800/60">
+                class="min-h-screen flex flex-col items-center justify-center p-6 relative border-b border-slate-800/60 showcase-block">
                 <div class="text-center mb-6 max-w-xl relative z-30">
                     <div
-                        class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-sky-400 text-[11px] font-mono uppercase tracking-widest mb-3 shadow-inner">
+                        class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-sky-400 text-[11px] font-mono uppercase tracking-widest mb-3 shadow-inner gs-reveal-badge">
                         <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span> Visibilidad de Alto Impacto
                     </div>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase">
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase gs-reveal-title">
                         Que te encuentren primero en Google
                     </h2>
-                    <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
-                        Optimizamos la presencia de tu negocio para ganar los resultados de búsqueda cuando tus clientes
-                        tienen intención de compra.
+                    <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed gs-reveal-desc">
+                        Optimizamos la presencia de tu negocio para dominar los resultados de búsqueda cuando tus
+                        clientes te necesitan.
                     </p>
                 </div>
 
-                <div class="device-3d-wrap relative flex items-center justify-center py-4">
+                <div class="device-3d-wrap relative flex items-center justify-center py-4 gs-reveal-card">
                     <div id="ambient-glow-s1"
                         class="absolute -top-6 w-[360px] h-[450px] bg-sky-600/10 rounded-full blur-[110px] pointer-events-none transition-all duration-1000">
                     </div>
@@ -288,7 +289,7 @@
                                 </div>
                             </div>
 
-                            <!-- Google UI -->
+                            <!-- Google UI Scene -->
                             <div id="google-scene"
                                 class="absolute inset-0 top-7 bg-[#0d2e3e] flex flex-col p-4 z-20 text-slate-200">
                                 <div id="google-inner-content" class="flex flex-col h-full transition-all duration-300">
@@ -409,17 +410,17 @@
 
             <!-- SUB-SECCIÓN B: RESPONSIVE SHOWCASE -->
             <section id="section-responsive"
-                class="min-h-screen flex flex-col items-center justify-center p-3 sm:p-8 relative border-b border-slate-800/60">
+                class="min-h-screen flex flex-col items-center justify-center p-3 sm:p-8 relative border-b border-slate-800/60 showcase-block">
                 <div class="text-center mb-5 w-full max-w-xl">
                     <div
-                        class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-cyan-400 text-[11px] font-mono uppercase tracking-widest mb-3">
+                        class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-cyan-400 text-[11px] font-mono uppercase tracking-widest mb-3 gs-reveal-badge">
                         <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Multi-Dispositivo
                     </div>
-                    <h2 class="text-xl sm:text-3xl font-extrabold text-white uppercase mb-1">
+                    <h2 class="text-xl sm:text-3xl font-extrabold text-white uppercase mb-1 gs-reveal-title">
                         Adaptabilidad Responsiva Real
                     </h2>
                     <div
-                        class="flex items-center justify-center gap-2 text-[11px] sm:text-xs font-mono text-slate-400 mt-2">
+                        class="flex items-center justify-center gap-2 text-[11px] sm:text-xs font-mono text-slate-400 mt-2 gs-reveal-desc">
                         <span id="label-res"
                             class="px-3 py-0.5 rounded-full bg-[#0d2e3e] border border-cyan-500/30 text-cyan-400 font-semibold">
                             Monitor PC
@@ -427,7 +428,8 @@
                     </div>
                 </div>
 
-                <div class="w-full max-w-4xl h-[380px] sm:h-[430px] flex items-center justify-center relative">
+                <div
+                    class="w-full max-w-4xl h-[380px] sm:h-[430px] flex items-center justify-center relative gs-reveal-card">
                     <div id="device-frame"
                         class="relative bg-[#071820] border-[3px] sm:border-4 border-[#122f40] rounded-2xl shadow-2xl flex flex-col overflow-hidden will-change-[width,height,border-radius]"
                         style="width: 100%; max-width: 640px; height: 340px;">
@@ -488,7 +490,8 @@
                     </div>
                 </div>
 
-                <div class="mt-6 flex items-center gap-1.5 p-1 bg-[#071820] border border-cyan-500/20 rounded-full">
+                <div
+                    class="mt-6 flex items-center gap-1.5 p-1 bg-[#071820] border border-cyan-500/20 rounded-full gs-reveal-cta">
                     <button onclick="changeMode(0)" id="btn-0"
                         class="mode-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-[#1ac1d0] text-[#001c25]">💻
                         MONITOR</button>
@@ -502,21 +505,22 @@
             </section>
 
             <!-- SUB-SECCIÓN C: WHATSAPP CONVERSIÓN -->
-            <section id="section-whatsapp" class="min-h-screen flex flex-col items-center justify-center p-6 relative">
+            <section id="section-whatsapp"
+                class="min-h-screen flex flex-col items-center justify-center p-6 relative showcase-block">
                 <div class="text-center mb-6 max-w-xl">
                     <div
-                        class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-emerald-400 text-[11px] font-mono uppercase tracking-widest mb-3">
+                        class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-emerald-400 text-[11px] font-mono uppercase tracking-widest mb-3 gs-reveal-badge">
                         <span class="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></span> Conversión Directa
                     </div>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase">
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase gs-reveal-title">
                         Botón Integrado de WhatsApp
                     </h2>
-                    <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
+                    <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed gs-reveal-desc">
                         Convertí visitas en conversaciones comerciales sin fricciones en un solo toque.
                     </p>
                 </div>
 
-                <div class="device-3d-wrap relative flex items-center justify-center py-2">
+                <div class="device-3d-wrap relative flex items-center justify-center py-2 gs-reveal-card">
                     <div id="floor-shadow-s3"
                         class="absolute -bottom-8 w-[270px] h-10 bg-black/70 rounded-full blur-xl pointer-events-none">
                     </div>
@@ -600,14 +604,55 @@
         </div>
 
         <!-- =====================================================
-         4TA SECCIÓN: PROCESO CLARO (EXTENDIDO Y PINNED)
+         4TA SECCIÓN: SOLUCIONES (LO QUE HACEMOS & MODALES)
+         ===================================================== -->
+        <section class="servicios section-wrapper" id="servicios">
+            <div class="section-inner">
+                <div class="servicios-header text-center">
+                    <div class="section-tag center-tag gs-reveal-badge">Soluciones</div>
+                    <h2 class="section-title gs-reveal-title">Estructuras digitales que <em
+                            class="text-cyan">venden.</em></h2>
+                </div>
+                <div class="servicios-grid">
+                    <div class="card card-service" data-modal="landing">
+                        <div class="card-icon-box"><i class="fa-solid fa-rocket"></i></div>
+                        <h3 class="card-title-md">Landing Page</h3>
+                        <p class="card-text">Una página con un solo objetivo: que te escriban por WhatsApp. Hero,
+                            beneficios, prueba social y CTA. Lista en 3 a 7 días.</p>
+                        <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
+                        <span class="card-line"></span>
+                    </div>
+                    <div class="card card-service" data-modal="institucional">
+                        <div class="card-icon-box"><i class="fa-solid fa-building"></i></div>
+                        <h3 class="card-title-md">Web Institucional</h3>
+                        <p class="card-text">Presencia completa para tu negocio: quiénes somos, servicios, galería y
+                            contacto. La carta de presentación que cierra clientes.</p>
+                        <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
+                        <span class="card-line"></span>
+                    </div>
+                    <div class="card card-service" data-modal="catalogo">
+                        <div class="card-icon-box"><i class="fa-solid fa-store"></i></div>
+                        <h3 class="card-title-md">Catálogo Digital</h3>
+                        <p class="card-text">Mostrá tus productos con filtros y fichas individuales. Cada ítem con botón
+                            de pedido directo por WhatsApp sin pasarelas engorrosas.</p>
+                        <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
+                        <span class="card-line"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+         5TA SECCIÓN: METODOLOGÍA (LUCES PERSISTENTES GSAP)
          ===================================================== -->
         <section class="proceso section-wrapper" id="proceso">
             <div class="section-inner">
-                <div class="proceso-header text-center gs-reveal-up">
-                    <div class="section-tag center-tag">Metodología</div>
-                    <h2 class="section-title">Tu sitio web en <em class="text-cyan">4 pasos simples.</em></h2>
-                    <p class="section-subtitle mx-auto">Un flujo transparente, medible y sin tecnicismos complejos.</p>
+                <div class="proceso-header text-center">
+                    <div class="section-tag center-tag gs-reveal-badge">Metodología</div>
+                    <h2 class="section-title gs-reveal-title">Tu sitio web en <em class="text-cyan">4 pasos
+                            simples.</em></h2>
+                    <p class="section-subtitle mx-auto gs-reveal-desc">Un flujo transparente, medible y sin tecnicismos
+                        complejos.</p>
                 </div>
                 <div class="proceso-steps-container">
                     <div class="proceso-line-bg"></div>
@@ -651,59 +696,19 @@
         </section>
 
         <!-- =====================================================
-         5TA SECCIÓN: LO QUE HACEMOS (SERVICIOS & MODALES)
-         ===================================================== -->
-        <section class="servicios section-wrapper" id="servicios">
-            <div class="section-inner">
-                <div class="servicios-header">
-                    <div class="gs-reveal-up">
-                        <div class="section-tag">Soluciones</div>
-                        <h2 class="section-title">Estructuras digitales que <em class="text-cyan">venden.</em></h2>
-                    </div>
-                </div>
-                <div class="servicios-grid">
-                    <div class="card card-service" data-modal="landing">
-                        <div class="card-icon-box"><i class="fa-solid fa-rocket"></i></div>
-                        <h3 class="card-title-md">Landing Page</h3>
-                        <p class="card-text">Una página con un solo objetivo: que te escriban por WhatsApp. Hero,
-                            beneficios, prueba social y CTA. Lista en 3 a 7 días.</p>
-                        <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
-                        <span class="card-line"></span>
-                    </div>
-                    <div class="card card-service" data-modal="institucional">
-                        <div class="card-icon-box"><i class="fa-solid fa-building"></i></div>
-                        <h3 class="card-title-md">Web Institucional</h3>
-                        <p class="card-text">Presencia completa para tu negocio: quiénes somos, servicios, galería y
-                            contacto. La carta de presentación que cierra clientes.</p>
-                        <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
-                        <span class="card-line"></span>
-                    </div>
-                    <div class="card card-service" data-modal="catalogo">
-                        <div class="card-icon-box"><i class="fa-solid fa-store"></i></div>
-                        <h3 class="card-title-md">Catálogo Digital</h3>
-                        <p class="card-text">Mostrá tus productos con filtros y fichas individuales. Cada ítem con botón
-                            de pedido directo por WhatsApp sin pasarelas engorrosas.</p>
-                        <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
-                        <span class="card-line"></span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =====================================================
          6TA SECCIÓN: PLANES CLAROS, SIN SORPRESAS
          ===================================================== -->
         <section class="planes-grid-section section-wrapper" id="planes">
             <div class="section-inner text-center">
-                <div class="section-tag center-tag gs-reveal-up">Inversión Transparente</div>
-                <h2 class="section-title gs-reveal-up">Planes claros, <em class="text-cyan">sin sorpresas</em></h2>
-                <p class="section-subtitle mx-auto gs-reveal-up" style="margin-bottom: 3.5rem;">
+                <div class="section-tag center-tag gs-reveal-badge">Inversión Transparente</div>
+                <h2 class="section-title gs-reveal-title">Planes claros, <em class="text-cyan">sin sorpresas</em></h2>
+                <p class="section-subtitle mx-auto gs-reveal-desc" style="margin-bottom: 3.5rem;">
                     Pago en 2 partes: 50% al inicio y 50% al entregar y validar tu sitio.
                 </p>
 
-                <div class="pricing-cards-grid gs-reveal-up">
+                <div class="pricing-cards-grid">
                     <!-- PLAN 1: LANDING PAGE -->
-                    <div class="pricing-card">
+                    <div class="pricing-card gs-pricing-card">
                         <div class="pricing-card-header">
                             <span class="pricing-plan-badge">LANDING PAGE</span>
                             <div class="pricing-plan-price">Desde $300 USD <span class="pricing-currency">o en
@@ -724,8 +729,8 @@
                         </a>
                     </div>
 
-                    <!-- PLAN 2: WEB INSTITUCIONAL PRO (DESTACADO CON ALTO CONTRASTE) -->
-                    <div class="pricing-card pricing-card-featured">
+                    <!-- PLAN 2: WEB INSTITUCIONAL PRO -->
+                    <div class="pricing-card pricing-card-featured gs-pricing-card">
                         <div class="pricing-featured-ribbon">★ MÁS ELEGIDO</div>
                         <div class="pricing-card-header">
                             <span class="pricing-plan-badge badge-cyan">SITIO INSTITUCIONAL</span>
@@ -747,8 +752,8 @@
                         </a>
                     </div>
 
-                    <!-- PLAN 3: CATÁLOGO DIGITAL WHATSAPP (GROWTH ENGINE) -->
-                    <div class="pricing-card">
+                    <!-- PLAN 3: CATÁLOGO DIGITAL WHATSAPP -->
+                    <div class="pricing-card gs-pricing-card">
                         <div class="pricing-card-header">
                             <span class="pricing-plan-badge">CATÁLOGO DIGITAL WA</span>
                             <div class="pricing-plan-price">Desde $950 USD <span class="pricing-currency">o en
@@ -770,7 +775,7 @@
                     </div>
                 </div>
 
-                <p class="pricing-custom-footer gs-reveal-up">
+                <p class="pricing-custom-footer gs-reveal-cta">
                     ¿Tenés un proyecto especial? <a
                         href="https://wa.me/5491125371329?text=Hola!%20Tengo%20un%20proyecto%20especial%20a%20medida."
                         target="_blank" rel="noopener" class="text-cyan font-bold underline">Podemos armar un
@@ -780,16 +785,16 @@
         </section>
 
         <!-- =====================================================
-         7MA SECCIÓN: FAQ Y FOOTER CONSOLIDADO
+         7MA SECCIÓN: FAQ & FOOTER
          ===================================================== -->
         <section class="faq section-wrapper" id="faq">
             <div class="section-inner">
-                <div class="faq-header text-center gs-reveal-up">
-                    <div class="section-tag center-tag">Dudas Frecuentes</div>
-                    <h2 class="section-title">Preguntas <em class="text-cyan">frecuentes.</em></h2>
+                <div class="faq-header text-center">
+                    <div class="section-tag center-tag gs-reveal-badge">Dudas Frecuentes</div>
+                    <h2 class="section-title gs-reveal-title">Preguntas <em class="text-cyan">frecuentes.</em></h2>
                 </div>
                 <div class="faq-list">
-                    <div class="faq-item gs-reveal-up">
+                    <div class="faq-item gs-faq-item">
                         <button class="faq-question" aria-expanded="false">
                             <span>¿En cuánto tiempo está lista mi página?</span>
                             <i class="fa-solid fa-plus faq-icon"></i>
@@ -801,7 +806,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="faq-item gs-reveal-up">
+                    <div class="faq-item gs-faq-item">
                         <button class="faq-question" aria-expanded="false">
                             <span>¿Necesito saber programar para gestionar la web?</span>
                             <i class="fa-solid fa-plus faq-icon"></i>
@@ -814,7 +819,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="faq-item gs-reveal-up">
+                    <div class="faq-item gs-faq-item">
                         <button class="faq-question" aria-expanded="false">
                             <span>¿El dominio .com.ar y el hosting están incluidos?</span>
                             <i class="fa-solid fa-plus faq-icon"></i>
@@ -826,7 +831,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="faq-item gs-reveal-up">
+                    <div class="faq-item gs-faq-item">
                         <button class="faq-question" aria-expanded="false">
                             <span>¿Cómo es la forma de pago?</span>
                             <i class="fa-solid fa-plus faq-icon"></i>
@@ -890,8 +895,8 @@
                     <ul class="footer-links">
                         <li><a href="#portfolio">Proyectos</a></li>
                         <li><a href="#showcase">Showcase 3D</a></li>
-                        <li><a href="#proceso">Proceso</a></li>
                         <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#proceso">Proceso</a></li>
                         <li><a href="#planes">Planes</a></li>
                     </ul>
                 </div>
