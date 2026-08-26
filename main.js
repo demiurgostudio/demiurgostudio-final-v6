@@ -1,9 +1,8 @@
 /* =====================================================
-   1. SETUP INICIAL GSAP & SCROLL NATIVO SEGURO
+   1. SETUP GSAP & SCROLL NATIVO SEGURO
    ===================================================== */
 gsap.registerPlugin(ScrollTrigger);
 
-// Navegación fluida evitando selector vacío '#'
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     const href = this.getAttribute("href");
@@ -83,10 +82,9 @@ const SERVICIOS_DATA = {
 };
 
 /* =====================================================
-   3. UI FLOTANTES, CURSOR Y SMART NAVBAR
+   3. UI FLOTANTES, CURSOR & SMART NAVBAR
    ===================================================== */
 (function initUI() {
-  // Cursor magnético en Desktop
   const cursor = document.getElementById("cursor-glow");
   if (cursor && window.innerWidth > 768) {
     let mouseX = 0, mouseY = 0, curX = 0, curY = 0;
@@ -106,7 +104,6 @@ const SERVICIOS_DATA = {
     });
   }
 
-  // Smart Nav con ScrollTrigger
   const nav = document.getElementById("smart-nav");
   if (nav) {
     let lastScroll = 0;
@@ -124,7 +121,6 @@ const SERVICIOS_DATA = {
     });
   }
 
-  // Drawer Mobile
   const hamburger = document.getElementById("nav-hamburger");
   const drawer = document.getElementById("mobile-drawer");
   const overlay = document.getElementById("mobile-overlay");
@@ -142,7 +138,6 @@ const SERVICIOS_DATA = {
   if (overlay) overlay.addEventListener("click", () => toggleDrawer(false));
   document.querySelectorAll(".mobile-drawer-link").forEach((l) => l.addEventListener("click", () => toggleDrawer(false)));
 
-  // Toast
   const toast = document.getElementById("welcome-toast");
   const toastClose = document.getElementById("toast-close");
   if (toast) {
@@ -159,36 +154,83 @@ const SERVICIOS_DATA = {
 })();
 
 /* =====================================================
-   4. SECCIÓN 2: CARRUSEL DE PORTFOLIO INTERACTIVO
+   4. SECCIÓN 1: ANIMACIÓN HERO CON DELAYS DIRECCIONALES
    ===================================================== */
-(function initPortfolioSlider() {
+function initHeroAnimations() {
+  const tlHero = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+  tlHero
+    .fromTo(".hero-anim-badge", { autoAlpha: 0, scale: 0.7, y: -20 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.75, delay: 0.2 })
+    .fromTo(".hero-anim-title", { autoAlpha: 0, x: -60, filter: "blur(6px)" }, { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: 0.95 }, "-=0.45")
+    .fromTo(".hero-anim-desc", { autoAlpha: 0, y: 35 }, { autoAlpha: 1, y: 0, duration: 0.8 }, "-=0.5")
+    .fromTo(".hero-anim-btn-1", { autoAlpha: 0, scale: 0.8, x: -20 }, { autoAlpha: 1, scale: 1, x: 0, duration: 0.65, ease: "back.out(1.7)" }, "-=0.4")
+    .fromTo(".hero-anim-btn-2", { autoAlpha: 0, scale: 0.8, x: 20 }, { autoAlpha: 1, scale: 1, x: 0, duration: 0.65, ease: "back.out(1.7)" }, "-=0.5")
+    .fromTo(".hero-anim-proof", { autoAlpha: 0, y: 25 }, { autoAlpha: 1, y: 0, duration: 0.75 }, "-=0.35")
+    .fromTo(".hero-anim-scroll", { autoAlpha: 0, y: -15 }, { autoAlpha: 1, y: 0, duration: 0.6 }, "-=0.2");
+}
+
+/* =====================================================
+   5. SECCIÓN 2: PORTFOLIO CON SCROLLTRIGGER PINNED
+   ===================================================== */
+function initPortfolioSlider() {
   const track = document.getElementById("slider-track");
   const prevBtn = document.getElementById("slider-prev-btn");
   const nextBtn = document.getElementById("slider-next-btn");
-  if (!track || !prevBtn || !nextBtn) return;
+  const progressBar = document.getElementById("slider-progress-bar");
+  const portfolioSection = document.getElementById("portfolio");
+
+  if (!track || !portfolioSection) return;
 
   const items = document.querySelectorAll(".slider-card-item");
+  const totalCards = items.length;
   let currentIndex = 0;
-  const total = items.length;
 
   function updateSlider(index) {
-    currentIndex = (index + total) % total;
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    currentIndex = (index + totalCards) % totalCards;
+    gsap.to(track, {
+      xPercent: -currentIndex * 100,
+      duration: 0.65,
+      ease: "power2.out"
+    });
+    if (progressBar) {
+      gsap.to(progressBar, { width: `${((currentIndex + 1) / totalCards) * 100}%`, duration: 0.4 });
+    }
   }
 
-  prevBtn.addEventListener("click", () => updateSlider(currentIndex - 1));
-  nextBtn.addEventListener("click", () => updateSlider(currentIndex + 1));
-})();
+  if (prevBtn) prevBtn.addEventListener("click", () => updateSlider(currentIndex - 1));
+  if (nextBtn) nextBtn.addEventListener("click", () => updateSlider(currentIndex + 1));
+
+  // Efecto pin al scrollear para pasar los casos
+  if (window.innerWidth > 768) {
+    ScrollTrigger.create({
+      trigger: portfolioSection,
+      start: "top top",
+      end: "+=1800",
+      pin: true,
+      scrub: 1,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        const targetIndex = Math.min(Math.floor(progress * totalCards), totalCards - 1);
+        if (targetIndex !== currentIndex) {
+          currentIndex = targetIndex;
+          gsap.to(track, { xPercent: -currentIndex * 100, duration: 0.4, ease: "power1.out" });
+        }
+        if (progressBar) {
+          gsap.set(progressBar, { width: `${progress * 100}%` });
+        }
+      }
+    });
+  }
+}
 
 /* =====================================================
-   5. SECCIÓN 3: SHOWCASE 3D MODULARIZADO
+   6. SECCIÓN 3: SHOWCASE 3D GESTIONADO POR SCROLLTRIGGER
    ===================================================== */
-// Controlador Parallax de Dispositivos 3D
+// Controlador Parallax
 const deviceBodyS1 = document.querySelector("#device-body-s1");
 const floorShadowS1 = document.querySelector("#floor-shadow-s1");
 const deviceBodyS3 = document.querySelector("#device-body-s3");
 const floorShadowS3 = document.querySelector("#floor-shadow-s3");
-
 const baseRotX = 6, baseRotY = -10, baseRotZ = -1;
 
 [deviceBodyS1, deviceBodyS3].forEach((el) => {
@@ -207,7 +249,7 @@ window.addEventListener("mousemove", (e) => {
   });
 });
 
-// Timeline Sección Google Search -> Landing
+// Timelines de las subsecciones
 const googleScene = document.querySelector("#google-scene");
 const googleInnerContent = document.querySelector("#google-inner-content");
 const websiteSceneS1 = document.querySelector("#website-scene-s1");
@@ -219,33 +261,17 @@ const fakeCursorS1 = document.querySelector("#fake-cursor-s1");
 const clickRippleS1 = document.querySelector("#click-ripple-s1");
 const googleLogoWrap = document.querySelector("#google-logo-wrap");
 
-const query = "estudio de diseño web buenos aires";
+const queryText = "estudio de diseño web buenos aires";
 const typingObj = { count: 0 };
-const tlS1 = gsap.timeline({ repeat: -1, repeatDelay: 2.5, onRepeat: resetS1State });
+const tlS1 = gsap.timeline({ repeat: -1, repeatDelay: 2.5, paused: true });
 
-function resetS1State() {
-  typingObj.count = 0;
-  if (searchText) searchText.textContent = "";
-  gsap.set(googleLogoWrap, { height: "auto", opacity: 1, margin: "1.5rem 0" });
-  gsap.set(googleTabs, { opacity: 0 });
-  gsap.set(resultsFake, { opacity: 0 });
-  gsap.set(googleInnerContent, { filter: "blur(0px)", scale: 1 });
-  gsap.set(jarvisCard, { opacity: 0, scale: 0.72, y: 0, z: 0 });
-  if (jarvisCard) jarvisCard.classList.remove("jarvis-floating-glow");
-  gsap.set(fakeCursorS1, { x: 260, y: 480, opacity: 0 });
-  gsap.set(clickRippleS1, { x: 155, y: 195, scale: 0, opacity: 0 });
-  gsap.set(googleScene, { opacity: 1, scale: 1, filter: "blur(0px)" });
-  gsap.set(websiteSceneS1, { opacity: 0 });
-}
-
-function startS1Animation() {
+function setupS1Timeline() {
   if (!googleScene) return;
-  resetS1State();
   tlS1
     .to(typingObj, {
-      count: query.length, duration: 1.8, ease: "none",
-      onUpdate: () => { searchText.textContent = query.substring(0, Math.floor(typingObj.count)); },
-    }, "+=0.4")
+      count: queryText.length, duration: 1.8, ease: "none",
+      onUpdate: () => { if (searchText) searchText.textContent = queryText.substring(0, Math.floor(typingObj.count)); },
+    }, "+=0.3")
     .to(googleLogoWrap, { height: 0, opacity: 0, margin: 0, duration: 0.4 }, "+=0.2")
     .to([googleTabs, resultsFake], { opacity: 1, duration: 0.35 })
     .to(jarvisCard, { opacity: 1, scale: 0.72, duration: 0.5, ease: "back.out(1.4)" }, "-=0.2")
@@ -254,7 +280,7 @@ function startS1Animation() {
       scale: 1.0, y: -15, z: 140, duration: 1.0, ease: "power3.out",
       onStart: () => jarvisCard.classList.add("jarvis-floating-glow"),
     }, "<")
-    .to({}, { duration: 2.0 })
+    .to({}, { duration: 1.8 })
     .to(googleInnerContent, { filter: "blur(0px)", scale: 1, duration: 0.7 })
     .to(jarvisCard, {
       scale: 0.72, y: 0, z: 0, duration: 0.7,
@@ -267,12 +293,12 @@ function startS1Animation() {
     .to(googleScene, { opacity: 0, filter: "blur(8px)", duration: 0.6 })
     .to(jarvisCard, { opacity: 0, duration: 0.3 }, "<")
     .to(websiteSceneS1, { opacity: 1, duration: 0.4 }, "-=0.4")
-    .to({}, { duration: 4.0 })
+    .to({}, { duration: 3.5 })
     .to(websiteSceneS1, { opacity: 0, duration: 0.6 })
     .to(googleScene, { opacity: 1, filter: "blur(0px)", duration: 0.6 }, "-=0.3");
 }
 
-// Controlador Responsive Showcase
+// Subsección Responsive
 const frame = document.getElementById("device-frame");
 const labelRes = document.getElementById("label-res");
 const modeButtons = document.querySelectorAll(".mode-btn");
@@ -310,11 +336,14 @@ function changeMode(index) {
 }
 
 function startResponsiveLoop() {
-  responsiveTimer = setInterval(() => changeMode((currentMode + 1) % 3), 4200);
+  if (responsiveTimer) clearInterval(responsiveTimer);
+  responsiveTimer = setInterval(() => changeMode((currentMode + 1) % 3), 3800);
 }
-modeButtons.forEach((b) => b.addEventListener("pointerdown", () => clearInterval(responsiveTimer)));
+function stopResponsiveLoop() {
+  if (responsiveTimer) clearInterval(responsiveTimer);
+}
 
-// Timeline Sección Conversión WhatsApp
+// Subsección WhatsApp
 const floatingBtnS3 = document.querySelector("#floating-btn-s3");
 const fakeCursorS3 = document.querySelector("#fake-cursor-s3");
 const clickRippleS3 = document.querySelector("#click-ripple-s3");
@@ -323,9 +352,9 @@ const whatsappScreen = document.querySelector("#whatsapp-screen");
 const msgs = document.querySelectorAll(".chat-msg");
 const typing = document.querySelector("#typing-indicator");
 
-const tlS3 = gsap.timeline({ repeat: -1, repeatDelay: 2.5 });
+const tlS3 = gsap.timeline({ repeat: -1, repeatDelay: 2.5, paused: true });
 
-function startS3Animation() {
+function setupS3Timeline() {
   if (!floatingBtnS3) return;
   gsap.set(fakeCursorS3, { x: 30, y: 140, opacity: 0 });
   gsap.set(websiteSceneS3, { opacity: 1 });
@@ -353,44 +382,117 @@ function startS3Animation() {
     .to(websiteSceneS3, { opacity: 1, duration: 0.6 }, "-=0.4");
 }
 
+// Vincular activación y apagado para optimizar rendimiento y batería
+function initShowcaseObservers() {
+  setupS1Timeline();
+  setupS3Timeline();
+
+  // Subsección 1 (Google)
+  ScrollTrigger.create({
+    trigger: "#section-google",
+    start: "top 70%",
+    end: "bottom 20%",
+    onEnter: () => {
+      document.querySelector("#section-google").classList.remove("is-inactive");
+      tlS1.play();
+    },
+    onLeave: () => {
+      document.querySelector("#section-google").classList.add("is-inactive");
+      tlS1.pause();
+    },
+    onEnterBack: () => {
+      document.querySelector("#section-google").classList.remove("is-inactive");
+      tlS1.play();
+    },
+    onLeaveBack: () => {
+      document.querySelector("#section-google").classList.add("is-inactive");
+      tlS1.pause();
+    }
+  });
+
+  // Subsección 2 (Responsive)
+  ScrollTrigger.create({
+    trigger: "#section-responsive",
+    start: "top 70%",
+    end: "bottom 20%",
+    onEnter: () => {
+      document.querySelector("#section-responsive").classList.remove("is-inactive");
+      startResponsiveLoop();
+    },
+    onLeave: () => {
+      document.querySelector("#section-responsive").classList.add("is-inactive");
+      stopResponsiveLoop();
+    },
+    onEnterBack: () => {
+      document.querySelector("#section-responsive").classList.remove("is-inactive");
+      startResponsiveLoop();
+    },
+    onLeaveBack: () => {
+      document.querySelector("#section-responsive").classList.add("is-inactive");
+      stopResponsiveLoop();
+    }
+  });
+
+  // Subsección 3 (WhatsApp)
+  ScrollTrigger.create({
+    trigger: "#section-whatsapp",
+    start: "top 70%",
+    end: "bottom 20%",
+    onEnter: () => {
+      document.querySelector("#section-whatsapp").classList.remove("is-inactive");
+      tlS3.play();
+    },
+    onLeave: () => {
+      document.querySelector("#section-whatsapp").classList.add("is-inactive");
+      tlS3.pause();
+    },
+    onEnterBack: () => {
+      document.querySelector("#section-whatsapp").classList.remove("is-inactive");
+      tlS3.play();
+    },
+    onLeaveBack: () => {
+      document.querySelector("#section-whatsapp").classList.add("is-inactive");
+      tlS3.pause();
+    }
+  });
+}
+
 /* =====================================================
-   6. SECCIÓN 4: PROCESO GSAP CON SCROLL EXTENDIDO
+   7. SECCIÓN 5: METODOLOGÍA (LUCES PERSISTENTES GSAP)
    ===================================================== */
-(function initProcesoScroll() {
-  const procesoContainer = document.querySelector(".proceso-steps-container");
+function initMetodologiaScroll() {
+  const procesoSection = document.querySelector("#proceso");
   const fill = document.querySelector(".proceso-line-fill");
   const steps = document.querySelectorAll(".gs-step");
-  if (!procesoContainer || !fill || !steps.length) return;
+  if (!procesoSection || !fill || !steps.length) return;
 
-  // Barra de progreso vinculada al scroll
+  // Llenado continuo de línea
   gsap.to(fill, {
-    height: "100%", ease: "none",
+    height: "100%",
+    ease: "none",
     scrollTrigger: {
-      trigger: "#proceso",
-      start: "top 40%",
-      end: "bottom 80%",
-      scrub: 0.5,
+      trigger: procesoSection,
+      start: "top 60%",
+      end: "bottom 70%",
+      scrub: 0.4,
     },
   });
 
-  // Activación escalonada de pasos con permanencia
+  // Encendido progresivo y permanente de los círculos
   steps.forEach((step) => {
     ScrollTrigger.create({
       trigger: step,
       start: "top 65%",
-      end: "bottom 35%",
       onEnter: () => step.classList.add("active"),
-      onLeave: () => step.classList.remove("active"),
-      onEnterBack: () => step.classList.add("active"),
       onLeaveBack: () => step.classList.remove("active"),
     });
   });
-})();
+}
 
 /* =====================================================
-   7. SECCIÓN 5: MODAL DE SERVICIOS DINÁMICO
+   8. MODAL DE SERVICIOS DINÁMICO
    ===================================================== */
-(function initServicesModals() {
+function initServicesModals() {
   const modal = document.getElementById("modal-services");
   if (!modal) return;
 
@@ -431,12 +533,54 @@ function startS3Animation() {
   document.querySelectorAll('[data-close="modal-services"]').forEach((b) => b.addEventListener("click", closeModal));
   modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
-})();
+}
 
 /* =====================================================
-   8. REVEALS GLOBALES CON SCROLLTRIGGER & INICIALIZACIÓN
+   9. REVEALS POR GRAVEDAD Y DELAY ESCALONADO
    ===================================================== */
-(function initGlobalReveals() {
+function initGlobalReveals() {
+  // Badges
+  gsap.utils.toArray(".gs-reveal-badge").forEach((el) => {
+    gsap.fromTo(el, { autoAlpha: 0, scale: 0.8, y: -15 }, {
+      autoAlpha: 1, scale: 1, y: 0, duration: 0.6, ease: "back.out(1.5)",
+      scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none reverse" }
+    });
+  });
+
+  // Títulos
+  gsap.utils.toArray(".gs-reveal-title").forEach((el) => {
+    gsap.fromTo(el, { autoAlpha: 0, y: 35 }, {
+      autoAlpha: 1, y: 0, duration: 0.8, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 86%", toggleActions: "play none none reverse" }
+    });
+  });
+
+  // Párrafos / Subtítulos
+  gsap.utils.toArray(".gs-reveal-desc").forEach((el) => {
+    gsap.fromTo(el, { autoAlpha: 0, y: 25 }, {
+      autoAlpha: 1, y: 0, duration: 0.7, delay: 0.15, ease: "power2.out",
+      scrollTrigger: { trigger: el, start: "top 86%", toggleActions: "play none none reverse" }
+    });
+  });
+
+  // Tarjetas de Soluciones / Servicios
+  gsap.fromTo(".card-service", { autoAlpha: 0, y: 45, scale: 0.95 }, {
+    autoAlpha: 1, y: 0, scale: 1, duration: 0.75, stagger: 0.18, ease: "power3.out",
+    scrollTrigger: { trigger: ".servicios-grid", start: "top 80%", toggleActions: "play none none reverse" }
+  });
+
+  // Tarjetas de Precios
+  gsap.fromTo(".gs-pricing-card", { autoAlpha: 0, y: 50, scale: 0.94 }, {
+    autoAlpha: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.2, ease: "power3.out",
+    scrollTrigger: { trigger: ".pricing-cards-grid", start: "top 80%", toggleActions: "play none none reverse" }
+  });
+
+  // Preguntas Frecuentes
+  gsap.fromTo(".gs-faq-item", { autoAlpha: 0, x: -30 }, {
+    autoAlpha: 1, x: 0, duration: 0.6, stagger: 0.12, ease: "power2.out",
+    scrollTrigger: { trigger: ".faq-list", start: "top 85%", toggleActions: "play none none reverse" }
+  });
+
   // Acordeón FAQ
   document.querySelectorAll(".faq-question").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -445,24 +589,16 @@ function startS3Animation() {
       if (!isOpen) btn.setAttribute("aria-expanded", "true");
     });
   });
+}
 
-  // Animaciones de revelado suave al scrollear
-  gsap.utils.toArray(".gs-reveal-up").forEach((el) => {
-    gsap.fromTo(
-      el,
-      { autoAlpha: 0, y: 35 },
-      {
-        autoAlpha: 1, y: 0, duration: 0.8, ease: "power2.out",
-        scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none reverse" },
-      }
-    );
-  });
-})();
-
-// Inicio sincronizado al cargar página
+/* =====================================================
+   10. INICIALIZACIÓN GLOBAL
+   ===================================================== */
 window.addEventListener("load", () => {
-  startS1Animation();
-  changeMode(0);
-  startResponsiveLoop();
-  startS3Animation();
+  initHeroAnimations();
+  initPortfolioSlider();
+  initShowcaseObservers();
+  initMetodologiaScroll();
+  initServicesModals();
+  initGlobalReveals();
 });
