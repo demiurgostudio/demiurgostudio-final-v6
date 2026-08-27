@@ -30,7 +30,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--cyan-dark) var(--navy);
 }
@@ -254,7 +253,149 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 /* =====================================================
-   5. SECCIÓN 2: PORTFOLIO PINNED & PROGRESS BAR
+   5. SECCIÓN 2: SHOWCASE 3D SLIDER (HORIZONTAL)
+   ===================================================== */
+.showcase-slider-section {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--navy-dark);
+  overflow: hidden;
+  border-top: 1px solid rgba(26, 193, 208, 0.12);
+  border-bottom: 1px solid rgba(26, 193, 208, 0.12);
+}
+
+.showcase-viewport {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.showcase-track {
+  display: flex;
+  width: 300%;
+  height: 100%;
+  will-change: transform;
+}
+
+.showcase-slide {
+  width: 100vw;
+  min-height: 100dvh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem 3.5rem;
+  position: relative;
+}
+
+.showcase-block-google {
+  background: radial-gradient(circle at 50% 30%, rgba(13, 46, 62, 0.45) 0%, #001c25 80%);
+}
+.showcase-block-responsive {
+  background: radial-gradient(circle at 50% 40%, rgba(7, 24, 32, 0.9) 0%, #00131a 100%);
+}
+.showcase-block-wa {
+  background: radial-gradient(circle at 50% 30%, rgba(7, 36, 24, 0.4) 0%, #001c25 80%);
+}
+
+.showcase-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(0, 28, 37, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(26, 193, 208, 0.4);
+  color: var(--cyan);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+.showcase-arrow:hover {
+  background: var(--cyan);
+  color: var(--navy);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 20px rgba(26, 193, 208, 0.5);
+}
+.showcase-arrow-prev { left: 2rem; }
+.showcase-arrow-next { right: 2rem; }
+
+.showcase-dots {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.6rem;
+  z-index: 60;
+}
+.showcase-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(26, 193, 208, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.showcase-dot.is-active {
+  background: var(--cyan);
+  width: 32px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+.device-3d-wrap { perspective: 1500px; transform-style: preserve-3d; }
+.device-chassis-3d {
+  box-shadow: -3px 0 0 1px #122f40, -6px 0 0 2px #071820, 0 25px 50px rgba(0, 0, 0, 0.95);
+}
+.crisp-vector { backface-visibility: hidden; will-change: transform, opacity; }
+.jarvis-floating-glow {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95), 0 0 50px rgba(26, 193, 208, 0.45);
+}
+.chat-pattern {
+  background-color: #072418;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+@keyframes waGlowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+  50% { box-shadow: 0 0 0 8px rgba(37, 211, 102, 0); }
+}
+.wa-floating-btn { animation: waGlowPulse 2s infinite ease-in-out; }
+
+#device-frame { container-type: inline-size; container-name: stage; }
+
+@container stage (min-width: 400px) {
+  .cq-menu-full { display: flex !important; }
+  .cq-menu-burger { display: none !important; }
+  .cq-hero-title { font-size: 1.15rem !important; line-height: 1.25 !important; max-width: 420px !important; }
+  .cq-cards-grid { grid-template-columns: repeat(4, 1fr) !important; }
+}
+@container stage (min-width: 240px) and (max-width: 399px) {
+  .cq-menu-full { display: none !important; }
+  .cq-menu-burger { display: flex !important; }
+  .cq-hero-title { font-size: 0.95rem !important; line-height: 1.2 !important; }
+  .cq-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@container stage (max-width: 239px) {
+  .cq-menu-full { display: none !important; }
+  .cq-menu-burger { display: flex !important; }
+  .cq-hero-title { font-size: 0.78rem !important; line-height: 1.15 !important; }
+  .cq-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* =====================================================
+   6. SECCIÓN 3: PORTFOLIO PINNED & PROGRESS BAR
    ===================================================== */
 .proyectos-destacados {
   background: var(--navy-dark);
@@ -335,118 +476,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .slider-arrow:hover { background: var(--cyan); color: var(--navy); }
 .slider-cta-wrap { margin-top: 2.5rem; }
 .slider-prompt { font-size: 1.05rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--white); }
-
-/* =====================================================
-   6. SECCIÓN 3: SHOWCASE 3D INTEGRADO
-   ===================================================== */
-.showcase-block-google {
-  background: radial-gradient(circle at 50% 30%, rgba(13, 46, 62, 0.45) 0%, #001c25 80%);
-}
-.showcase-block-responsive {
-  background: radial-gradient(circle at 50% 40%, rgba(7, 24, 32, 0.9) 0%, #00131a 100%);
-}
-.showcase-block-wa {
-  background: radial-gradient(circle at 50% 30%, rgba(7, 36, 24, 0.4) 0%, #001c25 80%);
-}
-
-/* Barras de progreso de scroll lateral para cada escena */
-.showcase-progress-track {
-  position: absolute;
-  right: 1.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 120px;
-  background: rgba(26, 193, 208, 0.15);
-  border-radius: var(--radius-full);
-  z-index: 40;
-  overflow: hidden;
-}
-.showcase-progress-fill {
-  width: 100%;
-  height: 0%;
-  background: var(--cyan);
-  box-shadow: 0 0 10px var(--cyan);
-}
-
-/* Indicador animado "SCROLL" que aparece al finalizar la animación */
-@keyframes scrollHintPulse {
-  0%, 100% { transform: translate(-50%, 0); opacity: 1; }
-  50% { transform: translate(-50%, 6px); opacity: 0.7; }
-}
-
-.showcase-scroll-cue {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  background: rgba(0, 28, 37, 0.9);
-  border: 1px solid rgba(26, 193, 208, 0.45);
-  padding: 0.45rem 1.3rem;
-  border-radius: var(--radius-full);
-  backdrop-filter: blur(10px);
-  color: var(--cyan);
-  font-family: var(--font-body);
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  z-index: 50;
-  box-shadow: 0 0 24px rgba(26, 193, 208, 0.35);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-.showcase-scroll-cue.is-active {
-  opacity: 1 !important;
-  animation: scrollHintPulse 1.8s infinite ease-in-out;
-}
-.showcase-scroll-cue i { font-size: 0.85rem; color: var(--cyan); }
-
-/* Efectos 3D y chasis de celulares */
-.device-3d-wrap { perspective: 1500px; transform-style: preserve-3d; }
-.device-chassis-3d {
-  box-shadow: -3px 0 0 1px #122f40, -6px 0 0 2px #071820, 0 25px 50px rgba(0, 0, 0, 0.95);
-}
-.crisp-vector { backface-visibility: hidden; will-change: transform, opacity; }
-.jarvis-floating-glow {
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95), 0 0 50px rgba(26, 193, 208, 0.45);
-}
-.chat-pattern {
-  background-color: #072418;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 16px 16px;
-}
-@keyframes waGlowPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
-  50% { box-shadow: 0 0 0 8px rgba(37, 211, 102, 0); }
-}
-.wa-floating-btn { animation: waGlowPulse 2s infinite ease-in-out; }
-
-/* Container Queries para simulación de dispositivo (Desktop, Tablet, Mobile) */
-#device-frame { container-type: inline-size; container-name: stage; }
-
-@container stage (min-width: 400px) {
-  .cq-menu-full { display: flex !important; }
-  .cq-menu-burger { display: none !important; }
-  .cq-hero-title { font-size: 1.15rem !important; line-height: 1.25 !important; max-width: 420px !important; }
-  .cq-cards-grid { grid-template-columns: repeat(4, 1fr) !important; }
-}
-@container stage (min-width: 240px) and (max-width: 399px) {
-  .cq-menu-full { display: none !important; }
-  .cq-menu-burger { display: flex !important; }
-  .cq-hero-title { font-size: 0.95rem !important; line-height: 1.2 !important; }
-  .cq-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
-}
-@container stage (max-width: 239px) {
-  .cq-menu-full { display: none !important; }
-  .cq-menu-burger { display: flex !important; }
-  .cq-hero-title { font-size: 0.78rem !important; line-height: 1.15 !important; }
-  .cq-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
-}
 
 /* =====================================================
    7. SECCIÓN 4: SOLUCIONES (SERVICIOS)
@@ -638,11 +667,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .nav-hamburger { display: flex; }
   .hero { padding: 7.5rem 5% 4rem; }
 
+  .showcase-arrow-prev { left: 0.5rem; }
+  .showcase-arrow-next { right: 0.5rem; }
+  .showcase-arrow { width: 42px; height: 42px; font-size: 1.1rem; }
+
   #portfolio.section-wrapper { padding-top: 3.5rem; padding-bottom: 3.5rem; }
   #portfolio .section-title { font-size: 1.8rem; }
   .slider-arrow { display: none; }
-
-  .showcase-progress-track { right: 0.5rem; height: 80px; }
 
   .proceso-steps-container { padding: 2rem 0; }
   .proceso-line-bg, .proceso-line-fill { left: 26px; }
