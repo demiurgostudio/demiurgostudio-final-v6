@@ -256,15 +256,21 @@ function initPortfolioSlider() {
 }
 
 /* =====================================================
-   6. SECCIÓN 3: SHOWCASE 3D (HYBRID SCROLL & PIN)
+   6. SECCIÓN 3: SHOWCASE 3D (SCROLLYTELLING INTEGRADO)
    ===================================================== */
 const deviceBodyS1 = document.querySelector("#device-body-s1");
 const floorShadowS1 = document.querySelector("#floor-shadow-s1");
 const ambientGlowS1 = document.querySelector("#ambient-glow-s1");
 const googleProgressBar = document.querySelector("#google-progress-bar");
+const scrollHintS1 = document.querySelector("#scroll-hint-s1");
 
 const deviceBodyS3 = document.querySelector("#device-body-s3");
 const floorShadowS3 = document.querySelector("#floor-shadow-s3");
+const ambientGlowS3 = document.querySelector("#ambient-glow-s3");
+const waProgressBar = document.querySelector("#wa-progress-bar");
+const scrollHintS3 = document.querySelector("#scroll-hint-s3");
+const scrollHintS2 = document.querySelector("#scroll-hint-s2");
+
 const baseRotX = 6, baseRotY = -10, baseRotZ = -1;
 
 [deviceBodyS1, deviceBodyS3].forEach((el) => {
@@ -284,7 +290,9 @@ window.addEventListener("mousemove", (e) => {
   });
 });
 
+// -----------------------------------------------------
 // SUBSECCIÓN 1: GOOGLE 3D
+// -----------------------------------------------------
 const googleScene = document.querySelector("#google-scene");
 const googleInnerContent = document.querySelector("#google-inner-content");
 const websiteSceneS1 = document.querySelector("#website-scene-s1");
@@ -307,7 +315,6 @@ function createS1Timeline() {
   const targetClickX = isMobile ? 140 : 155;
   const targetClickY = isMobile ? 160 : 195;
 
-  // 1. Simulación interna continua
   tlS1 = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 1.5 });
 
   tlS1
@@ -321,6 +328,7 @@ function createS1Timeline() {
     .set(clickRippleS1, { x: targetClickX, y: targetClickY, scale: 0, opacity: 0 })
     .set(googleScene, { opacity: 1, filter: "blur(0px)" })
     .set(websiteSceneS1, { opacity: 0 })
+    .call(() => scrollHintS1 && scrollHintS1.classList.remove("is-active"))
     .to(typingObj, {
       count: queryText.length, duration: 1.6, ease: "none",
       onUpdate: () => { if (searchText) searchText.textContent = queryText.substring(0, Math.floor(typingObj.count)); },
@@ -346,32 +354,37 @@ function createS1Timeline() {
     .to(googleScene, { opacity: 0, filter: "blur(6px)", duration: 0.5 })
     .to(jarvisCard, { opacity: 0, duration: 0.25 }, "<")
     .to(websiteSceneS1, { opacity: 1, duration: 0.4 }, "-=0.3")
-    .to({}, { duration: 3.0 })
+    .call(() => scrollHintS1 && scrollHintS1.classList.add("is-active")) // Activa el botón de scroll al terminar la animación
+    .to({}, { duration: 3.5 })
+    .call(() => scrollHintS1 && scrollHintS1.classList.remove("is-active"))
     .to(websiteSceneS1, { opacity: 0, duration: 0.5 })
     .to(googleScene, { opacity: 1, filter: "blur(0px)", duration: 0.5 }, "-=0.2");
 
-  // 2. Master Scroll con Pin y Enderezado 3D
-  const masterScroll = gsap.timeline({
+  const masterGoogle = gsap.timeline({
     scrollTrigger: {
       trigger: "#section-google",
       start: "top top",
-      end: "+=1800",
+      end: "+=3600", // Mayor recorrido de scroll para no saltear la animación
       pin: true,
       anticipatePin: 1,
       scrub: 0.8,
       onEnter: () => tlS1.play(),
-      onLeave: () => tlS1.pause(),
+      onLeave: () => {
+        tlS1.pause();
+        if (scrollHintS1) scrollHintS1.classList.remove("is-active");
+      },
       onEnterBack: () => tlS1.play(),
-      onLeaveBack: () => tlS1.pause(),
+      onLeaveBack: () => {
+        tlS1.pause();
+        if (scrollHintS1) scrollHintS1.classList.remove("is-active");
+      },
       onUpdate: (self) => {
-        if (googleProgressBar) {
-          googleProgressBar.style.height = `${self.progress * 100}%`;
-        }
+        if (googleProgressBar) googleProgressBar.style.height = `${self.progress * 100}%`;
       }
     }
   });
 
-  masterScroll
+  masterGoogle
     .fromTo(deviceBodyS1,
       { rotateY: 35, rotateX: 18, scale: 0.78, filter: "blur(8px)", opacity: 0.4 },
       { rotateY: -10, rotateX: 6, scale: 1, filter: "blur(0px)", opacity: 1, ease: "power2.out", duration: 0.4 }
@@ -380,24 +393,24 @@ function createS1Timeline() {
     .to({}, { duration: 0.6 });
 }
 
-// SUBSECCIÓN 2: RESPONSIVE
+// -----------------------------------------------------
+// SUBSECCIÓN 2: RESPONSIVE (SCROLL MORPHING)
+// -----------------------------------------------------
 const frame = document.getElementById("device-frame");
 const labelRes = document.getElementById("label-res");
 const modeButtons = document.querySelectorAll(".mode-btn");
-let currentMode = 0;
-let responsiveTimer = null;
+const responsiveProgressBar = document.querySelector("#responsive-progress-bar");
 
-function changeMode(index) {
-  currentMode = index;
+function applyDeviceStyles(mode) {
   const isSmall = window.innerWidth < 680;
   let targetWidth = 640, targetHeight = 320, radius = "16px", label = "Monitor PC";
 
-  if (index === 1) {
+  if (mode === 1) {
     targetWidth = isSmall ? 270 : 380;
     targetHeight = isSmall ? 280 : 330;
     radius = "22px";
     label = "Tablet (1024x768)";
-  } else if (index === 2) {
+  } else if (mode === 2) {
     targetWidth = isSmall ? 190 : 210;
     targetHeight = isSmall ? 290 : 330;
     radius = "28px";
@@ -408,24 +421,51 @@ function changeMode(index) {
   }
 
   if (frame) {
-    gsap.to(frame, { width: targetWidth, height: targetHeight, borderRadius: radius, duration: 0.7, ease: "power2.inOut" });
+    gsap.to(frame, { width: targetWidth, height: targetHeight, borderRadius: radius, duration: 0.6, ease: "power2.out" });
   }
   if (labelRes) labelRes.textContent = label;
 
   modeButtons.forEach((b) => (b.className = "mode-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold text-slate-400 hover:text-white"));
-  const activeBtn = document.getElementById(`btn-${index}`);
+  const activeBtn = document.getElementById(`btn-${mode}`);
   if (activeBtn) activeBtn.className = "mode-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold bg-[#1ac1d0] text-[#001c25]";
 }
 
-function startResponsiveLoop() {
-  if (responsiveTimer) clearInterval(responsiveTimer);
-  responsiveTimer = setInterval(() => changeMode((currentMode + 1) % 3), 3500);
-}
-function stopResponsiveLoop() {
-  if (responsiveTimer) clearInterval(responsiveTimer);
+function setModeManual(index) {
+  applyDeviceStyles(index);
 }
 
-// SUBSECCIÓN 3: WHATSAPP
+function initResponsiveScroll() {
+  if (!frame) return;
+
+  ScrollTrigger.create({
+    trigger: "#section-responsive",
+    start: "top top",
+    end: "+=3200", // Recorrido extendido para transicionar entre los 3 dispositivos
+    pin: true,
+    anticipatePin: 1,
+    scrub: 0.5,
+    onEnter: () => scrollHintS2 && scrollHintS2.classList.add("is-active"),
+    onLeave: () => scrollHintS2 && scrollHintS2.classList.remove("is-active"),
+    onEnterBack: () => scrollHintS2 && scrollHintS2.classList.add("is-active"),
+    onLeaveBack: () => scrollHintS2 && scrollHintS2.classList.remove("is-active"),
+    onUpdate: (self) => {
+      const p = self.progress;
+      if (responsiveProgressBar) responsiveProgressBar.style.height = `${p * 100}%`;
+
+      if (p < 0.35) {
+        applyDeviceStyles(0); // Desktop
+      } else if (p >= 0.35 && p < 0.7) {
+        applyDeviceStyles(1); // Tablet
+      } else {
+        applyDeviceStyles(2); // Móvil
+      }
+    }
+  });
+}
+
+// -----------------------------------------------------
+// SUBSECCIÓN 3: WHATSAPP 3D (HYBRID SCROLL & PIN)
+// -----------------------------------------------------
 const floatingBtnS3 = document.querySelector("#floating-btn-s3");
 const fakeCursorS3 = document.querySelector("#fake-cursor-s3");
 const clickRippleS3 = document.querySelector("#click-ripple-s3");
@@ -433,62 +473,82 @@ const websiteSceneS3 = document.querySelector("#website-scene-s3");
 const whatsappScreen = document.querySelector("#whatsapp-screen");
 const msgs = document.querySelectorAll(".chat-msg");
 const typing = document.querySelector("#typing-indicator");
+
 let tlS3 = null;
 
 function createS3Timeline() {
-  if (!floatingBtnS3) return;
+  if (!floatingBtnS3 || !deviceBodyS3) return;
 
-  tlS3 = gsap.timeline({ repeat: -1, repeatDelay: 2 });
+  const isMobile = window.innerWidth < 640;
+  const clickTargetX = isMobile ? 215 : 235;
+  const clickTargetY = isMobile ? 385 : 480;
+
+  tlS3 = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 1.8 });
 
   tlS3
-    .set(fakeCursorS3, { x: 30, y: 140, opacity: 0 })
+    .set(fakeCursorS3, { x: 20, y: 120, opacity: 0 })
     .set(websiteSceneS3, { opacity: 1 })
     .set(whatsappScreen, { opacity: 0 })
     .set(msgs, { scale: 0, opacity: 0 })
     .set(typing, { scale: 0, opacity: 0 })
-    .to(fakeCursorS3, { opacity: 1, x: 235, y: 480, duration: 1.1, ease: "power3.inOut" })
+    .call(() => scrollHintS3 && scrollHintS3.classList.remove("is-active"))
+    .to(fakeCursorS3, { opacity: 1, x: clickTargetX, y: clickTargetY, duration: 1.0, ease: "power3.inOut" })
     .set(clickRippleS3, { opacity: 0.85, scale: 0.2 })
-    .to(clickRippleS3, { scale: 2, opacity: 0, duration: 0.35 })
+    .to(clickRippleS3, { scale: 2, opacity: 0, duration: 0.3 })
     .to(fakeCursorS3, { opacity: 0, duration: 0.15 }, "-=0.15")
-    .to(websiteSceneS3, { opacity: 0, duration: 0.4 })
-    .to(whatsappScreen, { opacity: 1, duration: 0.4 }, "-=0.2")
-    .to(msgs[0], { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.4)" })
-    .to(typing, { scale: 1, opacity: 1, duration: 0.15, delay: 0.15 })
-    .to(typing, { scale: 0, opacity: 0, duration: 0.15, delay: 0.5 })
-    .to(msgs[1], { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.4)" })
-    .to(msgs[2], { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.4)", delay: 0.3 })
-    .to(typing, { scale: 1, opacity: 1, duration: 0.15, delay: 0.15 })
-    .to(typing, { scale: 0, opacity: 0, duration: 0.15, delay: 0.5 })
-    .to(msgs[3], { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.4)" })
-    .to({}, { duration: 3.0 })
-    .to(whatsappScreen, { opacity: 0, duration: 0.5 })
-    .to(websiteSceneS3, { opacity: 1, duration: 0.5 }, "-=0.3");
+    .to(websiteSceneS3, { opacity: 0, duration: 0.35 })
+    .to(whatsappScreen, { opacity: 1, duration: 0.35 }, "-=0.15")
+    .to(msgs[0], { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(1.4)" })
+    .to(typing, { scale: 1, opacity: 1, duration: 0.12, delay: 0.1 })
+    .to(typing, { scale: 0, opacity: 0, duration: 0.12, delay: 0.4 })
+    .to(msgs[1], { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(1.4)" })
+    .to(msgs[2], { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(1.4)", delay: 0.25 })
+    .to(typing, { scale: 1, opacity: 1, duration: 0.12, delay: 0.1 })
+    .to(typing, { scale: 0, opacity: 0, duration: 0.12, delay: 0.4 })
+    .to(msgs[3], { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(1.4)" })
+    .call(() => scrollHintS3 && scrollHintS3.classList.add("is-active")) // Activa el botón de scroll al terminar el chat
+    .to({}, { duration: 3.5 })
+    .call(() => scrollHintS3 && scrollHintS3.classList.remove("is-active"))
+    .to(whatsappScreen, { opacity: 0, duration: 0.4 })
+    .to(websiteSceneS3, { opacity: 1, duration: 0.4 }, "-=0.2");
+
+  const masterWhatsApp = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#section-whatsapp",
+      start: "top top",
+      end: "+=3600", // Mayor recorrido de scroll para completar la lectura de los mensajes
+      pin: true,
+      anticipatePin: 1,
+      scrub: 0.8,
+      onEnter: () => tlS3.play(),
+      onLeave: () => {
+        tlS3.pause();
+        if (scrollHintS3) scrollHintS3.classList.remove("is-active");
+      },
+      onEnterBack: () => tlS3.play(),
+      onLeaveBack: () => {
+        tlS3.pause();
+        if (scrollHintS3) scrollHintS3.classList.remove("is-active");
+      },
+      onUpdate: (self) => {
+        if (waProgressBar) waProgressBar.style.height = `${self.progress * 100}%`;
+      }
+    }
+  });
+
+  masterWhatsApp
+    .fromTo(deviceBodyS3,
+      { rotateY: 35, rotateX: 18, scale: 0.78, filter: "blur(8px)", opacity: 0.4 },
+      { rotateY: -10, rotateX: 6, scale: 1, filter: "blur(0px)", opacity: 1, ease: "power2.out", duration: 0.4 }
+    )
+    .to(ambientGlowS3, { scale: 1.6, opacity: 0.8, duration: 0.6, ease: "none" }, "<")
+    .to({}, { duration: 0.6 });
 }
 
 function initShowcaseObservers() {
   createS1Timeline();
+  initResponsiveScroll();
   createS3Timeline();
-  startResponsiveLoop();
-
-  ScrollTrigger.create({
-    trigger: "#section-responsive",
-    start: "top bottom",
-    end: "bottom top",
-    onEnter: () => startResponsiveLoop(),
-    onLeave: () => stopResponsiveLoop(),
-    onEnterBack: () => startResponsiveLoop(),
-    onLeaveBack: () => stopResponsiveLoop(),
-  });
-
-  ScrollTrigger.create({
-    trigger: "#section-whatsapp",
-    start: "top bottom",
-    end: "bottom top",
-    onEnter: () => tlS3 && tlS3.play(),
-    onLeave: () => tlS3 && tlS3.pause(),
-    onEnterBack: () => tlS3 && tlS3.play(),
-    onLeaveBack: () => tlS3 && tlS3.pause(),
-  });
 }
 
 /* =====================================================

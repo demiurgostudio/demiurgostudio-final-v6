@@ -111,7 +111,8 @@
           Desarrollo Web y Marketing para <em class="text-cyan">Marcas que quieren escalar.</em>
         </h1>
         <p class="hero-desc">
-          No estás solo en el mundo digital. Diseñamos sitios web que conectan, campañas publicitarias que venden y te damos soporte real 24/7 para que tu negocio crezca sin límites.
+          No estás solo en el mundo digital. Diseñamos sitios web que conectan, campañas publicitarias que venden y te
+          damos soporte real 24/7 para que tu negocio crezca sin límites.
         </p>
         <div class="hero-actions">
           <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20contarles%20lo%20que%20necesito%20para%20mi%20marca."
@@ -173,7 +174,8 @@
                 <div class="slider-card-body">
                   <h3>Estudio Jurídico Tarulla</h3>
                   <p class="slider-card-cat">Divorcio Express & Sucesiones</p>
-                  <p class="slider-card-desc">One-page de alta conversión con copy directo a resolución de conflictos y botón a WhatsApp.</p>
+                  <p class="slider-card-desc">One-page de alta conversión con copy directo a resolución de conflictos y
+                    botón a WhatsApp.</p>
                 </div>
               </div>
 
@@ -187,7 +189,8 @@
                 <div class="slider-card-body">
                   <h3>Clínica Dental Alvear</h3>
                   <p class="slider-card-cat">Odontología & Implantes</p>
-                  <p class="slider-card-desc">Estructura limpia con agenda directa de turnos y prueba social de pacientes verificados.</p>
+                  <p class="slider-card-desc">Estructura limpia con agenda directa de turnos y prueba social de
+                    pacientes verificados.</p>
                 </div>
               </div>
 
@@ -201,7 +204,8 @@
                 <div class="slider-card-body">
                   <h3>Taller HRS Especializado</h3>
                   <p class="slider-card-cat">Mecánica Integral & Inyección</p>
-                  <p class="slider-card-desc">Plataforma institucional con geolocalización, detalle de servicios y cotizaciones rápidas.</p>
+                  <p class="slider-card-desc">Plataforma institucional con geolocalización, detalle de servicios y
+                    cotizaciones rápidas.</p>
                 </div>
               </div>
             </div>
@@ -222,8 +226,8 @@
       </div>
     </section>
 
-    <!-- =====================================================
-         3RA SECCIÓN: SHOWCASE 3D INTERACTIVO
+<!-- =====================================================
+         3RA SECCIÓN: SHOWCASE 3D INTERACTIVO (SCROLLYTELLING)
          ===================================================== -->
     <div id="showcase">
       <!-- SUB-SECCIÓN A: GOOGLE 3D -->
@@ -342,11 +346,21 @@
             </div>
           </div>
         </div>
+
+        <!-- Indicador de Continuar Scroll -->
+        <div id="scroll-hint-s1" class="showcase-scroll-cue">
+          <span>SCROLL</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
       </section>
 
       <!-- SUB-SECCIÓN B: RESPONSIVE SHOWCASE -->
-      <section id="section-responsive" class="showcase-block-responsive min-h-screen flex flex-col items-center justify-center p-3 sm:p-8 relative border-b border-cyan-500/10">
-        <div class="text-center mb-3 sm:mb-5 w-full max-w-xl">
+      <section id="section-responsive" class="showcase-block-responsive min-h-screen flex flex-col items-center justify-center p-3 sm:p-8 relative border-b border-cyan-500/10 overflow-hidden">
+        <div class="showcase-progress-track">
+          <div id="responsive-progress-bar" class="showcase-progress-fill"></div>
+        </div>
+
+        <div class="text-center mb-3 sm:mb-5 w-full max-w-xl relative z-30">
           <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-cyan-400 text-[11px] font-mono uppercase tracking-widest mb-2">
             <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Multi-Dispositivo
           </div>
@@ -360,7 +374,7 @@
           </div>
         </div>
 
-        <div class="w-full max-w-4xl h-[330px] sm:h-[430px] flex items-center justify-center relative">
+        <div class="w-full max-w-4xl h-[340px] sm:h-[440px] flex items-center justify-center relative">
           <div id="device-frame" class="relative bg-[#071820] border-[3px] sm:border-4 border-[#122f40] rounded-2xl shadow-2xl flex flex-col overflow-hidden will-change-[width,height,border-radius]" style="width: 100%; max-width: 640px; height: 320px;">
             <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop" alt="Visual" class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none" />
             <div class="absolute inset-0 bg-gradient-to-t from-[#001c25] via-[#001c25]/60 to-[#001c25]/70 pointer-events-none"></div>
@@ -402,15 +416,25 @@
         </div>
 
         <div class="mt-4 sm:mt-6 flex items-center gap-1.5 p-1 bg-[#071820] border border-cyan-500/20 rounded-full">
-          <button onclick="changeMode(0)" id="btn-0" class="mode-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold bg-[#1ac1d0] text-[#001c25]">💻 MONITOR</button>
-          <button onclick="changeMode(1)" id="btn-1" class="mode-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold text-slate-400 hover:text-white">📱 TABLET</button>
-          <button onclick="changeMode(2)" id="btn-2" class="mode-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold text-slate-400 hover:text-white">📲 MOVIL</button>
+          <button onclick="setModeManual(0)" id="btn-0" class="mode-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold bg-[#1ac1d0] text-[#001c25]">💻 MONITOR</button>
+          <button onclick="setModeManual(1)" id="btn-1" class="mode-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold text-slate-400 hover:text-white">📱 TABLET</button>
+          <button onclick="setModeManual(2)" id="btn-2" class="mode-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold text-slate-400 hover:text-white">📲 MOVIL</button>
+        </div>
+
+        <!-- Indicador de Continuar Scroll -->
+        <div id="scroll-hint-s2" class="showcase-scroll-cue">
+          <span>SCROLL</span>
+          <i class="fa-solid fa-chevron-down"></i>
         </div>
       </section>
 
       <!-- SUB-SECCIÓN C: WHATSAPP CONVERSIÓN -->
-      <section id="section-whatsapp" class="showcase-block-wa min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative">
-        <div class="text-center mb-3 sm:mb-6 max-w-xl">
+      <section id="section-whatsapp" class="showcase-block-wa min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative overflow-hidden">
+        <div class="showcase-progress-track">
+          <div id="wa-progress-bar" class="showcase-progress-fill"></div>
+        </div>
+
+        <div class="text-center mb-3 sm:mb-6 max-w-xl relative z-30">
           <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-emerald-400 text-[11px] font-mono uppercase tracking-widest mb-2">
             <span class="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></span> Conversión Directa
           </div>
@@ -423,8 +447,10 @@
         </div>
 
         <div class="device-3d-wrap relative flex items-center justify-center py-2">
+          <div id="ambient-glow-s3" class="absolute -top-6 w-[320px] sm:w-[460px] h-[380px] sm:h-[480px] bg-emerald-600/15 rounded-full blur-[100px] pointer-events-none will-change-transform"></div>
           <div id="floor-shadow-s3" class="absolute -bottom-7 w-[240px] sm:w-[270px] h-9 sm:h-10 bg-black/70 rounded-full blur-xl pointer-events-none"></div>
-          <div id="device-body-s3" class="relative w-[280px] sm:w-[310px] h-[520px] sm:h-[640px] rounded-[40px] sm:rounded-[44px] p-[4px] bg-gradient-to-b from-[#122f40] via-[#0d2e3e] to-[#001c25] ring-1 ring-white/20 z-10">
+
+          <div id="device-body-s3" class="device-chassis-3d relative w-[280px] sm:w-[310px] h-[520px] sm:h-[640px] rounded-[40px] sm:rounded-[44px] p-[4px] sm:p-[5px] bg-gradient-to-b from-[#122f40] via-[#0d2e3e] to-[#001c25] ring-1 ring-white/20 will-change-transform z-10">
             <div class="relative w-full h-full rounded-[36px] sm:rounded-[40px] overflow-hidden bg-[#071820] flex flex-col select-none">
               <!-- Notch -->
               <div class="h-6 sm:h-7 bg-[#001c25] w-full flex items-center justify-between px-5 sm:px-6 z-40 border-b border-white/5">
@@ -461,13 +487,13 @@
                   <div class="chat-msg self-end bg-[#25D366] text-white px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-2xl rounded-tr-xs max-w-[85%] shadow-sm">
                     Hola! Vi su web y quiero presupuesto para mi sitio 🚀
                   </div>
-                  <div class="chat-msg self-start bg-white text-slate-900 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-2xl rounded-tl-xs max-w-[85%] shadow-sm">
+                  <div class="chat-msg self-start bg-white text-slate-900 px-2.5 py-1.5 rounded-xl rounded-tl-xs max-w-[85%] shadow-sm">
                     ¡Hola! Claro que sí, ¿en qué rubro está tu marca? 😊
                   </div>
-                  <div class="chat-msg self-end bg-[#25D366] text-white px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-2xl rounded-tr-xs max-w-[85%] shadow-sm">
+                  <div class="chat-msg self-end bg-[#25D366] text-white px-2.5 py-1.5 rounded-xl rounded-tr-xs max-w-[85%] shadow-sm">
                     Tengo un local comercial y quiero sumar un catálogo online.
                   </div>
-                  <div class="chat-msg self-start bg-white text-slate-900 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-2xl rounded-tl-xs max-w-[85%] shadow-sm">
+                  <div class="chat-msg self-start bg-white text-slate-900 px-2.5 py-1.5 rounded-xl rounded-tl-xs max-w-[85%] shadow-sm">
                     ¡Excelente! Te armamos una propuesta con pedidos directos.
                   </div>
                   <div id="typing-indicator" class="self-start bg-white/90 px-2 py-1 rounded-xl flex items-center gap-1 w-fit shadow-sm">
@@ -479,6 +505,12 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- Indicador de Continuar Scroll -->
+        <div id="scroll-hint-s3" class="showcase-scroll-cue">
+          <span>SCROLL</span>
+          <i class="fa-solid fa-chevron-down"></i>
         </div>
       </section>
     </div>
@@ -496,21 +528,24 @@
           <div class="card card-service" data-modal="landing">
             <div class="card-icon-box"><i class="fa-solid fa-rocket"></i></div>
             <h3 class="card-title-md">Landing Page</h3>
-            <p class="card-text">Una página con un solo objetivo: que te escriban por WhatsApp. Hero, beneficios, prueba social y CTA. Lista en 3 a 7 días.</p>
+            <p class="card-text">Una página con un solo objetivo: que te escriban por WhatsApp. Hero, beneficios, prueba
+              social y CTA. Lista en 3 a 7 días.</p>
             <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
             <span class="card-line"></span>
           </div>
           <div class="card card-service" data-modal="institucional">
             <div class="card-icon-box"><i class="fa-solid fa-building"></i></div>
             <h3 class="card-title-md">Web Institucional</h3>
-            <p class="card-text">Presencia completa para tu negocio: quiénes somos, servicios, galería y contacto. La carta de presentación que cierra clientes.</p>
+            <p class="card-text">Presencia completa para tu negocio: quiénes somos, servicios, galería y contacto. La
+              carta de presentación que cierra clientes.</p>
             <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
             <span class="card-line"></span>
           </div>
           <div class="card card-service" data-modal="catalogo">
             <div class="card-icon-box"><i class="fa-solid fa-store"></i></div>
             <h3 class="card-title-md">Catálogo Digital</h3>
-            <p class="card-text">Mostrá tus productos con filtros y fichas individuales. Cada ítem con botón de pedido directo por WhatsApp sin pasarelas engorrosas.</p>
+            <p class="card-text">Mostrá tus productos con filtros y fichas individuales. Cada ítem con botón de pedido
+              directo por WhatsApp sin pasarelas engorrosas.</p>
             <div class="card-cta-link">Ver detalle <i class="fa-solid fa-arrow-right"></i></div>
             <span class="card-line"></span>
           </div>
@@ -536,7 +571,8 @@
               <div class="proceso-step-dot">1</div>
               <div class="proceso-step-text">
                 <h4>Diagnóstico y brief</h4>
-                <p>Analizamos tu público, tu competencia directa y definimos la oferta irresistible para captar consultas.</p>
+                <p>Analizamos tu público, tu competencia directa y definimos la oferta irresistible para captar
+                  consultas.</p>
               </div>
             </div>
             <div class="proceso-step gs-step" data-step="2">
@@ -550,14 +586,16 @@
               <div class="proceso-step-dot">3</div>
               <div class="proceso-step-text">
                 <h4>Lanzamiento y dominio</h4>
-                <p>Publicamos en tu dominio oficial, enlazamos el WhatsApp comercial y verificamos la indexación en Google.</p>
+                <p>Publicamos en tu dominio oficial, enlazamos el WhatsApp comercial y verificamos la indexación en
+                  Google.</p>
               </div>
             </div>
             <div class="proceso-step gs-step" data-step="4">
               <div class="proceso-step-dot">4</div>
               <div class="proceso-step-text">
                 <h4>Optimización y soporte</h4>
-                <p>Monitoreamos la velocidad de respuesta, afinamos los textos y te damos soporte continuo para escalar.</p>
+                <p>Monitoreamos la velocidad de respuesta, afinamos los textos y te damos soporte continuo para escalar.
+                </p>
               </div>
             </div>
           </div>
@@ -582,7 +620,8 @@
             <div class="pricing-card-header">
               <span class="pricing-plan-badge">LANDING PAGE</span>
               <div class="pricing-plan-price">Desde $300 USD <span class="pricing-currency">o en ARS</span></div>
-              <p class="pricing-plan-desc">Ideal para profesionales y comercios que necesitan presencia online directa, moderna y rápida.</p>
+              <p class="pricing-plan-desc">Ideal para profesionales y comercios que necesitan presencia online directa,
+                moderna y rápida.</p>
             </div>
             <ul class="pricing-plan-features">
               <li><i class="fa-solid fa-check"></i> Diseño moderno, limpio y responsive</li>
@@ -591,7 +630,8 @@
               <li><i class="fa-solid fa-check"></i> Entrega en 3 a 7 días hábiles</li>
               <li><i class="fa-solid fa-check"></i> Dominio y hosting por 1 año</li>
             </ul>
-            <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Landing%20Page." target="_blank" rel="noopener" class="btn btn-outline pricing-btn">
+            <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Landing%20Page."
+              target="_blank" rel="noopener" class="btn btn-outline pricing-btn">
               Quiero mi Landing <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
@@ -601,8 +641,10 @@
             <div class="pricing-featured-ribbon">★ MÁS ELEGIDO</div>
             <div class="pricing-card-header">
               <span class="pricing-plan-badge badge-cyan">SITIO INSTITUCIONAL</span>
-              <div class="pricing-plan-price text-cyan">Desde $600 USD <span class="pricing-currency">o en ARS</span></div>
-              <p class="pricing-plan-desc">Para marcas y estudios que quieren diferenciarse con una plataforma multi-sección completa.</p>
+              <div class="pricing-plan-price text-cyan">Desde $600 USD <span class="pricing-currency">o en ARS</span>
+              </div>
+              <p class="pricing-plan-desc">Para marcas y estudios que quieren diferenciarse con una plataforma
+                multi-sección completa.</p>
             </div>
             <ul class="pricing-plan-features">
               <li><i class="fa-solid fa-check"></i> Todo lo del plan Landing Page</li>
@@ -611,7 +653,8 @@
               <li><i class="fa-solid fa-check"></i> Diseño 100% a medida y animaciones</li>
               <li><i class="fa-solid fa-check"></i> Soporte post-lanzamiento prioritario</li>
             </ul>
-            <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Sitio%20Institucional." target="_blank" rel="noopener" class="btn btn-primary pricing-btn">
+            <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Sitio%20Institucional."
+              target="_blank" rel="noopener" class="btn btn-primary pricing-btn">
               Quiero mi Sitio Pro <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
@@ -621,7 +664,8 @@
             <div class="pricing-card-header">
               <span class="pricing-plan-badge">CATÁLOGO DIGITAL WA</span>
               <div class="pricing-plan-price">Desde $950 USD <span class="pricing-currency">o en ARS</span></div>
-              <p class="pricing-plan-desc">Para negocios con variedad de productos o servicios que buscan pedidos organizados sin pasarela.</p>
+              <p class="pricing-plan-desc">Para negocios con variedad de productos o servicios que buscan pedidos
+                organizados sin pasarela.</p>
             </div>
             <ul class="pricing-plan-features">
               <li><i class="fa-solid fa-check"></i> Fichas de producto con foto y precio</li>
@@ -630,14 +674,18 @@
               <li><i class="fa-solid fa-check"></i> Carga rápida sin caídas de base de datos</li>
               <li><i class="fa-solid fa-check"></i> Panel o planilla fácil para actualizar stock</li>
             </ul>
-            <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Cat%C3%A1logo%20Digital." target="_blank" rel="noopener" class="btn btn-outline pricing-btn">
+            <a href="https://wa.me/5491125371329?text=Hola!%20Me%20interesa%20el%20plan%20Cat%C3%A1logo%20Digital."
+              target="_blank" rel="noopener" class="btn btn-outline pricing-btn">
               Quiero mi Catálogo <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
         </div>
 
         <p class="pricing-custom-footer">
-          ¿Tenés un proyecto especial? <a href="https://wa.me/5491125371329?text=Hola!%20Tengo%20un%20proyecto%20especial%20a%20medida." target="_blank" rel="noopener" class="text-cyan font-bold underline">Podemos armar un presupuesto personalizado.</a>
+          ¿Tenés un proyecto especial? <a
+            href="https://wa.me/5491125371329?text=Hola!%20Tengo%20un%20proyecto%20especial%20a%20medida."
+            target="_blank" rel="noopener" class="text-cyan font-bold underline">Podemos armar un presupuesto
+            personalizado.</a>
         </p>
       </div>
     </section>
@@ -659,7 +707,8 @@
             </button>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                <p>Una Landing Page tarda de 3 a 7 días hábiles, una Web Institucional de 2 a 4 semanas y un Catálogo Digital de 3 a 5 semanas, a partir del brief completado.</p>
+                <p>Una Landing Page tarda de 3 a 7 días hábiles, una Web Institucional de 2 a 4 semanas y un Catálogo
+                  Digital de 3 a 5 semanas, a partir del brief completado.</p>
               </div>
             </div>
           </div>
@@ -670,7 +719,8 @@
             </button>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                <p>No. Te entregamos la web optimizada y lista para funcionar. Las actualizaciones las coordinás directamente con nosotros o las delegás en nuestro plan de mantenimiento.</p>
+                <p>No. Te entregamos la web optimizada y lista para funcionar. Las actualizaciones las coordinás
+                  directamente con nosotros o las delegás en nuestro plan de mantenimiento.</p>
               </div>
             </div>
           </div>
@@ -681,7 +731,8 @@
             </button>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                <p>Sí, todos nuestros planes incluyen 1 año de hosting optimizado de alta velocidad y el registro de tu dominio oficial .com.ar.</p>
+                <p>Sí, todos nuestros planes incluyen 1 año de hosting optimizado de alta velocidad y el registro de tu
+                  dominio oficial .com.ar.</p>
               </div>
             </div>
           </div>
@@ -692,7 +743,8 @@
             </button>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                <p>Trabajamos 50% de anticipo para iniciar el desarrollo y 50% final contra entrega, una vez revisada y aprobada la web en el enlace de demostración.</p>
+                <p>Trabajamos 50% de anticipo para iniciar el desarrollo y 50% final contra entrega, una vez revisada y
+                  aprobada la web en el enlace de demostración.</p>
               </div>
             </div>
           </div>
@@ -704,7 +756,8 @@
     <section class="pre-footer-banner">
       <div class="pre-footer-inner">
         <h3>¿Listo para transformar tu presencia online? 🚀</h3>
-        <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20empezar%20mi%20proyecto%20con%20Demiurgo." target="_blank" rel="noopener" class="btn btn-primary magnet-target">
+        <a href="https://wa.me/5491125371329?text=Hola!%20Quiero%20empezar%20mi%20proyecto%20con%20Demiurgo."
+          target="_blank" rel="noopener" class="btn btn-primary magnet-target">
           ¡Empecemos hoy! <i class="fa-solid fa-arrow-right"></i>
         </a>
       </div>
@@ -739,7 +792,8 @@
           <a href="#inicio" class="footer-logo-link" aria-label="Ir arriba">
             <img src="assets/logo.png" alt="Demiurgo Studio" class="footer-logo-img" />
           </a>
-          <p class="footer-brand-desc">Estudio digital especializado en presencia web de alta velocidad y conversión directa para marcas en expansión.</p>
+          <p class="footer-brand-desc">Estudio digital especializado en presencia web de alta velocidad y conversión
+            directa para marcas en expansión.</p>
         </div>
         <div class="footer-col">
           <p class="footer-col-title">Navegación</p>
@@ -754,21 +808,27 @@
         <div class="footer-col">
           <p class="footer-col-title">Contacto Directo</p>
           <ul class="footer-links">
-            <li><a href="https://wa.me/5491125371329" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp Directo</a></li>
-            <li><a href="https://instagram.com/demiurgostudio" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
-            <li><a href="mailto:hola@demiurgostudio.com.ar"><i class="fa-solid fa-envelope"></i> hola@demiurgostudio.com.ar</a></li>
+            <li><a href="https://wa.me/5491125371329" target="_blank" rel="noopener"><i
+                  class="fa-brands fa-whatsapp"></i> WhatsApp Directo</a></li>
+            <li><a href="https://instagram.com/demiurgostudio" target="_blank" rel="noopener"><i
+                  class="fa-brands fa-instagram"></i> Instagram</a></li>
+            <li><a href="mailto:hola@demiurgostudio.com.ar"><i class="fa-solid fa-envelope"></i>
+                hola@demiurgostudio.com.ar</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <p class="footer-copy">© 2026 Demiurgo Studio. Todos los derechos reservados. · Buenos Aires, Argentina.</p>
         <div class="footer-social">
-          <a href="https://wa.me/5491125371329" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-          <a href="https://instagram.com/demiurgostudio" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/5491125371329" target="_blank" rel="noopener" aria-label="WhatsApp"><i
+              class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://instagram.com/demiurgostudio" target="_blank" rel="noopener" aria-label="Instagram"><i
+              class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
     </div>
   </footer>
 
 </body>
+
 </html>

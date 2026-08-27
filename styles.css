@@ -349,6 +349,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   background: radial-gradient(circle at 50% 30%, rgba(7, 36, 24, 0.4) 0%, #001c25 80%);
 }
 
+/* Barras de progreso de scroll lateral para cada escena */
 .showcase-progress-track {
   position: absolute;
   right: 1.5rem;
@@ -368,6 +369,44 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   box-shadow: 0 0 10px var(--cyan);
 }
 
+/* Indicador animado "SCROLL" que aparece al finalizar la animación */
+@keyframes scrollHintPulse {
+  0%, 100% { transform: translate(-50%, 0); opacity: 1; }
+  50% { transform: translate(-50%, 6px); opacity: 0.7; }
+}
+
+.showcase-scroll-cue {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(0, 28, 37, 0.9);
+  border: 1px solid rgba(26, 193, 208, 0.45);
+  padding: 0.45rem 1.3rem;
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(10px);
+  color: var(--cyan);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  z-index: 50;
+  box-shadow: 0 0 24px rgba(26, 193, 208, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.showcase-scroll-cue.is-active {
+  opacity: 1 !important;
+  animation: scrollHintPulse 1.8s infinite ease-in-out;
+}
+.showcase-scroll-cue i { font-size: 0.85rem; color: var(--cyan); }
+
+/* Efectos 3D y chasis de celulares */
 .device-3d-wrap { perspective: 1500px; transform-style: preserve-3d; }
 .device-chassis-3d {
   box-shadow: -3px 0 0 1px #122f40, -6px 0 0 2px #071820, 0 25px 50px rgba(0, 0, 0, 0.95);
@@ -387,7 +426,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .wa-floating-btn { animation: waGlowPulse 2s infinite ease-in-out; }
 
-/* Container Queries para simulación de dispositivo */
+/* Container Queries para simulación de dispositivo (Desktop, Tablet, Mobile) */
 #device-frame { container-type: inline-size; container-name: stage; }
 
 @container stage (min-width: 400px) {
