@@ -83,7 +83,7 @@ const SERVICIOS_DATA = {
 };
 
 /* =====================================================
-   3. UI FLOTANTES & NAVBAR
+   3. UI FLOTANTES & NAVBAR (FIJO PERMANENTE GLASS)
    ===================================================== */
 (function initUI() {
   const cursor = document.getElementById("cursor-glow");
@@ -105,23 +105,7 @@ const SERVICIOS_DATA = {
     });
   }
 
-  const nav = document.getElementById("smart-nav");
-  if (nav) {
-    let lastScroll = 0;
-    ScrollTrigger.create({
-      start: "top -80",
-      onUpdate: () => {
-        const curr = window.scrollY;
-        if (curr > lastScroll && curr > 80) {
-          gsap.to(nav, { yPercent: -110, duration: 0.3 });
-        } else {
-          gsap.to(nav, { yPercent: 0, duration: 0.4 });
-        }
-        lastScroll = curr;
-      },
-    });
-  }
-
+  // Menú Drawer Móvil
   const hamburger = document.getElementById("nav-hamburger");
   const drawer = document.getElementById("mobile-drawer");
   const overlay = document.getElementById("mobile-overlay");
